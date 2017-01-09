@@ -1,4 +1,4 @@
-package com.example.android.githubjourney;
+package com.oklab.githubjourney.githubjourney;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.android.githubjourney", appContext.getPackageName());
+        assertEquals("com.oklab.githubjourney.githubjourney", appContext.getPackageName());
     }
 }

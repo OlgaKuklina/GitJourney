@@ -1,4 +1,4 @@
-package com.example.android.githubjourney;
+package com.oklab.githubjourney.githubjourney;
 
 import org.junit.Test;
 
