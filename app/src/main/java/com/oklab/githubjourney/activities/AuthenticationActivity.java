@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.oklab.githubjourney.asynctasks.AuthenticationAsyncTask;
+import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.githubjourney.R;
 
 /**
@@ -17,7 +18,7 @@ import com.oklab.githubjourney.githubjourney.R;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
-    private final AsyncTask<String, Integer, String> authenticationTask = new AuthenticationAsyncTask(this);
+    private final AsyncTask<String, Integer, UserSessionData> authenticationTask = new AuthenticationAsyncTask(this);
     private EditText passwordText;
     private EditText loginText;
     @Override
