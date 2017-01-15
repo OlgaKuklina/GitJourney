@@ -5,8 +5,11 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="uri_connect">https://api.github.com/authorizations</string>
     <string name="title_activity_settings">Settings</string>
+
+    <!-- URL strings-->
+    <string name="url_connect" translatable="false">https://api.github.com/authorizations</string>
+    <string name="url_feeds" translatable="false">https://api.github.com/feeds</string>
 
 
     <!-- Strings related to General Activity Tabs -->

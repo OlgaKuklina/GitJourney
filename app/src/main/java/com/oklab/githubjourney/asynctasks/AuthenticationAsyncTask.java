@@ -12,6 +12,7 @@ import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.githubjourney.R;
 import com.oklab.githubjourney.utils.Utils;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -41,7 +42,7 @@ public class AuthenticationAsyncTask extends AsyncTask<String, Integer, UserSess
     @Override
     protected UserSessionData doInBackground(String... args) {
         try {
-            HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.uri_connect)).openConnection();
+            HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_connect)).openConnection();
             connect.setRequestMethod("POST");
             connect.setDoOutput(true);
             String inputString = args[0] + ":" + args[1];
@@ -65,7 +66,7 @@ public class AuthenticationAsyncTask extends AsyncTask<String, Integer, UserSess
             int responseCode = connect.getResponseCode();
 
             Log.v(TAG, "responseCode = " + responseCode);
-            if(responseCode!=201) {
+            if(responseCode!= HttpStatus.SC_CREATED) {
                 return null;
             }
             InputStream inputStream = connect.getInputStream();
