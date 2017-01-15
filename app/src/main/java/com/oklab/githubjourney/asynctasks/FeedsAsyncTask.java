@@ -64,7 +64,7 @@ public class FeedsAsyncTask extends AsyncTask<Void, Void, Object>{
             Log.v(TAG, "response = " + response);
             JSONObject jObj = new  JSONObject(response);
 
-            String currentUserURL = jObj.getString("CurrentUserURL");
+            String currentUserURL = jObj.getString("current_user_url");
             Log.v(TAG, "currentUserURL = " + currentUserURL);
             return null;
         } catch (Exception e) {

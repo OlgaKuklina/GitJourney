@@ -1,5 +1,7 @@
 package com.oklab.githubjourney.activities;
 
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,9 +21,13 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import com.oklab.githubjourney.asynctasks.AuthenticationAsyncTask;
+import com.oklab.githubjourney.asynctasks.FeedsAsyncTask;
+import com.oklab.githubjourney.data.UserSessionData;
+import com.oklab.githubjourney.fragments.FeedListFragment;
 import com.oklab.githubjourney.githubjourney.R;
 
-public class GeneralActivity extends AppCompatActivity {
+public class GeneralActivity extends AppCompatActivity implements FeedListFragment.OnFragmentInteractionListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -91,6 +97,11 @@ public class GeneralActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -119,7 +130,7 @@ public class GeneralActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_general, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_feed_list, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
@@ -140,6 +151,9 @@ public class GeneralActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+            if(position == 0) {
+                return FeedListFragment.newInstance();
+            }
             return PlaceholderFragment.newInstance(position + 1);
         }
 
