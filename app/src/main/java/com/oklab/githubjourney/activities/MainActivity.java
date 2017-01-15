@@ -20,6 +20,9 @@ import com.oklab.githubjourney.utils.Utils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +30,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SharedPreferences prefs = this.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
+         prefs = this.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
 
         String currentSessionData = prefs.getString("userSessionData", null);
         if(currentSessionData == null) {
@@ -80,32 +83,36 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            String currentSessionData = prefs.getString("userSessionData", null);
+            if (currentSessionData != null) {
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            }
         }
+            return super.onOptionsItemSelected(item);
 
-        return super.onOptionsItemSelected(item);
     }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+    public boolean onNavigationItemSelected(MenuItem item){
+            // Handle navigation view item clicks here.
+            int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            if (id == R.id.github_events) {
 
+            } else if (id == R.id.profile) {
+                String currentSessionData = prefs.getString("userSessionData", null);
+                if (currentSessionData != null) {
+                    Intent intent = new Intent(this, GeneralActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+            } else if (id == R.id.settings) {
 
-        } else if (id == R.id.nav_slideshow) {
+            } else if (id == R.id.sing_out) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
+            }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
