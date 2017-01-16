@@ -49,6 +49,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_general);
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

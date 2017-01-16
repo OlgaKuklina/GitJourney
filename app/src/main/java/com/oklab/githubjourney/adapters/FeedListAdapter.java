@@ -105,7 +105,10 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
                                 .fit().centerCrop()
                                 .error(R.drawable.octocat)
                                 .into(eventTypeImage);
+                        default:
+                            throw new IllegalArgumentException("Unknown action type: " + feedData.getActionType());
                 }
+
 
             }
         }
