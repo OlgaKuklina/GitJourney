@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.services.AtomParser;
 import com.oklab.githubjourney.utils.Utils;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -63,6 +64,7 @@ public class FeedsAsyncTask extends AsyncTask<Void, Void, Object>{
 
             String currentUserURL = jObj.getString("current_user_url");
             Log.v(TAG, "currentUserURL = " + currentUserURL);
+            new AtomParser().parse(currentUserURL);
             return null;
         } catch (Exception e) {
             Log.e(TAG, "Get user feeds failed", e);
