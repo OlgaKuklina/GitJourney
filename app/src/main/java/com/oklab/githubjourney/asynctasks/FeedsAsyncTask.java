@@ -3,7 +3,6 @@ package com.oklab.githubjourney.asynctasks;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.util.Log;
 
 import com.oklab.githubjourney.data.UserSessionData;
@@ -12,11 +11,9 @@ import com.oklab.githubjourney.utils.Utils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.io.IOUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
