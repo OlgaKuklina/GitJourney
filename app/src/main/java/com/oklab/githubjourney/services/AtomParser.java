@@ -98,6 +98,10 @@ public class AtomParser {
                 return FeedType.CREATE;
             case  "IssuesEvent":
                 return FeedType.ISSUE;
+            case  "PushEvent":
+                return FeedType.PUSH;
+            case  "CommitCommentEvent":
+                return FeedType.COMMIT_COMMENT;
             default:
                 throw new IllegalArgumentException("Unknown event type: " + eventType);
         }

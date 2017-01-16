@@ -11,5 +11,7 @@ public enum FeedType {
     COMMENT,
     STAR,
     DELETE,
-    CREATE
+    CREATE,
+    PUSH,
+    COMMIT_COMMENT
 }

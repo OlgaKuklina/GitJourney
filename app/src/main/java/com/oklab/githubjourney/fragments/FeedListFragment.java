@@ -2,52 +2,42 @@ package com.oklab.githubjourney.fragments;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.oklab.githubjourney.adapters.FeedListAdapter;
 import com.oklab.githubjourney.asynctasks.FeedsAsyncTask;
+import com.oklab.githubjourney.data.FeedDataEntry;
 import com.oklab.githubjourney.githubjourney.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FeedListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FeedListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FeedListFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private AsyncTask<Void, Void, Object> feedsAsyncTask;
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import java.util.List;
 
+public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedLoadedListener {
+
+
+    private static final String TAG = FeedListFragment.class.getSimpleName();
+    private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private FeedListAdapter feedListAdapter;
     private OnFragmentInteractionListener mListener;
-
+    private LinearLayoutManager lineralLayoutManager;
+    private int currentPage = 1;
+    private boolean feedExhausted = false;
+    private boolean loading = false;
     public FeedListFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-
-     * @return A new instance of fragment FeedListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static FeedListFragment newInstance() {
         FeedListFragment fragment = new FeedListFragment();
         Bundle args = new Bundle();
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,19 +45,29 @@ public class FeedListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        feedsAsyncTask.execute();
-        return inflater.inflate(R.layout.fragment_feed_list, container, false);
+        Log.v(TAG, "onCreateView");
+        View v = inflater.inflate(R.layout.fragment_feed_list, container, false);
+        recyclerView = (RecyclerView) v.findViewById(R.id.items_list_recycler_view);
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
+        return v;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.v(TAG, "onActivityCreated");
+        lineralLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(lineralLayoutManager);
+        feedListAdapter = new FeedListAdapter(this.getContext());
+        recyclerView.setAdapter(feedListAdapter);
+        recyclerView.addOnScrollListener(new FeedItemsListOnScrollListner());
+        loading = true;
+        new FeedsAsyncTask(getContext(), this).execute(currentPage++);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -86,13 +86,22 @@ public class FeedListFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-        feedsAsyncTask = new FeedsAsyncTask(getContext());
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onFeedLoaded(List<FeedDataEntry> feedDataEntry) {
+        loading = false;
+        if(feedDataEntry !=null && feedDataEntry.isEmpty()) {
+            feedExhausted = true;
+            return;
+        }
+        feedListAdapter.add(feedDataEntry);
     }
 
     /**
@@ -109,4 +118,22 @@ public class FeedListFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    private class FeedItemsListOnScrollListner extends RecyclerView.OnScrollListener {
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            int lastScrollPosition = lineralLayoutManager.findLastCompletelyVisibleItemPosition();
+            int itemsCount = feedListAdapter.getItemCount();
+            Log.v(TAG, "onScrolled - imetsCount = " + itemsCount);
+            Log.v(TAG, "onScrolled - lastScrollPosition = " + lastScrollPosition);
+            if (lastScrollPosition == itemsCount - 1 && !feedExhausted && !loading) {
+                loading = true;
+                new FeedsAsyncTask(FeedListFragment.this.getContext(), FeedListFragment.this).execute(currentPage++);
+            }
+        }
+    }
+
+
 }
