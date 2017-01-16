@@ -20,7 +20,7 @@ import com.oklab.githubjourney.githubjourney.R;
 
 import java.util.List;
 
-public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedLoadedListener {
+public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedLoadedListener, SwipeRefreshLayout.OnRefreshListener {
 
 
     private static final String TAG = FeedListFragment.class.getSimpleName();
@@ -28,7 +28,7 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
     private SwipeRefreshLayout swipeRefreshLayout;
     private FeedListAdapter feedListAdapter;
     private OnFragmentInteractionListener mListener;
-    private LinearLayoutManager lineralLayoutManager;
+    private LinearLayoutManager linearLayoutManager;
     private int currentPage = 1;
     private boolean feedExhausted = false;
     private boolean loading = false;
@@ -61,11 +61,13 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log.v(TAG, "onActivityCreated");
-        lineralLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(lineralLayoutManager);
+        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
         feedListAdapter = new FeedListAdapter(this.getContext());
         recyclerView.setAdapter(feedListAdapter);
         recyclerView.addOnScrollListener(new FeedItemsListOnScrollListner());
+        swipeRefreshLayout.setOnRefreshListener(this);
+
         loading = true;
         new FeedsAsyncTask(getContext(), this).execute(currentPage++);
     }
@@ -102,6 +104,20 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
             return;
         }
         feedListAdapter.add(feedDataEntry);
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        if(loading) {
+            swipeRefreshLayout.setRefreshing(false);
+            return;
+        }
+        feedListAdapter.resetAllData();
+        feedExhausted = false;
+        loading = true;
+        currentPage = 1;
+        new FeedsAsyncTask(getContext(), this).execute(currentPage++);
     }
 
     /**
@@ -124,7 +140,7 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            int lastScrollPosition = lineralLayoutManager.findLastCompletelyVisibleItemPosition();
+            int lastScrollPosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
             int itemsCount = feedListAdapter.getItemCount();
             Log.v(TAG, "onScrolled - imetsCount = " + itemsCount);
             Log.v(TAG, "onScrolled - lastScrollPosition = " + lastScrollPosition);

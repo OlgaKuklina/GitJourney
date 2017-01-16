@@ -51,6 +51,10 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
         notifyDataSetChanged();
     }
 
+    public void resetAllData() {
+        feedDataEntryList.clear();
+        notifyDataSetChanged();
+    }
     public class FeedListViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView personalProfImage;
