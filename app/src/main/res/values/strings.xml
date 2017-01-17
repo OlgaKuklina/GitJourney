@@ -10,7 +10,7 @@
     <!-- URL strings-->
     <string name="url_connect" translatable="false">https://api.github.com/authorizations</string>
     <string name="url_feeds" translatable="false">https://api.github.com/feeds</string>
-
+    <string name="url_repos" translatable="false">https://api.github.com/user/repos</string>
 
     <!-- Strings related to General Activity Tabs -->
     <string name="feed">Feed</string>
