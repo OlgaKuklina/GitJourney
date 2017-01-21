@@ -32,6 +32,7 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
     private int currentPage = 1;
     private boolean feedExhausted = false;
     private boolean loading = false;
+
     public FeedListFragment() {
     }
 
@@ -51,7 +52,7 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.v(TAG, "onCreateView");
-        View v = inflater.inflate(R.layout.fragment_feed_list, container, false);
+        View v = inflater.inflate(R.layout.fragment_general_list, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.items_list_recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         return v;

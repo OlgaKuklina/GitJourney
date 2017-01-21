@@ -4,7 +4,7 @@ package com.oklab.githubjourney.data;
  * Created by olgakuklina on 2017-01-15.
  */
 
-public enum FeedType {
+public enum ActionType {
     FORK,
     ISSUE,
     PULL_REQUEST,

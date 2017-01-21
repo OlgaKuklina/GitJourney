@@ -2,13 +2,11 @@ package com.oklab.githubjourney.services;
 
 import android.util.Log;
 
-import com.oklab.githubjourney.asynctasks.AuthenticationAsyncTask;
 import com.oklab.githubjourney.data.FeedDataEntry;
-import com.oklab.githubjourney.data.FeedType;
+import com.oklab.githubjourney.data.ActionType;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -52,7 +50,7 @@ public class AtomParser {
         int index2 = idContent.indexOf("/", index);
 
         String eventType = idContent.substring(index+1, index2);
-        FeedType feedType = getFeedType(eventType);
+        ActionType actionType = getFeedType(eventType);
         String eventId = idContent.substring(index2+1);
         long id = Long.parseLong(eventId);
 
@@ -78,30 +76,30 @@ public class AtomParser {
         String date = dateNode.getTextContent();
         Calendar entryDate = null;
 
-        FeedDataEntry entry = new FeedDataEntry(id, name, avatarUri, profileURL, eventTitle, description, feedType, entryDate);
+        FeedDataEntry entry = new FeedDataEntry(id, name, avatarUri, profileURL, eventTitle, description, actionType, entryDate);
         return entry;
     }
 
-    private FeedType getFeedType(String eventType) {
+    private ActionType getFeedType(String eventType) {
         switch (eventType) {
             case "ForkEvent":
-                return FeedType.FORK;
+                return ActionType.FORK;
             case "PullRequestEvent":
-                return FeedType.PULL_REQUEST;
+                return ActionType.PULL_REQUEST;
             case "WatchEvent":
-                return FeedType.STAR;
+                return ActionType.STAR;
             case  "IssueCommentEvent":
-                return FeedType.COMMENT;
+                return ActionType.COMMENT;
             case  "DeleteEvent":
-                return FeedType.DELETE;
+                return ActionType.DELETE;
             case  "CreateEvent":
-                return FeedType.CREATE;
+                return ActionType.CREATE;
             case  "IssuesEvent":
-                return FeedType.ISSUE;
+                return ActionType.ISSUE;
             case  "PushEvent":
-                return FeedType.PUSH;
+                return ActionType.PUSH;
             case  "CommitCommentEvent":
-                return FeedType.COMMIT_COMMENT;
+                return ActionType.COMMIT_COMMENT;
             default:
                 throw new IllegalArgumentException("Unknown event type: " + eventType);
         }

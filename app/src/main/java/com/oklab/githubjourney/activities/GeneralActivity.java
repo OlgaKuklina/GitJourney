@@ -1,7 +1,6 @@
 package com.oklab.githubjourney.activities;
 
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,15 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.TextView;
-
-import com.oklab.githubjourney.asynctasks.AuthenticationAsyncTask;
-import com.oklab.githubjourney.asynctasks.FeedsAsyncTask;
-import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.fragments.FeedListFragment;
+import com.oklab.githubjourney.fragments.RepositoriesListFragment;
 import com.oklab.githubjourney.githubjourney.R;
 
-public class GeneralActivity extends AppCompatActivity implements FeedListFragment.OnFragmentInteractionListener{
+public class GeneralActivity extends AppCompatActivity implements FeedListFragment.OnFragmentInteractionListener, RepositoriesListFragment.OnFragmentInteractionListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -131,7 +126,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_feed_list, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_general_list, container, false);
 
             return rootView;
         }
@@ -151,8 +146,11 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            if(position == 0) {
-                return FeedListFragment.newInstance();
+            switch (position) {
+                case 0:
+                    return FeedListFragment.newInstance();
+                case 1:
+                    return RepositoriesListFragment.newInstance();
             }
             return PlaceholderFragment.newInstance(position + 1);
         }

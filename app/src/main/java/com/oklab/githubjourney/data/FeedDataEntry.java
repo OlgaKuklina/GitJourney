@@ -1,6 +1,5 @@
 package com.oklab.githubjourney.data;
 
-import java.net.URL;
 import java.util.Calendar;
 
 /**
@@ -14,10 +13,10 @@ public class FeedDataEntry {
     private final String authorURL;
     private final String title;
     private final String description;
-    private final FeedType actionType;
+    private final ActionType actionType;
     private final Calendar date;
 
-    public FeedDataEntry(long entryId, String authorName, String avatarURL, String authorURL, String title, String description, FeedType actionType, Calendar date) {
+    public FeedDataEntry(long entryId, String authorName, String avatarURL, String authorURL, String title, String description, ActionType actionType, Calendar date) {
         this.entryId = entryId;
         this.authorName = authorName;
         this.avatarURL = avatarURL;
@@ -48,7 +47,7 @@ public class FeedDataEntry {
         return description;
     }
 
-    public FeedType getActionType() {
+    public ActionType getActionType() {
         return actionType;
     }
 

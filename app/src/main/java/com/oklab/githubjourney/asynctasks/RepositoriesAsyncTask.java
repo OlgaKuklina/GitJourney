@@ -6,14 +6,14 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.oklab.githubjourney.data.FeedDataEntry;
-import com.oklab.githubjourney.data.RepositoriesDataEntry;
+import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.githubjourney.R;
-import com.oklab.githubjourney.services.AtomParser;
+import com.oklab.githubjourney.services.ReposParser;
 import com.oklab.githubjourney.utils.Utils;
 
-import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -26,19 +26,25 @@ import java.util.List;
  * Created by olgakuklina on 2017-01-16.
  */
 
-public class RepositoriesAsyncTask extends AsyncTask<Integer, Void, List<RepositoriesDataEntry>> {
+public class RepositoriesAsyncTask extends AsyncTask<Integer, Void, List<ReposDataEntry>> {
     private static final String TAG = RepositoriesAsyncTask.class.getSimpleName();
     private final Context context;
-    private final OnRepositoriesLoadedListener listener;
+    private final OnReposLoadedListener listener;
     private UserSessionData currentSessionData;
 
-    public RepositoriesAsyncTask(Context context, OnRepositoriesLoadedListener listener) {
+    public RepositoriesAsyncTask(Context context, OnReposLoadedListener listener) {
         this.context = context;
         this.listener = listener;
     }
-
     @Override
-    protected List<RepositoriesDataEntry> doInBackground(Integer... args) {
+    protected void onPreExecute() {
+        super.onPreExecute();
+        SharedPreferences prefs = context.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
+        String sessionDataStr = prefs.getString("userSessionData", null);
+        currentSessionData = UserSessionData.createUserSessionDataFromString(sessionDataStr);
+    }
+    @Override
+    protected List<ReposDataEntry> doInBackground(Integer... args) {
         int page = args[0];
         try {
             HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_repos)).openConnection();
@@ -51,8 +57,12 @@ public class RepositoriesAsyncTask extends AsyncTask<Integer, Void, List<Reposit
             int responseCode = connect.getResponseCode();
 
             Log.v(TAG, "responseCode = " + responseCode);
+            InputStream inputStream = connect.getInputStream();
+            String response = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            Log.v(TAG, "response = " + response);
+            JSONArray jsonArray = new JSONArray(response);
 
-            return null;
+            return new ReposParser().parse(jsonArray);
 
         } catch (Exception e) {
             Log.e(TAG, "Get user feeds failed", e);
@@ -61,14 +71,12 @@ public class RepositoriesAsyncTask extends AsyncTask<Integer, Void, List<Reposit
     }
 
     @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        SharedPreferences prefs = context.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
-        String sessionDataStr = prefs.getString("userSessionData", null);
-        currentSessionData = UserSessionData.createUserSessionDataFromString(sessionDataStr);
+    protected void onPostExecute(List<ReposDataEntry> entryList) {
+        super.onPostExecute(entryList);
+        listener.onReposLoaded(entryList);
     }
-    public interface OnRepositoriesLoadedListener {
-        void onRepositoriesLoaded(List<FeedDataEntry> feedDataEntry);
+    public interface OnReposLoadedListener {
+        void onReposLoaded(List<ReposDataEntry> reposDataEntry);
     }
 
 }

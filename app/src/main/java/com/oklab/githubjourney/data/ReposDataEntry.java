@@ -6,31 +6,36 @@ import java.util.Calendar;
  * Created by olgakuklina on 2017-01-16.
  */
 
-public class RepositoriesDataEntry {
+public class ReposDataEntry {
 
     private final String title;
-    private final String type;
+    private final  boolean privacy;
+    private final  boolean forked;
     private final String description;
     private final String language;
     private final int stars;
     private final int forks;
 
-    public RepositoriesDataEntry(String title, String type, String description, String language, int stars, int forks) {
+    public ReposDataEntry(String title, boolean privacy, boolean forked, String description, String language, int stars, int forks) {
         this.title = title;
-        this.type = type;
+        this.privacy = privacy;
+        this.forked = forked;
         this.description = description;
         this.language = language;
         this.stars = stars;
         this.forks = forks;
     }
 
+    public boolean isForked() {
+        return forked;
+    }
+    public boolean isPrivate() {
+        return privacy;
+    }
     public String getTitle() {
         return title;
     }
 
-    public String getType() {
-        return type;
-    }
 
     public String getDescription() {
         return description;
