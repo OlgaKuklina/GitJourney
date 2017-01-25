@@ -4,9 +4,9 @@
     android:layout_height="wrap_content">
 
     <ImageButton
-        android:id="@+id/image_button"
+        android:id="@+id/contribution_button"
+        android:clickable="true"
         android:background="@color/colorAccent"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:padding="2dp"/>
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
 </LinearLayout>

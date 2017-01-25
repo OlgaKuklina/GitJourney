@@ -3,30 +3,26 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:text="Contributions in the last year"
         android:visibility="visible"
         android:layout_height="40dp" />
 
-    <HorizontalScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
         <GridView
             android:id="@+id/gridview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:columnWidth="10dp"
-            android:numColumns="20"
-            android:verticalSpacing="10dp"
-            android:horizontalSpacing="10dp"
-            android:stretchMode="columnWidth"
+            android:background="@color/temp"
+            android:layout_height="wrap_content"
+            android:columnWidth="20dp"
+            android:numColumns="7"
+            android:verticalSpacing="1dp"
+            android:horizontalSpacing="1dp"
             android:gravity="center"
             />
-    </HorizontalScrollView>
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:text="Contribution activity"
         android:visibility="visible"
