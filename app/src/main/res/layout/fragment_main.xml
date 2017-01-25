@@ -9,16 +9,61 @@
         android:visibility="visible"
         android:layout_height="40dp" />
 
+    <LinearLayout
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="7dp"
+            android:text="Mon"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="7dp"
+            android:text="Tue"/>
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:text="Wed"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="7dp"
+            android:text="Thu"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="7dp"
+            android:text="Fri"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sat"
+            android:padding="7dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sun"
+            android:padding="7dp"/>
+
+    </LinearLayout>
 
         <GridView
             android:id="@+id/gridview"
-            android:layout_width="match_parent"
-            android:background="@color/temp"
+            android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
             android:columnWidth="20dp"
             android:numColumns="7"
             android:verticalSpacing="1dp"
             android:horizontalSpacing="1dp"
+            android:scrollbars="horizontal"
             android:gravity="center"
             />
 

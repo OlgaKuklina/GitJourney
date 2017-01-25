@@ -26,7 +26,7 @@ public class ContributionsListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 20;
+        return 30;
     }
 
     @Override

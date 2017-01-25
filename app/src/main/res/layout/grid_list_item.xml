@@ -6,7 +6,7 @@
     <ImageButton
         android:id="@+id/contribution_button"
         android:clickable="true"
-        android:background="@color/colorAccent"
+        android:background="@drawable/touch_effect"
         android:layout_width="50dp"
         android:layout_height="50dp"/>
 </LinearLayout>

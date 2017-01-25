@@ -5,11 +5,11 @@
         <item
             android:id="@+id/github_events"
             android:icon="@drawable/ic_menu_manage"
-            android:title="GitHub events" />
+            android:title="Contribution activity" />
         <item
             android:id="@+id/profile"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Profile" />
+            android:title="Profile page" />
 
     </group>
 
@@ -22,7 +22,7 @@
             <item
                 android:id="@+id/sing_out"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Sing out" />
+                android:title="Sign out" />
         </menu>
     </item>
 
