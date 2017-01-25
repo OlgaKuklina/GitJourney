@@ -1,81 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
+        android:layout_height="40dp"
         android:text="Contributions in the last year"
-        android:visibility="visible"
-        android:layout_height="40dp" />
+        android:visibility="visible" />
 
-    <LinearLayout
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="wrap_content">
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:columnCount="7"
+        android:rowCount="1">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="45sp"
             android:layout_height="wrap_content"
-            android:padding="7dp"
-            android:text="Mon"/>
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="0"
+            android:gravity="center"
+            android:text="Sun" />
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="45sp"
             android:layout_height="wrap_content"
-            android:padding="7dp"
-            android:text="Tue"/>
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="0"
+            android:gravity="center"
+            android:text="Mon" />
+
         <TextView
+            android:layout_width="45sp"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="0"
+            android:gravity="center"
+            android:text="Tue" />
+
+        <TextView
+            android:layout_width="45sp"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="0"
+            android:gravity="center"
+            android:text="Wed" />
+
+        <TextView
+            android:layout_width="45sp"
+            android:layout_height="wrap_content"
+            android:layout_column="4"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="0"
+            android:gravity="center"
+            android:text="Thu" />
+
+        <TextView
+            android:layout_width="45sp"
+            android:layout_height="wrap_content"
+            android:layout_column="5"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="0"
+            android:gravity="center"
+            android:text="Fri" />
+
+        <TextView
+            android:layout_width="45sp"
+            android:layout_height="wrap_content"
+            android:layout_column="6"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="0"
+            android:gravity="center"
+            android:text="Sat" />
+
+
+    </GridLayout>
+
+    <GridView
+        android:id="@+id/gridview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="7dp"
-        android:text="Wed"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="7dp"
-            android:text="Thu"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="7dp"
-            android:text="Fri"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sat"
-            android:padding="7dp"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sun"
-            android:padding="7dp"/>
-
-    </LinearLayout>
-
-        <GridView
-            android:id="@+id/gridview"
-            android:layout_width="wrap_content"
-
-            android:layout_height="wrap_content"
-            android:columnWidth="20dp"
-            android:numColumns="7"
-            android:verticalSpacing="1dp"
-            android:horizontalSpacing="1dp"
-            android:scrollbars="horizontal"
-            android:gravity="center"
-            />
+        android:columnWidth="20dp"
+        android:gravity="center"
+        android:horizontalSpacing="1dp"
+        android:numColumns="7"
+        android:scrollbars="horizontal"
+        android:verticalSpacing="1dp" />
 
     <TextView
         android:layout_width="wrap_content"
+        android:layout_height="40dp"
         android:text="Contribution activity"
-        android:visibility="visible"
-        android:layout_height="40dp" />
+        android:visibility="visible" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </LinearLayout>
+        android:layout_height="wrap_content"></LinearLayout>
 
 </LinearLayout>
