@@ -1,10 +1,12 @@
 package com.oklab.githubjourney.activities;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.oklab.githubjourney.fragments.MainViewFragment;
 import com.oklab.githubjourney.githubjourney.R;
 import com.oklab.githubjourney.utils.Utils;
 
@@ -27,11 +30,14 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MainViewFragment fragment = new MainViewFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_main, fragment);
+        transaction.commit();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
          prefs = this.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
-
         String currentSessionData = prefs.getString("userSessionData", null);
         if(currentSessionData == null) {
             Intent intent = new Intent(this, AuthenticationActivity.class);
