@@ -10,6 +10,7 @@ import android.app.FragmentTransaction;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -29,6 +30,7 @@ import com.oklab.githubjourney.utils.Utils;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private SharedPreferences prefs;
     private ViewPager calendarYearviewPager;
     private CalendarYearPagerAdapter calendarYearPagerAdapter;
@@ -145,38 +147,16 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public android.support.v4.app.Fragment getItem(int position) {
+            Log.v(TAG, "position - " +  position);
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            switch (position) {
-                case 0:
-                    return MainViewFragment.newInstance(position);
-                case 1:
-                    return MainViewFragment.newInstance(position);
-            }
-            return MainViewFragment.newInstance(position + 1);
+            return MainViewFragment.newInstance(position);
         }
 
         @Override
         public int getCount() {
             // Show 5 total pages.
-            return 5;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return getApplicationContext().getString(R.string.january);
-                case 1:
-                    return getApplicationContext().getString(R.string.february);
-                case 2:
-                    return getApplicationContext().getString(R.string.march);
-                case 3:
-                    return getApplicationContext().getString(R.string.april);
-                case 4:
-                    return getApplicationContext().getString(R.string.may);
-            }
-            return null;
+            return 12;
         }
     }
 }
