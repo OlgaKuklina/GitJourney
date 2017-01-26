@@ -4,5 +4,16 @@
     <color name="colorPrimaryDark">#2e5d7d</color>
     <color name="colorAccent">#064463</color>
 
-    <color name="temp">#ef090d</color>
+    <color name="temp1">#064463</color>
+    <color name="temp2">#064463</color>
+    <color name="temp3">#064463</color>
+    <color name="temp4">#064463</color>
+    <color name="temp5">#0e648b</color>
+    <color name="temp">#0b6fa1</color>
+    <color name="temp6">#0d90d1</color>
+    <color name="temp7">#056d96</color>
+    <color name="temp8">#13aaf5</color>
+    <color name="temp9">#71ccf4</color>
+    <color name="temp10">#a7d7ef</color>
+    <color name="empty">#ccd8de</color>
 </resources>

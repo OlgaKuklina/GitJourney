@@ -41,7 +41,7 @@ public class MainViewFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        contributionsListAdapter = new ContributionsListAdapter(this.getActivity());
+        contributionsListAdapter = new ContributionsListAdapter(this.getActivity(), getArguments().getInt(ARG_SECTION_NUMBER));
         gridView.setAdapter(contributionsListAdapter);
     }
     /**
