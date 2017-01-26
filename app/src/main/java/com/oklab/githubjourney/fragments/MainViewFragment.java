@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +30,12 @@ public class MainViewFragment extends Fragment {
     private GridView gridView;
     private static final String ARG_SECTION_NUMBER = "section_number";
     String monthName;
-    private Calendar calendar = Calendar.getInstance();
+    private Calendar calendar = (Calendar) Calendar.getInstance().clone();
     private TextView monthTitle;
 
 
     public MainViewFragment() {
-        super();
+        setRetainInstance(true);
     }
 
     @Override
@@ -42,7 +43,6 @@ public class MainViewFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         contributionsListAdapter = new ContributionsListAdapter(this.getActivity());
         gridView.setAdapter(contributionsListAdapter);
-
     }
     /**
      * Returns a new instance of this fragment for the given section
@@ -53,6 +53,7 @@ public class MainViewFragment extends Fragment {
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
+        fragment.adjustCalendar();
         return fragment;
     }
     @Nullable
@@ -61,14 +62,15 @@ public class MainViewFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
         gridView = (GridView) v.findViewById(R.id.gridview);
         monthTitle = (TextView) v.findViewById(R.id.month_title);
-
-        int offset = getArguments().getInt(ARG_SECTION_NUMBER);
-        calendar.add(Calendar.MONTH, -offset);
-
-        SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
-        monthName = month_date.format(calendar.getTime());
         monthTitle.setText(monthName);
         return v;
 
+    }
+
+    private void adjustCalendar() {
+        int offset = getArguments().getInt(ARG_SECTION_NUMBER);
+        calendar.add(Calendar.MONTH, -offset);
+        SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
+        monthName = month_date.format(calendar.getTime());
     }
 }
