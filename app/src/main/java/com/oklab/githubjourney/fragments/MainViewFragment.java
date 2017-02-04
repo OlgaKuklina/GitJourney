@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.activities.GeneralActivity;
@@ -28,6 +30,8 @@ public class MainViewFragment extends Fragment {
     private static final String TAG = MainViewFragment.class.getSimpleName();
     private ContributionsListAdapter contributionsListAdapter;
     private GridView gridView;
+    private LinearLayout contributionsList;
+    private ScrollView scrollView;
     private static final String ARG_SECTION_NUMBER = "section_number";
     String monthName;
     private Calendar calendar = (Calendar) Calendar.getInstance().clone();
@@ -61,16 +65,17 @@ public class MainViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
         gridView = (GridView) v.findViewById(R.id.gridview);
+        scrollView = (ScrollView) v.findViewById(R.id.contributions_activity_container);
+        contributionsList = (LinearLayout) v.findViewById(R.id.contribution_activity);
         monthTitle = (TextView) v.findViewById(R.id.month_title);
         monthTitle.setText(monthName);
         return v;
-
     }
 
     private void adjustCalendar() {
         int offset = getArguments().getInt(ARG_SECTION_NUMBER);
         calendar.add(Calendar.MONTH, -offset);
-        SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
+        SimpleDateFormat month_date = new SimpleDateFormat("MMMM, yyyy");
         monthName = month_date.format(calendar.getTime());
     }
 }
