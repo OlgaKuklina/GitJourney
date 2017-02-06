@@ -37,9 +37,11 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
     }
 
     public static FeedListFragment newInstance() {
+        Log.v(TAG, " FeedListFragment newInstance ");
         FeedListFragment fragment = new FeedListFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
+        fragment.setRetainInstance(true);
         return fragment;
     }
 
@@ -51,7 +53,7 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.v(TAG, "onCreateView");
+        Log.v(TAG, "onCreateView savedInstanceState = " + savedInstanceState);
         View v = inflater.inflate(R.layout.fragment_general_list, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.items_list_recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
@@ -65,6 +67,7 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         feedListAdapter = new FeedListAdapter(this.getContext());
+        Log.v(TAG, "recyclerView getAdapter = " + recyclerView.getAdapter());
         recyclerView.setAdapter(feedListAdapter);
         recyclerView.addOnScrollListener(new FeedItemsListOnScrollListner());
         swipeRefreshLayout.setOnRefreshListener(this);
