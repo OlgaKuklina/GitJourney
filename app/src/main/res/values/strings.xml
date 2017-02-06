@@ -11,6 +11,10 @@
     <string name="url_connect" translatable="false">https://api.github.com/authorizations</string>
     <string name="url_feeds" translatable="false">https://api.github.com/feeds</string>
     <string name="url_repos" translatable="false">https://api.github.com/user/repos</string>
+    <string name="url_followers" translatable="false">https://api.github.com/user/followers</string>
+    <string name="url_following" translatable="false">https://api.github.com/user/following</string>
+    <string name="url_starred" translatable="false">https://api.github.com/user/starred</string>
+
     <!-- Strings related to Main Activity Tabs -->
     <string name="january">January</string>
     <string name="february">February</string>
