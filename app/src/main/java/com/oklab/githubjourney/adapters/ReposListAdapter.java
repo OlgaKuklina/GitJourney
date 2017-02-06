@@ -69,7 +69,7 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
 
         public ReposListViewHolder(View v) {
             super(v);
-            type = (ImageView) v.findViewById(R.id.repo_status_image);
+            type = (ImageView) v.findViewById(R.id.status_image);
             title = (TextView) v.findViewById(R.id.repo_name);
             description = (TextView) v.findViewById(R.id.desc);
             language = (TextView) v.findViewById(R.id.language);
@@ -82,7 +82,7 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
             description.setText(reposDataEntry.getDescription());
             language.setText(reposDataEntry.getLanguage());
             stars.setText(Integer.toString(reposDataEntry.getStars()));
-            forks.setText(Integer.toString(reposDataEntry.getForks()));
+            forks.setText(Integer.toString( reposDataEntry.getForks()));
 
             Picasso pic = Picasso.with(context);
             Log.v(TAG, "path" + reposDataEntry.isPrivate());
