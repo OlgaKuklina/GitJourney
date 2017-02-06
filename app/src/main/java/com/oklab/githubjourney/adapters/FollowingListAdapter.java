@@ -30,7 +30,7 @@ public class FollowingListAdapter extends RecyclerView.Adapter<FollowingListAdap
     }
     @Override
     public FollowingListAdapter.FollowingListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.stars_list_item, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.following_list_item, parent, false);
         return new FollowingListAdapter.FollowingListViewHolder(v);
     }
 
@@ -59,33 +59,25 @@ public class FollowingListAdapter extends RecyclerView.Adapter<FollowingListAdap
 
         private TextView name;
         private ImageView avatar;
-        private TextView profileUri;
 
 
         public FollowingListViewHolder(View v) {
             super(v);
             name = (TextView) v.findViewById(R.id.following_user_name);
             avatar = (ImageView) v.findViewById(R.id.following_avatar_image);
-            profileUri = (TextView) v.findViewById(R.id.following_user_profile_uri);
         }
 
-        private void populateFollowingViewData(GitHubUsersDataEntry followingDataEntrylist) {
-            name.setText(followingDataEntrylist.getName());
-            profileUri.setText(followingDataEntrylist.getImageUri());
+        private void populateFollowingViewData(GitHubUsersDataEntry followingDataEntry) {
+            name.setText(followingDataEntry.getName());
 
             Picasso pic = Picasso.with(context);
-            Log.v(TAG, "path" + followingDataEntrylist.getImageUri());
-            if (followingDataEntrylist.getImageUri()!=null) {
-                pic.load(R.drawable.octocat)
-                        .fit().centerCrop()
-                        .into(avatar);
-            } else if (followingDataEntrylist.getImageUri()==null) {
-                pic.load(R.drawable.octocat)
+            Log.v(TAG, "path" + followingDataEntry.getImageUri());
+
+                pic.load(followingDataEntry.getImageUri())
                         .fit().centerCrop()
                         .error(R.drawable.octocat)
                         .into(avatar);
             }
 
         }
-    }
 }

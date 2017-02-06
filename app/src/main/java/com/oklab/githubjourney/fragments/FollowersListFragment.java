@@ -33,7 +33,7 @@ public class FollowersListFragment extends Fragment implements FollowersAsyncTas
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FollowersListAdapter followersListAdapter;
-    private StarsListFragment.OnFragmentInteractionListener mListener;
+    private FollowersListFragment.OnFragmentInteractionListener mListener;
     private LinearLayoutManager linearLayoutManager;
     private int currentPage = 1;
     private boolean followersExhausted = false;
@@ -85,8 +85,8 @@ public class FollowersListFragment extends Fragment implements FollowersAsyncTas
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof StarsListFragment.OnFragmentInteractionListener) {
-            mListener = (StarsListFragment.OnFragmentInteractionListener) context;
+        if (context instanceof FollowersListFragment.OnFragmentInteractionListener) {
+            mListener = (FollowersListFragment.OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
