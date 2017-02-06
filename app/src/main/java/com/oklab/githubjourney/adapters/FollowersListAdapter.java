@@ -22,15 +22,19 @@ import java.util.List;
  */
 
 public class FollowersListAdapter extends RecyclerView.Adapter<FollowersListAdapter.FollowersListViewHolder>  {
+
     private static final String TAG = FollowersListAdapter.class.getSimpleName();
+
     private final ArrayList<GitHubUsersDataEntry> followersDataEntrylist = new ArrayList<>(1000);
     private final Context context;
+
     public FollowersListAdapter(Context context) {
         this.context = context;
     }
+
     @Override
     public FollowersListAdapter.FollowersListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.stars_list_item, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.followers_list_item, parent, false);
         return new FollowersListAdapter.FollowersListViewHolder(v);
     }
 
@@ -59,32 +63,24 @@ public class FollowersListAdapter extends RecyclerView.Adapter<FollowersListAdap
     public class FollowersListViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
         private ImageView avatar;
-        private TextView profileUri;
 
         public FollowersListViewHolder(View v) {
             super(v);
             name = (TextView) v.findViewById(R.id.followers_user_name);
             avatar = (ImageView) v.findViewById(R.id.followers_avatar_image);
-            profileUri = (TextView) v.findViewById(R.id.followers_user_profile_uri);
         }
 
-        private void populateFollowersViewData(GitHubUsersDataEntry followersDataEntrylist) {
-            name.setText(followersDataEntrylist.getName());
-            profileUri.setText(followersDataEntrylist.getImageUri());
+        private void populateFollowersViewData(GitHubUsersDataEntry followersDataEntry) {
+            Log.v(TAG, "followersDataEntry.getName() - " + followersDataEntry.getName());
+            name.setText(followersDataEntry.getName());
 
             Picasso pic = Picasso.with(context);
-            Log.v(TAG, "path" + followersDataEntrylist.getImageUri());
-            if (followersDataEntrylist.getImageUri()!=null) {
-                pic.load(R.drawable.octocat)
-                        .fit().centerCrop()
-                        .into(avatar);
-            } else if (followersDataEntrylist.getImageUri()==null) {
-                pic.load(R.drawable.octocat)
+            Log.v(TAG, "path" + followersDataEntry.getImageUri());
+                pic.load(followersDataEntry.getImageUri())
                         .fit().centerCrop()
                         .error(R.drawable.octocat)
                         .into(avatar);
             }
 
         }
-    }
 }

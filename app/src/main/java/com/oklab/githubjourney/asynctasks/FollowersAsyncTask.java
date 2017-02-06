@@ -26,7 +26,7 @@ import java.util.List;
 
 public class FollowersAsyncTask extends AsyncTask<Integer, Void, List<GitHubUsersDataEntry>> {
 
-    private static final String TAG = StarsAsyncTask.class.getSimpleName();
+    private static final String TAG = FollowersAsyncTask.class.getSimpleName();
     private final Context context;
     private UserSessionData currentSessionData;
     private FollowersAsyncTask.OnFollowersLoadedListener listener;

@@ -1,5 +1,7 @@
 package com.oklab.githubjourney.services;
 
+import android.util.Log;
+
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
 
 import org.json.JSONArray;
@@ -31,6 +33,8 @@ public class FollowersParser {
         if (object == null) {
             return null;
         }
+        Log.v(TAG, "login = " + object.getString("login"));
+        Log.v(TAG, "JSONObject = " + object);
         String login = " ";
         if (!object.getString("login").isEmpty()) {
             login = object.getString("login");
