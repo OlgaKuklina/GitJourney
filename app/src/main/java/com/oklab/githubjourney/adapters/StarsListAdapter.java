@@ -72,14 +72,14 @@ public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.Star
 
         public StarsListViewHolder(View v) {
             super(v);
-            type = (ImageView) v.findViewById(R.id.repo_status_image);
-            title = (TextView) v.findViewById(R.id.repo_name);
-            description = (TextView) v.findViewById(R.id.desc);
-            language = (TextView) v.findViewById(R.id.language);
-            stars = (TextView) v.findViewById(R.id.stars);
-            forks = (TextView) v.findViewById(R.id.forks);
-            watchers = (TextView) v.findViewById(R.id.watchers);
-            repoShortUri = (TextView) v.findViewById(R.id.repo_short_uri);
+            type = (ImageView) v.findViewById(R.id.stars_repo_status_image);
+            title = (TextView) v.findViewById(R.id.stars_repo_title);
+            description = (TextView) v.findViewById(R.id.stars_repo_desc);
+            language = (TextView) v.findViewById(R.id.stars_repo_language);
+            stars = (TextView) v.findViewById(R.id.stars_count);
+            forks = (TextView) v.findViewById(R.id.stars_forks);
+            watchers = (TextView) v.findViewById(R.id.stars_watchers);
+            repoShortUri = (TextView) v.findViewById(R.id.stars_repo_short_uri);
 
         }
 
@@ -89,7 +89,7 @@ public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.Star
             language.setText(starsDataEntry.getLanguage());
             stars.setText(Integer.toString(starsDataEntry.getStars()));
             forks.setText(Integer.toString(starsDataEntry.getForks()));
-            forks.setText(Integer.toString(starsDataEntry.getWatchers()));
+            watchers.setText(Integer.toString(starsDataEntry.getWatchers()));
             repoShortUri.setText(starsDataEntry.getFullName());
 
             Picasso pic = Picasso.with(context);

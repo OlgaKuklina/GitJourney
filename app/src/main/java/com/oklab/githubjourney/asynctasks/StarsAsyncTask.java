@@ -48,7 +48,7 @@ public class StarsAsyncTask extends AsyncTask<Object, Object, List<StarsDataEntr
     protected List<StarsDataEntry> doInBackground(Object... args) {
         Object page = args[0];
         try {
-            HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_followers)).openConnection();
+            HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_starred)).openConnection();
             connect.setRequestMethod("GET");
 
             String authentication = "token " + currentSessionData.getToken();

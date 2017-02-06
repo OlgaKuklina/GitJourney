@@ -1,5 +1,7 @@
 package com.oklab.githubjourney.services;
 
+import android.util.Log;
+
 import com.oklab.githubjourney.data.StarsDataEntry;
 
 import org.json.JSONArray;
@@ -19,6 +21,7 @@ public class StarsParser {
     public List<StarsDataEntry> parse(JSONArray jsonArray) throws JSONException {
 
         List<StarsDataEntry> dataEntriesList = new ArrayList<>(jsonArray.length());
+        Log.v(TAG, "jsonArray.length() = " + jsonArray.length());
         for (int i = 0; i < jsonArray.length(); i++) {
             StarsDataEntry entry = parseItem(jsonArray.getJSONObject(i));
             dataEntriesList.add(entry);
@@ -30,6 +33,7 @@ public class StarsParser {
         if (object == null) {
             return null;
         }
+        Log.v(TAG, "object = " + object );
         String name = " ";
         if (!object.getString("name").isEmpty()) {
             name = object.getString("name");

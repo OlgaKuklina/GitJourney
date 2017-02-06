@@ -19,9 +19,10 @@ import android.view.ViewGroup;
 
 import com.oklab.githubjourney.fragments.FeedListFragment;
 import com.oklab.githubjourney.fragments.RepositoriesListFragment;
+import com.oklab.githubjourney.fragments.StarsListFragment;
 import com.oklab.githubjourney.githubjourney.R;
 
-public class GeneralActivity extends AppCompatActivity implements FeedListFragment.OnFragmentInteractionListener, RepositoriesListFragment.OnFragmentInteractionListener {
+public class GeneralActivity extends AppCompatActivity implements FeedListFragment.OnFragmentInteractionListener, RepositoriesListFragment.OnFragmentInteractionListener, StarsListFragment.OnFragmentInteractionListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -150,6 +151,8 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
                     return FeedListFragment.newInstance();
                 case 1:
                     return RepositoriesListFragment.newInstance();
+                case 4:
+                    return StarsListFragment.newInstance();
             }
             return PlaceholderFragment.newInstance(position + 1);
         }
