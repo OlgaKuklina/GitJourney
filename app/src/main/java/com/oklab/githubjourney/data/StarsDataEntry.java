@@ -6,43 +6,55 @@ package com.oklab.githubjourney.data;
 
 public class StarsDataEntry {
 
-        private final String title;
-        private final String type;
-        private final String description;
-        private final String language;
-        private final int stars;
-        private final int forks;
+    private final String title;
+    private final String fullName;
+    private final String description;
+    private final String language;
+    private final boolean privacy;
+    private final int watchers;
+    private final int stars;
+    private final int forks;
 
-        public StarsDataEntry(String title, String type, String description, String language, int stars, int forks) {
-            this.title = title;
-            this.type = type;
-            this.description = description;
-            this.language = language;
-            this.stars = stars;
-            this.forks = forks;
-        }
+    public StarsDataEntry(String title, String fullName, String language, String description, boolean privacy, int watchers, int forks, int stars) {
+        this.title = title;
+        this.description = description;
+        this.language = language;
+        this.fullName = fullName;
+        this.privacy = privacy;
+        this.watchers = watchers;
+        this.stars = stars;
+        this.forks = forks;
+    }
 
-        public String getTitle() {
-            return title;
-        }
+    public String getFullName() {
+        return fullName;
+    }
 
-        public String getType() {
-            return type;
-        }
+    public boolean isPrivacy() {
+        return privacy;
+    }
 
-        public String getDescription() {
-            return description;
-        }
+    public int getWatchers() {
+        return watchers;
+    }
 
-        public String getLanguage() {
-            return language;
-        }
+    public String getTitle() {
+        return title;
+    }
 
-        public int getStars() {
-            return stars;
-        }
+    public String getDescription() {
+        return description;
+    }
 
-        public int getForks() {
-            return forks;
-        }
+    public String getLanguage() {
+        return language;
+    }
+
+    public int getStars() {
+        return stars;
+    }
+
+    public int getForks() {
+        return forks;
+    }
 }

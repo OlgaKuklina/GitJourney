@@ -54,6 +54,7 @@ public class FeedDataEntry {
     public Calendar getDate() {
         return date;
     }
+
     public String getAuthorURL() {
         return authorURL;
     }

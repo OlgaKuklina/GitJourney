@@ -13,19 +13,16 @@ import com.oklab.githubjourney.githubjourney.R;
 
 import java.util.Calendar;
 
-import static com.oklab.githubjourney.githubjourney.R.id.container;
-import static com.oklab.githubjourney.githubjourney.R.id.swipe_refresh_layout;
-
 /**
  * Created by olgakuklina on 2017-01-24.
  */
 
 public class ContributionsListAdapter extends BaseAdapter {
     private static final String TAG = ContributionsListAdapter.class.getSimpleName();
-    private Calendar calendar = (Calendar) Calendar.getInstance().clone();
     private final Context context;
     private final int numberOfDays;
     private final int numberOfEmptyDaysInMonth;
+    private Calendar calendar = (Calendar) Calendar.getInstance().clone();
 
     public ContributionsListAdapter(Context context, int offset) {
         this.context = context;
@@ -54,10 +51,10 @@ public class ContributionsListAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v;
-        if(i >= numberOfEmptyDaysInMonth ) {
+        if (i >= numberOfEmptyDaysInMonth) {
             v = inflater.inflate(R.layout.grid_list_item, viewGroup, false);
             ImageButton button = (ImageButton) v.findViewById(R.id.contribution_button);
-            switch(i) {
+            switch (i) {
                 case 4:
                     button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_2));
                     break;
@@ -115,8 +112,7 @@ public class ContributionsListAdapter extends BaseAdapter {
             });
             Log.v(TAG, "i " + i);
 
-        }
-        else {
+        } else {
             v = inflater.inflate(R.layout.empty_grid_list_item, viewGroup, false);
         }
 

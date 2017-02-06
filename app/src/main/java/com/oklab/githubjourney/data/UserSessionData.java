@@ -11,14 +11,15 @@ public class UserSessionData {
     private final String token;
 
 
-    public static UserSessionData createUserSessionDataFromString(String data) {
-       String[] array =  data.split(";");
-        return new UserSessionData(array[0], array[1], array[2]);
-    }
     public UserSessionData(String id, String credentials, String token) {
         this.id = id;
         this.credentials = credentials;
         this.token = token;
+    }
+
+    public static UserSessionData createUserSessionDataFromString(String data) {
+        String[] array = data.split(";");
+        return new UserSessionData(array[0], array[1], array[2]);
     }
 
     public String getId() {

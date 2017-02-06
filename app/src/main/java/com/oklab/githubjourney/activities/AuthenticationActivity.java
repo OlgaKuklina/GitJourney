@@ -21,6 +21,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     private final AsyncTask<String, Integer, UserSessionData> authenticationTask = new AuthenticationAsyncTask(this);
     private EditText passwordText;
     private EditText loginText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

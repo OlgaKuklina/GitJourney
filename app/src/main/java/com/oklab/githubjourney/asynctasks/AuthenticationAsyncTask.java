@@ -13,17 +13,14 @@ import com.oklab.githubjourney.githubjourney.R;
 import com.oklab.githubjourney.utils.Utils;
 
 import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -46,8 +43,8 @@ public class AuthenticationAsyncTask extends AsyncTask<String, Integer, UserSess
             connect.setRequestMethod("POST");
             connect.setDoOutput(true);
             String inputString = args[0] + ":" + args[1];
-            String credentials =  Base64.encodeToString(inputString.getBytes(), Base64.NO_WRAP);
-            String authentication  = "basic " + credentials;
+            String credentials = Base64.encodeToString(inputString.getBytes(), Base64.NO_WRAP);
+            String authentication = "basic " + credentials;
             connect.setRequestProperty("Authorization", authentication);
 
             JSONObject jsonObject = new JSONObject();
@@ -66,13 +63,13 @@ public class AuthenticationAsyncTask extends AsyncTask<String, Integer, UserSess
             int responseCode = connect.getResponseCode();
 
             Log.v(TAG, "responseCode = " + responseCode);
-            if(responseCode!= HttpStatus.SC_CREATED) {
+            if (responseCode != HttpStatus.SC_CREATED) {
                 return null;
             }
             InputStream inputStream = connect.getInputStream();
             String response = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
             Log.v(TAG, "response = " + response);
-            JSONObject jObj = new  JSONObject(response);
+            JSONObject jObj = new JSONObject(response);
 
             UserSessionData data = new UserSessionData(jObj.getString("id"), credentials, jObj.getString("token"));
             return data;

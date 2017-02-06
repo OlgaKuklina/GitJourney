@@ -1,7 +1,5 @@
 package com.oklab.githubjourney.data;
 
-import java.util.Calendar;
-
 /**
  * Created by olgakuklina on 2017-01-16.
  */
@@ -9,8 +7,8 @@ import java.util.Calendar;
 public class ReposDataEntry {
 
     private final String title;
-    private final  boolean privacy;
-    private final  boolean forked;
+    private final boolean privacy;
+    private final boolean forked;
     private final String description;
     private final String language;
     private final int stars;
@@ -29,9 +27,11 @@ public class ReposDataEntry {
     public boolean isForked() {
         return forked;
     }
+
     public boolean isPrivate() {
         return privacy;
     }
+
     public String getTitle() {
         return title;
     }

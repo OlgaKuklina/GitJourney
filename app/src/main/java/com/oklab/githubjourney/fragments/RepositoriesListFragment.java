@@ -24,7 +24,7 @@ import java.util.List;
  * Created by olgakuklina on 2017-01-16.
  */
 
-public class RepositoriesListFragment extends Fragment implements RepositoriesAsyncTask.OnReposLoadedListener, SwipeRefreshLayout.OnRefreshListener{
+public class RepositoriesListFragment extends Fragment implements RepositoriesAsyncTask.OnReposLoadedListener, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = RepositoriesListFragment.class.getSimpleName();
 
     private RecyclerView recyclerView;
@@ -45,6 +45,7 @@ public class RepositoriesListFragment extends Fragment implements RepositoriesAs
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +74,7 @@ public class RepositoriesListFragment extends Fragment implements RepositoriesAs
         loading = true;
         new RepositoriesAsyncTask(getContext(), this).execute(currentPage++);
     }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -99,7 +101,7 @@ public class RepositoriesListFragment extends Fragment implements RepositoriesAs
 
     @Override
     public void onRefresh() {
-        if(loading) {
+        if (loading) {
             swipeRefreshLayout.setRefreshing(false);
             return;
         }
@@ -113,7 +115,7 @@ public class RepositoriesListFragment extends Fragment implements RepositoriesAs
     @Override
     public void onReposLoaded(List<ReposDataEntry> reposDataEntry) {
         loading = false;
-        if(reposDataEntry !=null && reposDataEntry.isEmpty()) {
+        if (reposDataEntry != null && reposDataEntry.isEmpty()) {
             reposExhausted = true;
             return;
         }
@@ -151,5 +153,5 @@ public class RepositoriesListFragment extends Fragment implements RepositoriesAs
                 new RepositoriesAsyncTask(RepositoriesListFragment.this.getContext(), RepositoriesListFragment.this).execute(currentPage++);
             }
         }
-}
+    }
 }

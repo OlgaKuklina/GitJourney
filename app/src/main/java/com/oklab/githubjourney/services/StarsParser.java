@@ -1,6 +1,5 @@
 package com.oklab.githubjourney.services;
 
-import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.data.StarsDataEntry;
 
 import org.json.JSONArray;
@@ -20,13 +19,39 @@ public class StarsParser {
     public List<StarsDataEntry> parse(JSONArray jsonArray) throws JSONException {
 
         List<StarsDataEntry> dataEntriesList = new ArrayList<>(jsonArray.length());
-        for(int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0; i < jsonArray.length(); i++) {
             StarsDataEntry entry = parseItem(jsonArray.getJSONObject(i));
             dataEntriesList.add(entry);
         }
         return dataEntriesList;
     }
+
     private StarsDataEntry parseItem(JSONObject object) throws JSONException {
-        return null;
+        if (object == null) {
+            return null;
+        }
+        String name = " ";
+        if (!object.getString("name").isEmpty()) {
+            name = object.getString("name");
+        }
+
+        String fullName = " ";
+        if (!object.getString("full_name").isEmpty()) {
+            fullName = object.getString("full_name");
+        }
+        String language = " ";
+        if (!object.getString("language").isEmpty()) {
+            language = object.getString("language");
+        }
+        String description = " ";
+        if (!object.getString("description").isEmpty()) {
+            description = object.getString("description");
+        }
+        boolean privacy = object.getBoolean("private");
+        int watchersCount = object.getInt("watchers_count");
+        int forksCount = object.getInt("forks_count");
+        int stars = object.getInt("stargazers_count");
+
+        return new StarsDataEntry(name, fullName, language, description, privacy, watchersCount, forksCount, stars);
     }
 }

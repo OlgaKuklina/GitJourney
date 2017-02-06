@@ -100,7 +100,7 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
     @Override
     public void onFeedLoaded(List<FeedDataEntry> feedDataEntry) {
         loading = false;
-        if(feedDataEntry !=null && feedDataEntry.isEmpty()) {
+        if (feedDataEntry != null && feedDataEntry.isEmpty()) {
             feedExhausted = true;
             return;
         }
@@ -110,7 +110,7 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
 
     @Override
     public void onRefresh() {
-        if(loading) {
+        if (loading) {
             swipeRefreshLayout.setRefreshing(false);
             return;
         }

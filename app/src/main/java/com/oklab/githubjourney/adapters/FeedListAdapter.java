@@ -38,7 +38,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
 
     @Override
     public void onBindViewHolder(FeedListAdapter.FeedListViewHolder holder, int position) {
-       FeedDataEntry entry =  feedDataEntryList.get(position);
+        FeedDataEntry entry = feedDataEntryList.get(position);
         holder.populateFeedViewData(entry);
     }
 
@@ -46,6 +46,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
     public int getItemCount() {
         return feedDataEntryList.size();
     }
+
     public void add(List<FeedDataEntry> entryList) {
         feedDataEntryList.addAll(entryList);
         notifyDataSetChanged();
@@ -55,6 +56,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
         feedDataEntryList.clear();
         notifyDataSetChanged();
     }
+
     public class FeedListViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView personalProfImage;
@@ -105,8 +107,8 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
                                 .fit().centerCrop()
                                 .error(R.drawable.octocat)
                                 .into(eventTypeImage);
-                        default:
-                            throw new IllegalArgumentException("Unknown action type: " + feedData.getActionType());
+                    default:
+                        throw new IllegalArgumentException("Unknown action type: " + feedData.getActionType());
                 }
 
 

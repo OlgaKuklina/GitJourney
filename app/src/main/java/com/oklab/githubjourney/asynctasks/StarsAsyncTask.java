@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.data.StarsDataEntry;
 import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.githubjourney.R;
@@ -71,11 +70,13 @@ public class StarsAsyncTask extends AsyncTask<Object, Object, List<StarsDataEntr
             return null;
         }
     }
+
     @Override
     protected void onPostExecute(List<StarsDataEntry> entryList) {
         super.onPostExecute(entryList);
         listener.onStarsLoaded(entryList);
     }
+
     public interface OnStarsLoadedListener {
         void onStarsLoaded(List<StarsDataEntry> starsDataEntry);
     }

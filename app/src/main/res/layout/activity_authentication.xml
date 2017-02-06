@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
     <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Sign in to GitHub" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign in to GitHub" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Username or email address" />
+
     <EditText
         android:id="@+id/user_id"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:inputType="text" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,14 +31,14 @@
         android:id="@+id/user_password"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
         android:gravity="center"
+        android:inputType="textPassword"
         android:nextFocusDown="@+id/buttonSignIn" />
 
     <Button
         android:id="@id/buttonSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign in"/>
+        android:text="Sign in" />
 
 </LinearLayout>

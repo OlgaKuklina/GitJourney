@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.oklab.githubjourney.data.FeedDataEntry;
 import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.githubjourney.R;
@@ -14,7 +13,6 @@ import com.oklab.githubjourney.utils.Utils;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -36,6 +34,7 @@ public class RepositoriesAsyncTask extends AsyncTask<Integer, Void, List<ReposDa
         this.context = context;
         this.listener = listener;
     }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -43,6 +42,7 @@ public class RepositoriesAsyncTask extends AsyncTask<Integer, Void, List<ReposDa
         String sessionDataStr = prefs.getString("userSessionData", null);
         currentSessionData = UserSessionData.createUserSessionDataFromString(sessionDataStr);
     }
+
     @Override
     protected List<ReposDataEntry> doInBackground(Integer... args) {
         int page = args[0];
@@ -75,6 +75,7 @@ public class RepositoriesAsyncTask extends AsyncTask<Integer, Void, List<ReposDa
         super.onPostExecute(entryList);
         listener.onReposLoaded(entryList);
     }
+
     public interface OnReposLoadedListener {
         void onReposLoaded(List<ReposDataEntry> reposDataEntry);
     }

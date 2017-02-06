@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.oklab.githubjourney.data.FeedDataEntry;
 import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.githubjourney.R;
 import com.squareup.picasso.Picasso;
@@ -30,6 +29,7 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
     public ReposListAdapter(Context context) {
         this.context = context;
     }
+
     @Override
     public ReposListAdapter.ReposListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.repositories_list_item, parent, false);
@@ -38,7 +38,7 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
 
     @Override
     public void onBindViewHolder(ReposListViewHolder holder, int position) {
-        ReposDataEntry entry =  reposDataEntrylist.get(position);
+        ReposDataEntry entry = reposDataEntrylist.get(position);
         holder.populateReposViewData(entry);
     }
 
@@ -56,6 +56,7 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
         reposDataEntrylist.clear();
         notifyDataSetChanged();
     }
+
     public class ReposListViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView type;
@@ -99,10 +100,10 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
                         .fit().centerCrop()
                         .error(R.drawable.octocat)
                         .into(type);
-                }
-
-
             }
+
+
         }
+    }
 
 }

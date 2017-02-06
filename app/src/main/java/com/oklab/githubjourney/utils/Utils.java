@@ -6,5 +6,7 @@ package com.oklab.githubjourney.utils;
 
 public final class Utils {
     public static final String SHARED_PREF_NAME = "com.ok.lab.GitHubJourney";
-    private Utils() {}
+
+    private Utils() {
+    }
 }

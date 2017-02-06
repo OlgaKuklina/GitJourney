@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
-import com.oklab.githubjourney.data.FeedDataEntry;
-import com.oklab.githubjourney.data.StarsDataEntry;
 import com.oklab.githubjourney.data.UserActivityDataEntry;
 import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.utils.Utils;
@@ -35,15 +33,18 @@ public class UserActivityAsyncTask extends AsyncTask<Void, Void, List<UserActivi
         String sessionDataStr = prefs.getString("userSessionData", null);
         currentSessionData = UserSessionData.createUserSessionDataFromString(sessionDataStr);
     }
+
     @Override
     protected List<UserActivityDataEntry> doInBackground(Void... voids) {
         return null;
     }
+
     @Override
     protected void onPostExecute(List<UserActivityDataEntry> entryList) {
         super.onPostExecute(entryList);
         listener.onActivityLoaded(entryList);
     }
+
     public interface OnActivityLoadedListener {
         void onActivityLoaded(List<UserActivityDataEntry> userActivityDataEntry);
     }

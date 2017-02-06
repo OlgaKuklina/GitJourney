@@ -6,18 +6,13 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
-import com.oklab.githubjourney.data.StarsDataEntry;
 import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.githubjourney.R;
-import com.oklab.githubjourney.services.AtomParser;
 import com.oklab.githubjourney.services.FollowersParser;
-import com.oklab.githubjourney.services.ReposParser;
 import com.oklab.githubjourney.utils.Utils;
 
-import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -40,6 +35,7 @@ public class FollowingAsyncTask extends AsyncTask<Integer, Void, List<GitHubUser
         this.context = context;
         this.listener = listener;
     }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -47,6 +43,7 @@ public class FollowingAsyncTask extends AsyncTask<Integer, Void, List<GitHubUser
         String sessionDataStr = prefs.getString("userSessionData", null);
         currentSessionData = UserSessionData.createUserSessionDataFromString(sessionDataStr);
     }
+
     @Override
     protected List<GitHubUsersDataEntry> doInBackground(Integer... args) {
         int page = args[0];
@@ -73,11 +70,13 @@ public class FollowingAsyncTask extends AsyncTask<Integer, Void, List<GitHubUser
             return null;
         }
     }
+
     @Override
     protected void onPostExecute(List<GitHubUsersDataEntry> entryList) {
         super.onPostExecute(entryList);
         listener.onFollowingLoaded(entryList);
     }
+
     public interface OnFollowingLoadedListener {
         void onFollowingLoaded(List<GitHubUsersDataEntry> followingDataEntry);
     }

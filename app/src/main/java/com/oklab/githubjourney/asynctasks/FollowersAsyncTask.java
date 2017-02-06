@@ -5,19 +5,14 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.oklab.githubjourney.data.FeedDataEntry;
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
 import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.githubjourney.R;
-import com.oklab.githubjourney.services.AtomParser;
 import com.oklab.githubjourney.services.FollowersParser;
-import com.oklab.githubjourney.services.ReposParser;
 import com.oklab.githubjourney.utils.Utils;
 
-import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -40,6 +35,7 @@ public class FollowersAsyncTask extends AsyncTask<Integer, Void, List<GitHubUser
         this.context = context;
         this.listener = listener;
     }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();

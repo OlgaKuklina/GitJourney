@@ -3,9 +3,7 @@ package com.oklab.githubjourney.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.oklab.githubjourney.activities.GeneralActivity;
 import com.oklab.githubjourney.adapters.ContributionsListAdapter;
 import com.oklab.githubjourney.githubjourney.R;
 
@@ -28,12 +25,12 @@ import java.util.Calendar;
 public class MainViewFragment extends Fragment {
 
     private static final String TAG = MainViewFragment.class.getSimpleName();
+    private static final String ARG_SECTION_NUMBER = "section_number";
+    String monthName;
     private ContributionsListAdapter contributionsListAdapter;
     private GridView gridView;
     private LinearLayout contributionsList;
     private ScrollView scrollView;
-    private static final String ARG_SECTION_NUMBER = "section_number";
-    String monthName;
     private Calendar calendar = (Calendar) Calendar.getInstance().clone();
     private TextView monthTitle;
 
@@ -42,12 +39,6 @@ public class MainViewFragment extends Fragment {
         setRetainInstance(true);
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        contributionsListAdapter = new ContributionsListAdapter(this.getActivity(), getArguments().getInt(ARG_SECTION_NUMBER));
-        gridView.setAdapter(contributionsListAdapter);
-    }
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -60,6 +51,14 @@ public class MainViewFragment extends Fragment {
         fragment.adjustCalendar();
         return fragment;
     }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        contributionsListAdapter = new ContributionsListAdapter(this.getActivity(), getArguments().getInt(ARG_SECTION_NUMBER));
+        gridView.setAdapter(contributionsListAdapter);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

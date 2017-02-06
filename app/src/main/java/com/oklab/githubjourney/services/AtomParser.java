@@ -2,8 +2,8 @@ package com.oklab.githubjourney.services;
 
 import android.util.Log;
 
-import com.oklab.githubjourney.data.FeedDataEntry;
 import com.oklab.githubjourney.data.ActionType;
+import com.oklab.githubjourney.data.FeedDataEntry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -26,13 +26,14 @@ import javax.xml.parsers.ParserConfigurationException;
 public class AtomParser {
     private static final String TAG = AtomParser.class.getSimpleName();
     private final DocumentBuilderFactory dBFactory = DocumentBuilderFactory.newInstance();
+
     public List<FeedDataEntry> parse(String url) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilder builder = dBFactory.newDocumentBuilder();
         Document xmlDoc = builder.parse(url);
-        NodeList nodeList =  xmlDoc.getElementsByTagName("entry");
+        NodeList nodeList = xmlDoc.getElementsByTagName("entry");
 
         List<FeedDataEntry> dataEntriesList = new ArrayList<>(nodeList.getLength());
-        for(int i = 0; i < nodeList.getLength(); i++) {
+        for (int i = 0; i < nodeList.getLength(); i++) {
             FeedDataEntry entry = parseItem((Element) nodeList.item(i));
             dataEntriesList.add(entry);
         }
@@ -41,7 +42,7 @@ public class AtomParser {
 
     private FeedDataEntry parseItem(Element element) {
         NodeList idNodeList = element.getElementsByTagName("id");
-        if(idNodeList.getLength() == 0) {
+        if (idNodeList.getLength() == 0) {
             return null;
         }
         String idContent = idNodeList.item(0).getTextContent();
@@ -49,30 +50,30 @@ public class AtomParser {
         int index = idContent.lastIndexOf(":");
         int index2 = idContent.indexOf("/", index);
 
-        String eventType = idContent.substring(index+1, index2);
+        String eventType = idContent.substring(index + 1, index2);
         ActionType actionType = getFeedType(eventType);
-        String eventId = idContent.substring(index2+1);
+        String eventId = idContent.substring(index2 + 1);
         long id = Long.parseLong(eventId);
 
         NodeList titleNodeList = element.getElementsByTagName("title");
-        String eventTitle = titleNodeList.getLength() == 0 ? " ": titleNodeList.item(0).getTextContent();
+        String eventTitle = titleNodeList.getLength() == 0 ? " " : titleNodeList.item(0).getTextContent();
 
         NodeList authorNodeList = element.getElementsByTagName("author");
-        Element authorNode = (Element)authorNodeList.item(0);
-        NodeList authorsubNodeList  = authorNode.getElementsByTagName("name");
+        Element authorNode = (Element) authorNodeList.item(0);
+        NodeList authorsubNodeList = authorNode.getElementsByTagName("name");
         String name = authorsubNodeList.item(0).getTextContent();
-        NodeList profilesubNodeList  = authorNode.getElementsByTagName("uri");
+        NodeList profilesubNodeList = authorNode.getElementsByTagName("uri");
         String profileURL = profilesubNodeList.item(0).getTextContent();
 
         NodeList contentNodeList = element.getElementsByTagName("content");
-        Element contentNode = (Element)contentNodeList.item(0);
+        Element contentNode = (Element) contentNodeList.item(0);
         String description = contentNode.getTextContent();
 
         NodeList mediaNodeList = element.getElementsByTagName("media:thumbnail");
-        String avatarUri = ((Element)mediaNodeList.item(0)).getAttribute("uri");
+        String avatarUri = ((Element) mediaNodeList.item(0)).getAttribute("uri");
 
         NodeList publishedNodeList = element.getElementsByTagName("published");
-        Element dateNode = (Element)publishedNodeList.item(0);
+        Element dateNode = (Element) publishedNodeList.item(0);
         String date = dateNode.getTextContent();
         Calendar entryDate = null;
 
@@ -88,17 +89,17 @@ public class AtomParser {
                 return ActionType.PULL_REQUEST;
             case "WatchEvent":
                 return ActionType.STAR;
-            case  "IssueCommentEvent":
+            case "IssueCommentEvent":
                 return ActionType.COMMENT;
-            case  "DeleteEvent":
+            case "DeleteEvent":
                 return ActionType.DELETE;
-            case  "CreateEvent":
+            case "CreateEvent":
                 return ActionType.CREATE;
-            case  "IssuesEvent":
+            case "IssuesEvent":
                 return ActionType.ISSUE;
-            case  "PushEvent":
+            case "PushEvent":
                 return ActionType.PUSH;
-            case  "CommitCommentEvent":
+            case "CommitCommentEvent":
                 return ActionType.COMMIT_COMMENT;
             default:
                 throw new IllegalArgumentException("Unknown event type: " + eventType);
