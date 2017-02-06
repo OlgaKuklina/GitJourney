@@ -2,6 +2,8 @@ package com.oklab.githubjourney.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +62,6 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
     public class FeedListViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView personalProfImage;
-        private TextView personalProfUri;
         private ImageView eventTypeImage;
         private TextView title;
         private TextView authorName;
@@ -70,18 +71,16 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
             super(v);
             personalProfImage = (ImageView) v.findViewById(R.id.github_user_image);
             authorName = (TextView) v.findViewById(R.id.author_name);
-            personalProfUri = (TextView) v.findViewById(R.id.user_profile_uri);
             title = (TextView) v.findViewById(R.id.title);
             description = (TextView) v.findViewById(R.id.action_desc);
             eventTypeImage = (ImageView) v.findViewById(R.id.action_icon);
         }
 
         private void populateFeedViewData(FeedDataEntry feedData) {
-            personalProfUri.setText(feedData.getAuthorURL());
             authorName.setText(feedData.getAuthorName());
             title.setText(feedData.getTitle());
-            description.setText(feedData.getDescription());
-
+            CharSequence desc = Html.fromHtml(Html.fromHtml(feedData.getDescription()).toString());
+            description.setText(desc);
 
             Picasso pic = Picasso.with(context);
             Log.v(TAG, "path" + feedData.getAvatarURL());
