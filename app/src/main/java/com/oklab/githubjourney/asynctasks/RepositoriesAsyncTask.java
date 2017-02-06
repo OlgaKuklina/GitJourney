@@ -45,9 +45,9 @@ public class RepositoriesAsyncTask extends AsyncTask<Integer, Void, List<ReposDa
 
     @Override
     protected List<ReposDataEntry> doInBackground(Integer... args) {
-        int page = args[0];
+        Integer page = args[0];
         try {
-            HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_repos)).openConnection();
+            HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_repos, page)).openConnection();
             connect.setRequestMethod("GET");
 
             String authentication = "token " + currentSessionData.getToken();

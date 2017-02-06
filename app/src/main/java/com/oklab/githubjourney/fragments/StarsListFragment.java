@@ -148,6 +148,7 @@ public class StarsListFragment extends Fragment implements StarsAsyncTask.OnStar
             int itemsCount = starsListAdapter.getItemCount();
             Log.v(TAG, "onScrolled - imetsCount = " + itemsCount);
             Log.v(TAG, "onScrolled - lastScrollPosition = " + lastScrollPosition);
+            Log.v(TAG, "onScrolled - currentPage = " + currentPage);
             if (lastScrollPosition == itemsCount - 1 && !starsExhausted && !loading) {
                 loading = true;
                 new StarsAsyncTask(StarsListFragment.this.getContext(), StarsListFragment.this).execute(currentPage++);

@@ -47,9 +47,9 @@ public class FeedsAsyncTask extends AsyncTask<Integer, Void, List<FeedDataEntry>
 
     @Override
     protected List<FeedDataEntry> doInBackground(Integer... args) {
-        int page = args[0];
+        Integer page = args[0];
         try {
-            HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_feeds)).openConnection();
+            HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_feeds, page)).openConnection();
             connect.setRequestMethod("GET");
 
             String authentication = "basic " + currentSessionData.getCredentials();

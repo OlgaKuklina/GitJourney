@@ -24,7 +24,7 @@ import java.util.List;
  * Created by olgakuklina on 2017-01-20.
  */
 
-public class StarsAsyncTask extends AsyncTask<Object, Object, List<StarsDataEntry>> {
+public class StarsAsyncTask extends AsyncTask<Integer, Void, List<StarsDataEntry>> {
 
     private static final String TAG = StarsAsyncTask.class.getSimpleName();
     private final Context context;
@@ -45,10 +45,10 @@ public class StarsAsyncTask extends AsyncTask<Object, Object, List<StarsDataEntr
     }
 
     @Override
-    protected List<StarsDataEntry> doInBackground(Object... args) {
-        Object page = args[0];
+    protected List<StarsDataEntry> doInBackground(Integer... args) {
+        Integer page = args[0];
         try {
-            HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_starred)).openConnection();
+            HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_starred, page)).openConnection();
             connect.setRequestMethod("GET");
 
             String authentication = "token " + currentSessionData.getToken();

@@ -46,9 +46,9 @@ public class FollowingAsyncTask extends AsyncTask<Integer, Void, List<GitHubUser
 
     @Override
     protected List<GitHubUsersDataEntry> doInBackground(Integer... args) {
-        int page = args[0];
+        Integer page = args[0];
         try {
-            HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_following)).openConnection();
+            HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_following, page)).openConnection();
             connect.setRequestMethod("GET");
 
             String authentication = "token " + currentSessionData.getToken();
