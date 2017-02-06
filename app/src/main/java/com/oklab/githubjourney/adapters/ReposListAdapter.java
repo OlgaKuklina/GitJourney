@@ -79,7 +79,10 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
 
         private void populateReposViewData(ReposDataEntry reposDataEntry) {
             title.setText(reposDataEntry.getTitle());
-            description.setText(reposDataEntry.getDescription());
+            if(reposDataEntry.getDescription() != null && !reposDataEntry.getDescription().equals("null")) {
+                description.setText(reposDataEntry.getDescription());
+            }
+
             language.setText(reposDataEntry.getLanguage());
             stars.setText(Integer.toString(reposDataEntry.getStars()));
             forks.setText(Integer.toString( reposDataEntry.getForks()));
