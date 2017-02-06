@@ -19,11 +19,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="5dp">
+
             <TextView
                 android:id="@+id/stars_repo_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/stars_repo_short_uri"
                 android:layout_width="wrap_content"
@@ -47,36 +49,42 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="stars:"/>
+                    android:text="stars:" />
+
                 <TextView
                     android:id="@+id/stars_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"/>
+                    android:layout_marginStart="5dp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="forks:"/>
+                    android:text="forks:" />
+
                 <TextView
                     android:id="@+id/stars_forks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"/>
+                    android:layout_marginStart="5dp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="watchers:"/>
+                    android:text="watchers:" />
+
                 <TextView
                     android:id="@+id/stars_watchers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"/>
+                    android:layout_marginStart="5dp" />
             </LinearLayout>
 
 

@@ -33,7 +33,7 @@ public class StarsParser {
         if (object == null) {
             return null;
         }
-        Log.v(TAG, "object = " + object );
+        Log.v(TAG, "object = " + object);
         String name = " ";
         if (!object.getString("name").isEmpty()) {
             name = object.getString("name");

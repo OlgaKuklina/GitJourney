@@ -13,11 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.oklab.githubjourney.adapters.ReposListAdapter;
 import com.oklab.githubjourney.adapters.StarsListAdapter;
-import com.oklab.githubjourney.asynctasks.RepositoriesAsyncTask;
 import com.oklab.githubjourney.asynctasks.StarsAsyncTask;
-import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.data.StarsDataEntry;
 import com.oklab.githubjourney.githubjourney.R;
 
@@ -48,6 +45,7 @@ public class StarsListFragment extends Fragment implements StarsAsyncTask.OnStar
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +60,7 @@ public class StarsListFragment extends Fragment implements StarsAsyncTask.OnStar
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         return v;
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -75,6 +74,7 @@ public class StarsListFragment extends Fragment implements StarsAsyncTask.OnStar
         loading = true;
         new StarsAsyncTask(getContext(), this).execute(currentPage++);
     }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -92,6 +92,7 @@ public class StarsListFragment extends Fragment implements StarsAsyncTask.OnStar
                     + " must implement OnFragmentInteractionListener");
         }
     }
+
     @Override
     public void onDetach() {
         super.onDetach();

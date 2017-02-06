@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
-import com.oklab.githubjourney.data.StarsDataEntry;
 import com.oklab.githubjourney.githubjourney.R;
 import com.squareup.picasso.Picasso;
 
@@ -21,7 +20,7 @@ import java.util.List;
  * Created by olgakuklina on 2017-02-05.
  */
 
-public class FollowersListAdapter extends RecyclerView.Adapter<FollowersListAdapter.FollowersListViewHolder>  {
+public class FollowersListAdapter extends RecyclerView.Adapter<FollowersListAdapter.FollowersListViewHolder> {
 
     private static final String TAG = FollowersListAdapter.class.getSimpleName();
 
@@ -76,11 +75,11 @@ public class FollowersListAdapter extends RecyclerView.Adapter<FollowersListAdap
 
             Picasso pic = Picasso.with(context);
             Log.v(TAG, "path" + followersDataEntry.getImageUri());
-                pic.load(followersDataEntry.getImageUri())
-                        .fit().centerCrop()
-                        .error(R.drawable.octocat)
-                        .into(avatar);
-            }
-
+            pic.load(followersDataEntry.getImageUri())
+                    .fit().centerCrop()
+                    .error(R.drawable.octocat)
+                    .into(avatar);
         }
+
+    }
 }

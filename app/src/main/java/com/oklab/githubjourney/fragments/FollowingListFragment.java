@@ -13,9 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.oklab.githubjourney.adapters.FollowersListAdapter;
 import com.oklab.githubjourney.adapters.FollowingListAdapter;
-import com.oklab.githubjourney.asynctasks.FollowersAsyncTask;
 import com.oklab.githubjourney.asynctasks.FollowingAsyncTask;
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
 import com.oklab.githubjourney.githubjourney.R;
@@ -47,6 +45,7 @@ public class FollowingListFragment extends Fragment implements FollowingAsyncTas
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +60,7 @@ public class FollowingListFragment extends Fragment implements FollowingAsyncTas
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         return v;
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -74,6 +74,7 @@ public class FollowingListFragment extends Fragment implements FollowingAsyncTas
         loading = true;
         new FollowingAsyncTask(getContext(), this).execute(currentPage++);
     }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -91,6 +92,7 @@ public class FollowingListFragment extends Fragment implements FollowingAsyncTas
                     + " must implement OnFragmentInteractionListener");
         }
     }
+
     @Override
     public void onDetach() {
         super.onDetach();

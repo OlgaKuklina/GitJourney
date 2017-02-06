@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.data.StarsDataEntry;
 import com.oklab.githubjourney.githubjourney.R;
 import com.squareup.picasso.Picasso;
@@ -21,11 +20,12 @@ import java.util.List;
  * Created by olgakuklina on 2017-02-05.
  */
 
-public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.StarsListViewHolder>  {
+public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.StarsListViewHolder> {
 
     private static final String TAG = FeedListAdapter.class.getSimpleName();
     private final ArrayList<StarsDataEntry> starsDataEntrylist = new ArrayList<>(1000);
     private final Context context;
+
     public StarsListAdapter(Context context) {
         this.context = context;
     }
@@ -94,7 +94,7 @@ public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.Star
 
             Picasso pic = Picasso.with(context);
             Log.v(TAG, "path" + starsDataEntry.isPrivate());
-            if (starsDataEntry.getForks()!=0) {
+            if (starsDataEntry.getForks() != 0) {
                 pic.load(R.drawable.octocat)
                         .fit().centerCrop()
                         .into(type);

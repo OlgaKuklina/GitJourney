@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
-import com.oklab.githubjourney.data.StarsDataEntry;
 import com.oklab.githubjourney.githubjourney.R;
 import com.squareup.picasso.Picasso;
 
@@ -25,9 +24,11 @@ public class FollowingListAdapter extends RecyclerView.Adapter<FollowingListAdap
     private static final String TAG = FeedListAdapter.class.getSimpleName();
     private final ArrayList<GitHubUsersDataEntry> followingDataEntrylist = new ArrayList<>(1000);
     private final Context context;
+
     public FollowingListAdapter(Context context) {
         this.context = context;
     }
+
     @Override
     public FollowingListAdapter.FollowingListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.following_list_item, parent, false);
@@ -73,11 +74,11 @@ public class FollowingListAdapter extends RecyclerView.Adapter<FollowingListAdap
             Picasso pic = Picasso.with(context);
             Log.v(TAG, "path" + followingDataEntry.getImageUri());
 
-                pic.load(followingDataEntry.getImageUri())
-                        .fit().centerCrop()
-                        .error(R.drawable.octocat)
-                        .into(avatar);
-            }
-
+            pic.load(followingDataEntry.getImageUri())
+                    .fit().centerCrop()
+                    .error(R.drawable.octocat)
+                    .into(avatar);
         }
+
+    }
 }
