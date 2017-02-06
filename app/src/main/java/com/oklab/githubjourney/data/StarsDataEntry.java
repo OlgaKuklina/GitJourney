@@ -30,7 +30,7 @@ public class StarsDataEntry {
         return fullName;
     }
 
-    public boolean isPrivacy() {
+    public boolean isPrivate() {
         return privacy;
     }
 
