@@ -39,27 +39,30 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:background="@drawable/ic_menu_share"/>
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/lang_circle"/>
                 <TextView
                     android:id="@+id/language"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"/>
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:background="@drawable/ic_menu_send"/>
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/star"/>
                 <TextView
                     android:id="@+id/stars"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp" />
+                    android:layout_marginStart="5dp"/>
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:background="@drawable/ic_menu_gallery"/>
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/fork"/>
                 <TextView
                     android:id="@+id/forks"
                     android:layout_width="match_parent"

@@ -41,18 +41,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/lang_circle" />
                 <TextView
                     android:id="@+id/stars_repo_language"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:background="@drawable/ic_menu_send" />
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/star" />
 
                 <TextView
                     android:id="@+id/stars_count"
@@ -63,7 +69,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:background="@drawable/ic_menu_manage" />
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/fork" />
 
                 <TextView
                     android:id="@+id/stars_forks"
@@ -75,7 +82,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:background="@drawable/ic_menu_share" />
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/eye" />
 
                 <TextView
                     android:id="@+id/stars_watchers"
