@@ -90,18 +90,18 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
             Picasso pic = Picasso.with(context);
             Log.v(TAG, "path" + reposDataEntry.isPrivate());
             if (reposDataEntry.isForked()) {
-                pic.load(R.drawable.octocat)
+                pic.load(R.drawable.book_multiple)
                         .fit().centerCrop()
                         .into(type);
             } else if (reposDataEntry.isPrivate()) {
-                pic.load(R.drawable.octocat)
+                pic.load(R.drawable.book_multiple)
                         .fit().centerCrop()
-                        .error(R.drawable.octocat)
+                        .error(R.drawable.book_multiple)
                         .into(type);
             } else {
-                pic.load(R.drawable.octocat)
+                pic.load(R.drawable.book_multiple)
                         .fit().centerCrop()
-                        .error(R.drawable.octocat)
+                        .error(R.drawable.book_multiple)
                         .into(type);
             }
 
