@@ -109,10 +109,10 @@
     <string name="title_activity_general">Your Profile</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- widget -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="appwidget_title">Today's feed list: </string>
-    <string name="appwidget_title_empty"> Your feed list is empty. </string>
+    <string name="appwidget_title">Today feed list</string>
+    <string name="appwidget_title_empty">Your feed list is empty</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
 
