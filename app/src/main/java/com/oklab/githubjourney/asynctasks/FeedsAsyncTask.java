@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.oklab.githubjourney.data.FeedDataEntry;
 import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.githubjourney.R;
 import com.oklab.githubjourney.services.AtomParser;
@@ -25,18 +24,24 @@ import java.util.List;
  * Created by olgakuklina on 2017-01-14.
  */
 
-public class FeedsAsyncTask extends AsyncTask<Integer, Void, List<FeedDataEntry>> {
+public class FeedsAsyncTask<T> extends AsyncTask<Integer, Void, List<T>> {
 
     private static final String TAG = FeedsAsyncTask.class.getSimpleName();
     private final Context context;
     private UserSessionData currentSessionData;
-    private OnFeedLoadedListener listener;
+    private final OnFeedLoadedListener listener;
+    private final AtomParser<T> feedAtomParser;
+    private final Object state;
 
-    public FeedsAsyncTask(Context context, OnFeedLoadedListener listener) {
+    public FeedsAsyncTask(Context context, OnFeedLoadedListener listener, AtomParser<T> feedAtomParser, Object state) {
         this.context = context;
         this.listener = listener;
+        this.feedAtomParser = feedAtomParser;
+        this.state = state;
     }
-
+    public Object getState() {
+        return state;
+    }
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -46,7 +51,7 @@ public class FeedsAsyncTask extends AsyncTask<Integer, Void, List<FeedDataEntry>
     }
 
     @Override
-    protected List<FeedDataEntry> doInBackground(Integer... args) {
+    protected List<T> doInBackground(Integer... args) {
         Integer page = args[0];
         try {
             HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_feeds, page)).openConnection();
@@ -69,7 +74,7 @@ public class FeedsAsyncTask extends AsyncTask<Integer, Void, List<FeedDataEntry>
 
             String currentUserURL = jObj.getString("current_user_url") + "&page=" + page;
             Log.v(TAG, "currentUserURL = " + currentUserURL);
-            return new AtomParser().parse(currentUserURL);
+            return feedAtomParser.parse(currentUserURL);
 
         } catch (Exception e) {
             Log.e(TAG, "Get user feeds failed", e);
@@ -78,12 +83,12 @@ public class FeedsAsyncTask extends AsyncTask<Integer, Void, List<FeedDataEntry>
     }
 
     @Override
-    protected void onPostExecute(List<FeedDataEntry> entryList) {
+    protected void onPostExecute(List<T> entryList) {
         super.onPostExecute(entryList);
-        listener.onFeedLoaded(entryList);
+        listener.onFeedLoaded(entryList, state);
     }
 
-    public interface OnFeedLoadedListener {
-        void onFeedLoaded(List<FeedDataEntry> feedDataEntry);
+    public interface OnFeedLoadedListener<T> {
+        void onFeedLoaded(List<T> feedDataEntry, Object state);
     }
 }

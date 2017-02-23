@@ -17,10 +17,11 @@ import com.oklab.githubjourney.adapters.FeedListAdapter;
 import com.oklab.githubjourney.asynctasks.FeedsAsyncTask;
 import com.oklab.githubjourney.data.FeedDataEntry;
 import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.services.FeedListAtomParser;
 
 import java.util.List;
 
-public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedLoadedListener, SwipeRefreshLayout.OnRefreshListener {
+public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedLoadedListener<FeedDataEntry>, SwipeRefreshLayout.OnRefreshListener {
 
 
     private static final String TAG = FeedListFragment.class.getSimpleName();
@@ -73,7 +74,7 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
         swipeRefreshLayout.setOnRefreshListener(this);
 
         loading = true;
-        new FeedsAsyncTask(getContext(), this).execute(currentPage++);
+        new FeedsAsyncTask<>(getContext(), this, new FeedListAtomParser(), null).execute(currentPage++);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -101,7 +102,7 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
     }
 
     @Override
-    public void onFeedLoaded(List<FeedDataEntry> feedDataEntry) {
+    public void onFeedLoaded(List<FeedDataEntry> feedDataEntry, Object state) {
         loading = false;
         if (feedDataEntry != null && feedDataEntry.isEmpty()) {
             feedExhausted = true;
@@ -121,7 +122,7 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
         feedExhausted = false;
         loading = true;
         currentPage = 1;
-        new FeedsAsyncTask(getContext(), this).execute(currentPage++);
+        new FeedsAsyncTask<>(getContext(), this, new FeedListAtomParser(), null).execute(currentPage++);
     }
 
     /**
@@ -150,7 +151,7 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
             Log.v(TAG, "onScrolled - lastScrollPosition = " + lastScrollPosition);
             if (lastScrollPosition == itemsCount - 1 && !feedExhausted && !loading) {
                 loading = true;
-                new FeedsAsyncTask(FeedListFragment.this.getContext(), FeedListFragment.this).execute(currentPage++);
+                new FeedsAsyncTask<>(FeedListFragment.this.getContext(), FeedListFragment.this, new FeedListAtomParser(), null).execute(currentPage++);
             }
         }
     }
