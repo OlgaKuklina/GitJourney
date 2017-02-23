@@ -6,13 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.EditText;
 
+import com.oklab.githubjourney.asynctasks.FeedsAsyncTask;
+import com.oklab.githubjourney.data.GitHubJourneyWidgetDataEntry;
 import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.services.WidgetDataAtomParser;
 
 /**
- * The configuration screen for the {@link GitHubJourneyWidget GitHubJourneyWidget} AppWidget.
+ * The configuration screen for the {@link GitHubJourneyWidgetProvider GitHubJourneyWidget} AppWidget.
  */
 public class GitHubJourneyWidgetConfigureActivity extends Activity {
 
@@ -30,7 +34,7 @@ public class GitHubJourneyWidgetConfigureActivity extends Activity {
 
             // It is the responsibility of the configuration activity to update the app widget
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            GitHubJourneyWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
+            GitHubJourneyWidgetProvider.updateAppWidget(context, appWidgetManager, mAppWidgetId, new GitHubJourneyWidgetDataEntry[0]);
 
             // Make sure we pass back the original appWidgetId
             Intent resultValue = new Intent();

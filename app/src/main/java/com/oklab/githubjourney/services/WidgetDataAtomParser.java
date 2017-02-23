@@ -80,6 +80,7 @@ public class WidgetDataAtomParser implements AtomParser<GitHubJourneyWidgetDataE
         Calendar entryDate = null;
 
         GitHubJourneyWidgetDataEntry entry = new GitHubJourneyWidgetDataEntry(name, avatarUri, eventTitle, description, date);
+        Log.v(TAG, "GitHubJourneyWidgetDataEntry = " + entry);
         return entry;
     }
 

@@ -47,9 +47,10 @@
                 android:value="com.oklab.githubjourney.activities.MainActivity" />
         </activity>
 
-        <receiver android:name="com.oklab.githubjourney.activities.GitHubJourneyWidget">
+        <receiver android:name="com.oklab.githubjourney.activities.GitHubJourneyWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.REDRAW_WIDGET" />
             </intent-filter>
 
             <meta-data
@@ -62,6 +63,12 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
+        <service
+            android:name="com.oklab.githubjourney.adapters.StackWidgetService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" >
+        </service>
     </application>
 
 </manifest>
