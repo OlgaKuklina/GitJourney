@@ -4,6 +4,16 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d6fabe013081423eaedcf07056f48b15)](https://www.codacy.com/app/OlgaKuklina/GitHubJourney?utm_source=github.com&utm_medium=referral&utm_content=OlgaKuklina/GitHubJourney&utm_campaign=badger)
 
 ##The non-official GitHub mobile app
+https://cloud.githubusercontent.com/assets/6971421/23295513/e0ecb006-fa25-11e6-8b04-052b081aebce.png
+
+##Overview
+A non-official GitHub mobile app helps users work with their github content, monitor
+github activity, check for news and updates.
+The application implements secure login with OAuth to access user data.
+In the main screen user is able to monitor contributions activity placed in chronological
+order.
+The application allows you to monitor profile data such as feed list, repositories,
+followers/followings list, and starring activity.
 
 ###License
 
