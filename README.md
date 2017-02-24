@@ -4,7 +4,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d6fabe013081423eaedcf07056f48b15)](https://www.codacy.com/app/OlgaKuklina/GitHubJourney?utm_source=github.com&utm_medium=referral&utm_content=OlgaKuklina/GitHubJourney&utm_campaign=badger)
 
 ##The non-official GitHub mobile app
-[![e0ecb006-fa25-11e6-8b04-052b081aebce.png](https://cloud.githubusercontent.com/assets/6971421/23296303/3add405a-fa29-11e6-8946-0fcc18a0b741.png)
+![GHJ.png](https://cloud.githubusercontent.com/assets/6971421/23296713/310a11fa-fa2b-11e6-9267-1ce620d962a4.png)
 
 
 ##Overview
