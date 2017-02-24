@@ -4,7 +4,9 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d6fabe013081423eaedcf07056f48b15)](https://www.codacy.com/app/OlgaKuklina/GitHubJourney?utm_source=github.com&utm_medium=referral&utm_content=OlgaKuklina/GitHubJourney&utm_campaign=badger)
 
 ##The non-official GitHub mobile app
-https://cloud.githubusercontent.com/assets/6971421/23295513/e0ecb006-fa25-11e6-8b04-052b081aebce.png
+
+[![e0ecb006-fa25-11e6-8b04-052b081aebce.png](https://cloud.githubusercontent.com/assets/6971421/23295513/e0ecb006-fa25-11e6-8b04-052b081aebce.png)]
+
 
 ##Overview
 A non-official GitHub mobile app helps users work with their github content, monitor
