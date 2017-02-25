@@ -1,0 +1,10 @@
+language: java
+
+env:
+- TERM=dumb
+
+script:
+- ./gradlew cobertura coveralls
+
+install:
+- /bin/true
