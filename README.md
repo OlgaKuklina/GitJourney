@@ -20,9 +20,9 @@ The app widget provides a list of today’s feeds and invitations to start journ
 list item, the app opens on the feed list tab.
 
 ###Explore and search
- - See number stars and clones of your repositories
- - See list of followers of current user
- - See list of users followed by current user
+ - See number stars and clones of your repositories.
+ - See list of followers of current user.
+ - See list of users followed by current user.
  - Monitor feed list with different types of user activity.
  - See number of starred repositories with number of stars, clones and watchers.
 
