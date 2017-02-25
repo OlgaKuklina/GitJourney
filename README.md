@@ -3,6 +3,8 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d6fabe013081423eaedcf07056f48b15)](https://www.codacy.com/app/OlgaKuklina/GitHubJourney?utm_source=github.com&utm_medium=referral&utm_content=OlgaKuklina/GitHubJourney&utm_campaign=badger)
 
+[![Build Status](https://travis-ci.org/OlgaKuklina/GitHubJourney.svg?branch=master)](https://travis-ci.org/OlgaKuklina/GitHubJourney)
+
 ![GHJ.png](https://cloud.githubusercontent.com/assets/6971421/23296713/310a11fa-fa2b-11e6-9267-1ce620d962a4.png)
 
 
