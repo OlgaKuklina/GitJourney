@@ -50,7 +50,7 @@ public class GitHubJourneyWidgetProvider extends AppWidgetProvider implements Fe
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
+
         Log.v(TAG, "onUpdate");
         new FeedsAsyncTask<>(context, this, new WidgetDataAtomParser(), new State(appWidgetIds, context)).execute(1);
     }

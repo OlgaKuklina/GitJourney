@@ -1,17 +1,26 @@
 package com.oklab.githubjourney.adapters;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.oklab.githubjourney.activities.GitHubJourneyWidgetProvider;
 import com.oklab.githubjourney.data.GitHubJourneyWidgetDataEntry;
 import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.services.WidgetDataAtomParser;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -25,20 +34,24 @@ public class StackWidgetService extends RemoteViewsService {
 
     private static class StackRemoteViewsFactory implements RemoteViewsFactory {
         private static final String TAG = StackRemoteViewsFactory.class.getSimpleName();
-        private Context mContext;
+        private Context context;
         private ArrayList<GitHubJourneyWidgetDataEntry> widgetDatas;
+        private int appWidgetId;
 
         public StackRemoteViewsFactory(Context applicationContext, Intent intent) {
             Log.v(TAG, "StackRemoteViewsFactory" );
             intent.setExtrasClassLoader(GitHubJourneyWidgetDataEntry.class.getClassLoader());
-            this.mContext = applicationContext;
+            this.context = applicationContext;
+            appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 1);
             Bundle bundle = intent.getBundleExtra("bundle");
             Parcelable[] items = bundle.getParcelableArray("parcelables");
             Log.v(TAG, "items size = "+  items.length);
-            if(items.length!=0) {
-                GitHubJourneyWidgetDataEntry[] array = (GitHubJourneyWidgetDataEntry[])intent.getParcelableArrayExtra("parcelables");
-                widgetDatas = new ArrayList<>(Arrays.asList(array));
 
+            if(items.length!=0) {
+                widgetDatas = new ArrayList<>(items.length);
+                for(Parcelable item: items ) {
+                    widgetDatas.add((GitHubJourneyWidgetDataEntry)item);
+                }
             }
             else {
                 widgetDatas = new ArrayList<>(0);
@@ -72,14 +85,17 @@ public class StackWidgetService extends RemoteViewsService {
             Log.v(TAG, "getViewAt: position = " + position);
             // Construct a remote views item based on the app widget item XML file,
             // and set the text based on the position.
-            RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.widget_list_item);
-            rv.setTextViewText(R.id.author_name, widgetDatas.get(position).getAuthorName());
-            rv.setTextViewText(R.id.action_icon, widgetDatas.get(position).getAvatar());
-            rv.setTextViewText(R.id.title, widgetDatas.get(position).getTitle());
-            rv.setTextViewText(R.id.action_desc, widgetDatas.get(position).getDescription());
-            Log.v(TAG, "getViewAt end" );
+            RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_list_item);
+            rv.setTextViewText(R.id.w_author_name, widgetDatas.get(position).getAuthorName());
+            rv.setTextViewText(R.id.w_title, widgetDatas.get(position).getTitle());
+            Picasso pic = Picasso.with(context);
+            try {
+                Bitmap map = pic.load(widgetDatas.get(position).getAvatar()).get();
+                rv.setImageViewBitmap(R.id.w_github_user_image, map);
+            } catch (IOException e) {
+                Log.e(TAG, "", e);
+            }
             return rv;
-
         }
 
         @Override

@@ -1,5 +1,6 @@
 package com.oklab.githubjourney.services;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.oklab.githubjourney.data.ActionType;
@@ -44,6 +45,7 @@ public class WidgetDataAtomParser implements AtomParser<GitHubJourneyWidgetDataE
 
     private GitHubJourneyWidgetDataEntry parseItem(Element element) {
         NodeList idNodeList = element.getElementsByTagName("id");
+
         if (idNodeList.getLength() == 0) {
             return null;
         }
@@ -67,13 +69,15 @@ public class WidgetDataAtomParser implements AtomParser<GitHubJourneyWidgetDataE
         NodeList profilesubNodeList = authorNode.getElementsByTagName("uri");
         String profileURL = profilesubNodeList.item(0).getTextContent();
 
+        Log.v(TAG, "profileURL = " + profileURL);
         NodeList contentNodeList = element.getElementsByTagName("content");
         Element contentNode = (Element) contentNodeList.item(0);
         String description = contentNode.getTextContent();
 
         NodeList mediaNodeList = element.getElementsByTagName("media:thumbnail");
-        String avatarUri = ((Element) mediaNodeList.item(0)).getAttribute("uri");
+        Uri avatarUri = Uri.parse(((Element) mediaNodeList.item(0)).getAttribute("url"));
 
+        Log.v(TAG, "avatarUri = " + avatarUri);
         NodeList publishedNodeList = element.getElementsByTagName("published");
         Element dateNode = (Element) publishedNodeList.item(0);
         String date = dateNode.getTextContent();

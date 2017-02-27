@@ -71,7 +71,7 @@ public class FeedListAtomParser implements AtomParser<FeedDataEntry> {
         String description = contentNode.getTextContent();
 
         NodeList mediaNodeList = element.getElementsByTagName("media:thumbnail");
-        String avatarUri = ((Element) mediaNodeList.item(0)).getAttribute("uri");
+        String avatarUri = ((Element) mediaNodeList.item(0)).getAttribute("url");
 
         NodeList publishedNodeList = element.getElementsByTagName("published");
         Element dateNode = (Element) publishedNodeList.item(0);

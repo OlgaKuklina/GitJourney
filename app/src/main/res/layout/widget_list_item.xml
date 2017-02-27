@@ -10,7 +10,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/github_user_image"
+            android:id="@+id/w_github_user_image"
             android:layout_width="40dp"
             android:layout_height="40dp" />
 
@@ -21,36 +21,19 @@
             android:padding="5dp">
 
             <TextView
-                android:id="@+id/author_name"
+                android:id="@+id/w_author_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:id="@+id/action_icon"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp" />
+                android:textStyle="bold"
+                android:textColor="@color/empty"/>
+
                 <TextView
-                    android:id="@+id/title"
+                    android:id="@+id/w_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:textStyle="bold"/>
-            </LinearLayout>
-            <TextView
-                android:id="@+id/action_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="5dp"
-                android:background="@color/colorAccent"/>
-
+                    android:textStyle="bold"
+                    android:textColor="@color/empty"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

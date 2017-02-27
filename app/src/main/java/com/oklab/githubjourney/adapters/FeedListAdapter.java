@@ -94,24 +94,6 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
                         .error(R.drawable.octocat)
                         .into(personalProfImage);
             }
-            Log.v(TAG, "path" + feedData.getActionType());
-            if (feedData.getAvatarURL() == null || feedData.getAvatarURL().isEmpty()) {
-                pic.load(R.drawable.octocat)
-                        .fit().centerCrop()
-                        .into(personalProfImage);
-            } else {
-                switch (feedData.getActionType()) {
-                    case FORK:
-                        pic.load(feedData.getAvatarURL())
-                                .fit().centerCrop()
-                                .error(R.drawable.octocat)
-                                .into(eventTypeImage);
-                    default:
-                        throw new IllegalArgumentException("Unknown action type: " + feedData.getActionType());
-                }
-
-
-            }
         }
 
     }
