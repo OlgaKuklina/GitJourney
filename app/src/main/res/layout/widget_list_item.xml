@@ -24,16 +24,16 @@
                 android:id="@+id/w_author_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="@color/empty"/>
+                android:textStyle="italic"
+                android:textColor="@color/temp10"/>
 
                 <TextView
                     android:id="@+id/w_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/empty"/>
+                    android:textStyle="italic"
+                    android:textColor="@color/temp10"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

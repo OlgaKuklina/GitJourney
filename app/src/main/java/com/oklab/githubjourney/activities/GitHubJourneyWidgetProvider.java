@@ -17,6 +17,8 @@ import com.oklab.githubjourney.data.GitHubJourneyWidgetDataEntry;
 import com.oklab.githubjourney.githubjourney.R;
 import com.oklab.githubjourney.services.WidgetDataAtomParser;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -32,6 +34,11 @@ public class GitHubJourneyWidgetProvider extends AppWidgetProvider implements Fe
         //CharSequence widgetText = GitHubJourneyWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.git_hub_journey_widget);
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss yyyy");
+        System.out.println(dateFormat.format(calendar.getTime()));
+        views.setTextViewText(R.id.widget_date, dateFormat.format(calendar.getTime()));
        // views.setTextViewText(R.id.appwidget_text, widgetText);
         Intent intent = new Intent(context, StackWidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);

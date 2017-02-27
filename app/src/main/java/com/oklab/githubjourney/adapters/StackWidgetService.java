@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 
 public class StackWidgetService extends RemoteViewsService {
     private static final String TAG = StackWidgetService.class.getSimpleName();
