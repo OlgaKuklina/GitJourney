@@ -9,55 +9,59 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="@dimen/appbar_padding_top">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="55dp"
-            android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/octocat"/>
-    <TextView
-        android:id="@+id/widget_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:text="@string/appwidget_title"
-        android:textColor="@color/temp9"
-        android:textSize="20sp"
-        android:textStyle="italic" />
 
-        <TextView
-            android:id="@+id/widget_date"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:padding="15dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/appwidget_time"
-            android:textColor="@color/temp9"
-            android:textSize="15sp"
-            android:textStyle="italic" />
-    </LinearLayout>
-    <ListView
-        android:id="@+id/widget_data_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/widget"
-        android:layout_gravity="center">
-    </ListView>
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/octocat" />
+
+            <TextView
+                android:id="@+id/widget_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="8dp"
+                android:text="@string/appwidget_title"
+                android:textColor="@color/temp9"
+                android:textSize="20sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/widget_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="8dp"
+                android:padding="15dp"
+                android:text="@string/appwidget_time"
+                android:textColor="@color/temp9"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/widget_data_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/widget"></ListView>
+
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/empty_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textAlignment="center"
             android:text="@string/appwidget_title_empty"
+            android:textAlignment="center"
             android:textColor="@color/temp3"
             android:textSize="20sp"
             android:textStyle="italic" />

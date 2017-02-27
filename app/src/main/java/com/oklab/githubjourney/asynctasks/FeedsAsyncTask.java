@@ -28,10 +28,10 @@ public class FeedsAsyncTask<T> extends AsyncTask<Integer, Void, List<T>> {
 
     private static final String TAG = FeedsAsyncTask.class.getSimpleName();
     private final Context context;
-    private UserSessionData currentSessionData;
     private final OnFeedLoadedListener listener;
     private final AtomParser<T> feedAtomParser;
     private final Object state;
+    private UserSessionData currentSessionData;
 
     public FeedsAsyncTask(Context context, OnFeedLoadedListener listener, AtomParser<T> feedAtomParser, Object state) {
         this.context = context;
@@ -39,9 +39,11 @@ public class FeedsAsyncTask<T> extends AsyncTask<Integer, Void, List<T>> {
         this.feedAtomParser = feedAtomParser;
         this.state = state;
     }
+
     public Object getState() {
         return state;
     }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();

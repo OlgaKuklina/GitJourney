@@ -79,13 +79,13 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
 
         private void populateReposViewData(ReposDataEntry reposDataEntry) {
             title.setText(reposDataEntry.getTitle());
-            if(reposDataEntry.getDescription() != null && !reposDataEntry.getDescription().equals("null")) {
+            if (reposDataEntry.getDescription() != null && !reposDataEntry.getDescription().equals("null")) {
                 description.setText(reposDataEntry.getDescription());
             }
 
             language.setText(reposDataEntry.getLanguage());
             stars.setText(Integer.toString(reposDataEntry.getStars()));
-            forks.setText(Integer.toString( reposDataEntry.getForks()));
+            forks.setText(Integer.toString(reposDataEntry.getForks()));
 
             Picasso pic = Picasso.with(context);
             Log.v(TAG, "path" + reposDataEntry.isPrivate());

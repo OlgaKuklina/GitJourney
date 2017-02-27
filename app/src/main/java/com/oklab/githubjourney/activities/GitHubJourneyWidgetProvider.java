@@ -1,5 +1,6 @@
 package com.oklab.githubjourney.activities;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -11,7 +12,6 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.oklab.githubjourney.adapters.StackWidgetService;
-import com.oklab.githubjourney.asynctasks.AuthenticationAsyncTask;
 import com.oklab.githubjourney.asynctasks.FeedsAsyncTask;
 import com.oklab.githubjourney.data.GitHubJourneyWidgetDataEntry;
 import com.oklab.githubjourney.githubjourney.R;
@@ -25,7 +25,7 @@ import java.util.List;
  * Implementation of App Widget functionality.
  * App Widget Configuration implemented in {@link GitHubJourneyWidgetConfigureActivity GitHubJourneyWidgetConfigureActivity}
  */
-public class GitHubJourneyWidgetProvider extends AppWidgetProvider implements FeedsAsyncTask.OnFeedLoadedListener<GitHubJourneyWidgetDataEntry>{
+public class GitHubJourneyWidgetProvider extends AppWidgetProvider implements FeedsAsyncTask.OnFeedLoadedListener<GitHubJourneyWidgetDataEntry> {
     private static final String TAG = GitHubJourneyWidgetProvider.class.getSimpleName();
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
@@ -35,11 +35,15 @@ public class GitHubJourneyWidgetProvider extends AppWidgetProvider implements Fe
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.git_hub_journey_widget);
 
+        Intent startActivityIntent = new Intent(context, GeneralActivity.class);
+        PendingIntent startActivityPendingIntent = PendingIntent.getActivity(context, 0, startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setPendingIntentTemplate(R.id.widget_data_view, startActivityPendingIntent);
+
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss yyyy");
         System.out.println(dateFormat.format(calendar.getTime()));
+
         views.setTextViewText(R.id.widget_date, dateFormat.format(calendar.getTime()));
-       // views.setTextViewText(R.id.appwidget_text, widgetText);
         Intent intent = new Intent(context, StackWidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         // When intents are compared, the extras are ignored, so we need to embed the extras
@@ -88,17 +92,17 @@ public class GitHubJourneyWidgetProvider extends AppWidgetProvider implements Fe
         }
         Parcelable[] arrayOfWidgetDataEntries = new Parcelable[widgetDataEntries.size()];
         int i = 0;
-        for(Parcelable a: widgetDataEntries) {
+        for (Parcelable a : widgetDataEntries) {
             arrayOfWidgetDataEntries[i++] = a;
         }
-        State st = (State)state;
+        State st = (State) state;
         for (int appWidgetId : st.appWidgetIds) {
             updateAppWidget(st.context, AppWidgetManager.getInstance(st.context), appWidgetId, arrayOfWidgetDataEntries);
         }
         Log.v(TAG, "onFeedLoaded end");
     }
 
-//    @Override
+    //    @Override
 //    public void onReceive(Context context, Intent intent) {
 //        super.onReceive(context, intent);
 //        if (intent.getAction() != null && intent.getAction().equals("android.appwidget.action.REDRAW_WIDGET")) {
