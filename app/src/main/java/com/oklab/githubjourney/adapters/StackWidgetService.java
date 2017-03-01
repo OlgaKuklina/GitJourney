@@ -1,6 +1,5 @@
 package com.oklab.githubjourney.adapters;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.oklab.githubjourney.activities.GeneralActivity;
 import com.oklab.githubjourney.data.GitHubJourneyWidgetDataEntry;
 import com.oklab.githubjourney.githubjourney.R;
 import com.squareup.picasso.Picasso;
@@ -19,12 +17,11 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static android.R.style.Widget;
-
 public class StackWidgetService extends RemoteViewsService {
     private static final String TAG = StackWidgetService.class.getSimpleName();
 
     private static final String EXTRA_LIST_VIEW_ROW_NUMBER = "row_number";
+
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         return new StackRemoteViewsFactory(this.getApplicationContext(), intent);

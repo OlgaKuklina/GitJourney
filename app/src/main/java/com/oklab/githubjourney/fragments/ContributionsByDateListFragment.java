@@ -67,7 +67,7 @@ public class ContributionsByDateListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-     //       recyclerView.setAdapter(new ContributionsByDateAdapter(DummyContent.ITEMS, mListener));
+            //       recyclerView.setAdapter(new ContributionsByDateAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
     }
@@ -102,6 +102,6 @@ public class ContributionsByDateListFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-      //  void onListFragmentInteraction(DummyItem item);
+        //  void onListFragmentInteraction(DummyItem item);
     }
 }

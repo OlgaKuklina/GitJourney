@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.oklab.githubjourney.data.ActionType;
 import com.oklab.githubjourney.data.ContributionDataEntry;
-import com.oklab.githubjourney.data.GitHubUsersDataEntry;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,20 +24,19 @@ public class ContributionsParser {
 
     private static final String TAG = ContributionsParser.class.getSimpleName();
     private static final String PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+
     public List<ContributionDataEntry> parse(JSONArray jsonArray) throws JSONException {
 
         List<ContributionDataEntry> dataEntriesList = new ArrayList<>(jsonArray.length());
         for (int i = 0; i < jsonArray.length(); i++) {
-            try{
+            try {
                 ContributionDataEntry entry = parseItem(jsonArray.getJSONObject(i));
-                if(entry!=null) {
+                if (entry != null) {
                     dataEntriesList.add(entry);
-                }
-                else {
+                } else {
                     Log.w(TAG, "ContributionDataEntry is empty");
                 }
-            }
-            catch (ParseException ex) {
+            } catch (ParseException ex) {
                 Log.e(TAG, "", ex);
             }
         }
@@ -53,8 +51,7 @@ public class ContributionsParser {
         long entryId;
         if (!object.getString("id").isEmpty()) {
             entryId = Long.parseLong(object.getString("id"));
-        }
-        else{
+        } else {
             Log.e(TAG, "Failed to obtain entry id");
             return null;
         }
@@ -62,8 +59,7 @@ public class ContributionsParser {
         ActionType actionType;
         if (!object.getString("type").isEmpty()) {
             actionType = ActionType.getFeedType(object.getString("type"));
-        }
-        else {
+        } else {
             Log.e(TAG, "Failed to obtain actionType data for entry id " + entryId);
             return null;
         }
@@ -78,8 +74,9 @@ public class ContributionsParser {
         }
         return new ContributionDataEntry(entryId, entryURL, null, null, actionType, contributionDate);
     }
+
     private String getUri(ActionType type, JSONObject obj) throws JSONException {
-        if(type == ActionType.PUSH) {
+        if (type == ActionType.PUSH) {
             return obj.getJSONObject("payload").getJSONArray("commits").getJSONObject(0).getString("url");
         }
         return null;
