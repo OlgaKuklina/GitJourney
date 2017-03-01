@@ -52,7 +52,7 @@ public class FeedListAtomParser implements AtomParser<FeedDataEntry> {
         int index2 = idContent.indexOf("/", index);
 
         String eventType = idContent.substring(index + 1, index2);
-        ActionType actionType = getFeedType(eventType);
+        ActionType actionType = ActionType.getFeedType(eventType);
         String eventId = idContent.substring(index2 + 1);
         long id = Long.parseLong(eventId);
 
@@ -82,28 +82,6 @@ public class FeedListAtomParser implements AtomParser<FeedDataEntry> {
         return entry;
     }
 
-    private ActionType getFeedType(String eventType) {
-        switch (eventType) {
-            case "ForkEvent":
-                return ActionType.FORK;
-            case "PullRequestEvent":
-                return ActionType.PULL_REQUEST;
-            case "WatchEvent":
-                return ActionType.STAR;
-            case "IssueCommentEvent":
-                return ActionType.COMMENT;
-            case "DeleteEvent":
-                return ActionType.DELETE;
-            case "CreateEvent":
-                return ActionType.CREATE;
-            case "IssuesEvent":
-                return ActionType.ISSUE;
-            case "PushEvent":
-                return ActionType.PUSH;
-            case "CommitCommentEvent":
-                return ActionType.COMMIT_COMMENT;
-            default:
-                throw new IllegalArgumentException("Unknown event type: " + eventType);
-        }
+
     }
 }
