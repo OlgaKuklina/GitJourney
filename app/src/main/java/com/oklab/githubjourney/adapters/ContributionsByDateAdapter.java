@@ -73,19 +73,6 @@ public class ContributionsByDateAdapter extends RecyclerView.Adapter<Contributio
             CharSequence desc = Html.fromHtml(Html.fromHtml(contribData.getDescription()).toString());
             description.setText(desc);
 
-            Picasso pic = Picasso.with(context);
-            Log.v(TAG, "path" + contribData.getAvatarURL());
-            if (contribData.getAvatarURL() == null || contribData.getAvatarURL().isEmpty()) {
-                pic.load(R.drawable.octocat)
-                        .fit().centerCrop()
-                        .into(contribTypeImage);
-            } else {
-                pic.load(contribData.getAvatarURL())
-                        .fit().centerCrop()
-                        .error(R.drawable.octocat)
-                        .into(contribTypeImage);
-            }
         }
-
     }
 }

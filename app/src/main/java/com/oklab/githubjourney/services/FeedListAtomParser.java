@@ -81,7 +81,4 @@ public class FeedListAtomParser implements AtomParser<FeedDataEntry> {
         FeedDataEntry entry = new FeedDataEntry(id, name, avatarUri, profileURL, eventTitle, description, actionType, entryDate);
         return entry;
     }
-
-
-    }
 }

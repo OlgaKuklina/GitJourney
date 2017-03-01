@@ -8,16 +8,14 @@ import java.util.Calendar;
 
 public class ContributionDataEntry {
     private final long entryId;
-    private final String avatarURL;
     private final String entryURL;
     private final String title;
     private final String description;
     private final ActionType actionType;
     private final Calendar date;
 
-    public ContributionDataEntry(long entryId, String avatarURL, String entryURL, String title, String description, ActionType actionType, Calendar date) {
+    public ContributionDataEntry(long entryId, String entryURL, String title, String description, ActionType actionType, Calendar date) {
         this.entryId = entryId;
-        this.avatarURL = avatarURL;
         this.entryURL = entryURL;
         this.title = title;
         this.description = description;
@@ -27,10 +25,6 @@ public class ContributionDataEntry {
 
     public long getEntryId() {
         return entryId;
-    }
-
-    public String getAvatarURL() {
-        return avatarURL;
     }
 
     public String getEntryURL() {
