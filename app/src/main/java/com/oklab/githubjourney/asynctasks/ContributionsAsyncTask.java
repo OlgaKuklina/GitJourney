@@ -76,8 +76,8 @@ public class ContributionsAsyncTask extends AsyncTask<Integer, Void, List<Contri
         listener.OnContributionsLoaded(entryList);
     }
 
-    public interface OnContributionsLoadedListener {
-        void OnContributionsLoaded(List<ContributionDataEntry> followersDataEntry);
+    public interface OnContributionsLoadedListener<ContributionDataEntry> {
+        void OnContributionsLoaded(List<ContributionDataEntry> contributionsDataEntry);
     }
 
 }

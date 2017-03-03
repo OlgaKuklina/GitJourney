@@ -1,13 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
-    android:name="com.oklab.githubjourney.fragments.ContributionsByDateListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    app:layoutManager="LinearLayoutManager"
-    tools:context="com.oklab.githubjourney.fragments.ContributionsByDateListFragment"
-    tools:listitem="@layout/contributions_list_item" />
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.oklab.githubjourney.fragments.ContributionsByDateListFragment">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/c_swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/c_items_list_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>
