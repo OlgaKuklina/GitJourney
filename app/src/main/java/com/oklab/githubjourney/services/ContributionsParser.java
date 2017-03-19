@@ -23,7 +23,7 @@ import java.util.List;
 public class ContributionsParser {
 
     private static final String TAG = ContributionsParser.class.getSimpleName();
-    private static final String PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    private static final String PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
     public List<ContributionDataEntry> parse(JSONArray jsonArray) throws JSONException {
 
@@ -63,16 +63,33 @@ public class ContributionsParser {
             Log.e(TAG, "Failed to obtain actionType data for entry id " + entryId);
             return null;
         }
+        String title;
+        if (!object.getString("type").isEmpty()) {
+            title = object.getString("type");
+        } else {
+            title = "unknown activity event type";
+        }
+        String desc = null;
+        if (object.getJSONObject("repo") != null) {
+            JSONObject object1 = object.getJSONObject("repo");
+
+            if (!object1.getString("name").isEmpty()) {
+                desc = object1.getString("name");
+                if (!object1.getString("url").isEmpty()) {
+                    desc = desc + object1.getString("url");
+                }
+            }
+        }
         String entryURL = getUri(actionType, object);
 
         Calendar contributionDate = null;
-        if (!object.getString("date").isEmpty()) {
-            String date = object.getString("date");
+        if (!object.getString("created_at").isEmpty()) {
+            String date = object.getString("created_at");
             Date entryDate = new SimpleDateFormat(PATTERN).parse(date);
             contributionDate = Calendar.getInstance();
             contributionDate.setTime(entryDate);
         }
-        return new ContributionDataEntry(entryId, entryURL, null, null, actionType, contributionDate);
+        return new ContributionDataEntry(entryId, entryURL, title, desc, actionType, contributionDate);
     }
 
     private String getUri(ActionType type, JSONObject obj) throws JSONException {

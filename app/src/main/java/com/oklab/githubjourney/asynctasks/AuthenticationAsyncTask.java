@@ -50,7 +50,7 @@ public class AuthenticationAsyncTask extends AsyncTask<String, Integer, UserSess
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("client_id", context.getString(R.string.client_id));
             jsonObject.put("client_secret", context.getString(R.string.client_secret));
-            jsonObject.put("fingerprint", context.getString(R.string.fingerprint));
+            //jsonObject.put("fingerprint", context.getString(R.string.fingerprint));
             jsonObject.put("note", context.getString(R.string.note));
             JSONArray jsonArray = new JSONArray();
             jsonArray.put("repo");
@@ -71,7 +71,24 @@ public class AuthenticationAsyncTask extends AsyncTask<String, Integer, UserSess
             Log.v(TAG, "response = " + response);
             JSONObject jObj = new JSONObject(response);
 
-            UserSessionData data = new UserSessionData(jObj.getString("id"), credentials, jObj.getString("token"));
+            HttpURLConnection reconnect = (HttpURLConnection) new URL(context.getString(R.string.url_login_data)).openConnection();
+            reconnect.setRequestMethod("GET");
+
+            authentication = "token " + jObj.getString("token");
+            reconnect.setRequestProperty("Authorization", authentication);
+
+            reconnect.connect();
+            responseCode = connect.getResponseCode();
+            Log.v(TAG, "responseCode = " + responseCode);
+
+            inputStream = reconnect.getInputStream();
+            response = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            Log.v(TAG, "response = " + response);
+            JSONObject object = new JSONObject(response);
+
+            UserSessionData data = new UserSessionData(jObj.getString("id"), credentials, jObj.getString("token"), object.getString("login"));
+
+
             return data;
         } catch (Exception e) {
             Log.e(TAG, "Login failed", e);

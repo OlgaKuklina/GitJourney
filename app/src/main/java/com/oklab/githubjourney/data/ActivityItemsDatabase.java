@@ -12,7 +12,7 @@ import com.oklab.githubjourney.data.ActivityItemsProvider.Tables;
 
 public class ActivityItemsDatabase extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "githubjourney.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public ActivityItemsDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -25,7 +25,7 @@ public class ActivityItemsDatabase extends SQLiteOpenHelper {
                 + ActivityItemsContract.ItemsColumns.ENTRY_URL + " TEXT,"
                 + ActivityItemsContract.ItemsColumns.TITLE + " TEXT NOT NULL,"
                 + ActivityItemsContract.ItemsColumns.AUTHOR_ID + " TEXT NOT NULL,"
-                + ActivityItemsContract.ItemsColumns.DESCRIPTION + " TEXT NOT NULL,"
+                + ActivityItemsContract.ItemsColumns.DESCRIPTION + " TEXT,"
                 + ActivityItemsContract.ItemsColumns.ACTION_TYPE + " TEXT NOT NULL,"
                  + ActivityItemsContract.ItemsColumns.PUBLISHED_DATE + " INTEGER NOT NULL DEFAULT 0"
                 + ")" );

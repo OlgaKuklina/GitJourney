@@ -9,17 +9,23 @@ public class UserSessionData {
     private final String id;
     private final String credentials;
     private final String token;
+    private final String login;
 
 
-    public UserSessionData(String id, String credentials, String token) {
+    public UserSessionData(String id, String credentials, String token, String login) {
         this.id = id;
         this.credentials = credentials;
         this.token = token;
+        this.login = login;
     }
 
     public static UserSessionData createUserSessionDataFromString(String data) {
         String[] array = data.split(";");
-        return new UserSessionData(array[0], array[1], array[2]);
+        return new UserSessionData(array[0], array[1], array[2], array[3]);
+    }
+
+    public String getLogin() {
+        return login;
     }
 
     public String getId() {
@@ -36,6 +42,6 @@ public class UserSessionData {
 
     @Override
     public String toString() {
-        return id + ";" + credentials + ";" + token;
+        return id + ";" + credentials + ";" + token + ";" + login;
     }
 }

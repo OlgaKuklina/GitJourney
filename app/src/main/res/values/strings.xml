@@ -14,7 +14,8 @@
     <string name="url_followers" translatable="false">https://api.github.com/user/followers?page=%1$d</string>
     <string name="url_following" translatable="false">https://api.github.com/user/following?page=%1$d</string>
     <string name="url_starred" translatable="false">https://api.github.com/user/starred?page=%1$d</string>
-    <string name="url_events" translatable="false">https://api.github.com/user/events?page=%1$d</string>
+    <string name="url_events" translatable="false">https://api.github.com/users/%2$s/events?page=%1$d</string>
+    <string name="url_login_data" translatable="false">https://api.github.com/user</string>
 
     <!-- Strings related to Main Activity Tabs -->
     <string name="january">January</string>

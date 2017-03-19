@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.oklab.githubjourney.data.UpdaterService;
 import com.oklab.githubjourney.fragments.MainViewFragment;
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.utils.Utils;
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
             return;
         }
+
+        this.startService(new Intent(this, UpdaterService.class));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

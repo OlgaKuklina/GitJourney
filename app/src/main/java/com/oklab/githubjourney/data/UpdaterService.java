@@ -40,6 +40,7 @@ public class UpdaterService extends IntentService {
         SharedPreferences prefs = this.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
         String sessionDataStr = prefs.getString("userSessionData", null);
         currentSessionData = UserSessionData.createUserSessionDataFromString(sessionDataStr);
+
     }
 
     public UpdaterService() {
@@ -58,8 +59,14 @@ public class UpdaterService extends IntentService {
         Uri dirUri = ActivityItemsContract.Items.buildDirUri();
         cpo.add(ContentProviderOperation.newDelete(dirUri).build());
 
-        List<ContributionDataEntry> contributionsDataList = readActivityLog(1);
-
+        int pageIndex = 1;
+        while(true) {
+            Log.v(TAG, "reading page # = "+pageIndex);
+            List<ContributionDataEntry> contributionsDataList = readActivityLog(pageIndex++);
+            Log.v(TAG, "contributionsDataList number of elements = " + contributionsDataList.size());
+            if(contributionsDataList.isEmpty()) {
+                break;
+            }
             for (ContributionDataEntry entry: contributionsDataList) {
                 ContentValues values = new ContentValues();
                 values.put(ActivityItemsContract.Items._ID, entry.getEntryId());
@@ -67,22 +74,25 @@ public class UpdaterService extends IntentService {
                 values.put(ActivityItemsContract.Items.ACTION_TYPE, entry.getActionType().name());
                 values.put(ActivityItemsContract.Items.DESCRIPTION, entry.getDescription());
                 values.put(ActivityItemsContract.Items.TITLE, entry.getTitle());
+                values.put(ActivityItemsContract.Items.AUTHOR_ID, currentSessionData.getLogin());
                 values.put(ActivityItemsContract.Items.PUBLISHED_DATE, entry.getDate().getTimeInMillis());
                 cpo.add(ContentProviderOperation.newInsert(dirUri).withValues(values).build());
             }
 
-        try {
-            this.getContentResolver().applyBatch(ActivityItemsContract.CONTENT_AUTHORITY, cpo);
-        } catch ( RemoteException | OperationApplicationException e) {
-            Log.e(UpdaterService.TAG, "Error updating content.", e);
+            try {
+                this.getContentResolver().applyBatch(ActivityItemsContract.CONTENT_AUTHORITY, cpo);
+            } catch ( RemoteException | OperationApplicationException e) {
+                Log.e(UpdaterService.TAG, "Error updating content.", e);
+            }
         }
     }
 
     private List<ContributionDataEntry> readActivityLog(int page) {
         try {
-            HttpURLConnection connect = (HttpURLConnection) new URL(this.getString(R.string.url_events, page)).openConnection();
+            HttpURLConnection connect = (HttpURLConnection) new URL(this.getString(R.string.url_events, page, currentSessionData.getLogin())).openConnection();
             connect.setRequestMethod("GET");
 
+            Log.v(TAG, "current session data " + currentSessionData);
             String authentication = "token " + currentSessionData.getToken();
             connect.setRequestProperty("Authorization", authentication);
 
