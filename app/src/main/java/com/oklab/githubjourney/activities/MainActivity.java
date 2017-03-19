@@ -17,7 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.oklab.githubjourney.fragments.MainViewFragment;
-import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.utils.Utils;
 
 public class MainActivity extends AppCompatActivity

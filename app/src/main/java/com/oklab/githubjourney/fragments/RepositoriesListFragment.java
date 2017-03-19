@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import com.oklab.githubjourney.adapters.ReposListAdapter;
 import com.oklab.githubjourney.asynctasks.RepositoriesAsyncTask;
 import com.oklab.githubjourney.data.ReposDataEntry;
-import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.R;
 
 import java.util.List;
 

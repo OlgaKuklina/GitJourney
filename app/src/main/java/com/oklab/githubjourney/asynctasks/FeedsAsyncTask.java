@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.oklab.githubjourney.data.UserSessionData;
-import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.services.AtomParser;
 import com.oklab.githubjourney.utils.Utils;
 
@@ -58,6 +58,7 @@ public class FeedsAsyncTask<T> extends AsyncTask<Integer, Void, List<T>> {
         try {
             HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_feeds, page)).openConnection();
             connect.setRequestMethod("GET");
+
 
             String authentication = "basic " + currentSessionData.getCredentials();
             connect.setRequestProperty("Authorization", authentication);

@@ -14,7 +14,7 @@ import android.widget.RemoteViews;
 import com.oklab.githubjourney.adapters.StackWidgetService;
 import com.oklab.githubjourney.asynctasks.FeedsAsyncTask;
 import com.oklab.githubjourney.data.GitHubJourneyWidgetDataEntry;
-import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.services.WidgetDataAtomParser;
 
 import java.text.SimpleDateFormat;

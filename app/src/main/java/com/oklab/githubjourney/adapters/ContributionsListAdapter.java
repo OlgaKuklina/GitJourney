@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.R;
 
 import java.util.Calendar;
 

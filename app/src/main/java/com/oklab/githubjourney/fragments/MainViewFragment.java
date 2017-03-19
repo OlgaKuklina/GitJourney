@@ -13,7 +13,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.adapters.ContributionsListAdapter;
-import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

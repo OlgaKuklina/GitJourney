@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import com.oklab.githubjourney.adapters.FollowingListAdapter;
 import com.oklab.githubjourney.asynctasks.FollowingAsyncTask;
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
-import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.R;
 
 import java.util.List;
 

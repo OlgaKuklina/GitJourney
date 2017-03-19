@@ -21,7 +21,7 @@ import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
-import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.R;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.oklab.githubjourney.githubjourney">
+    package="com.oklab.githubjourney">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -68,6 +68,14 @@
             android:enabled="true"
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS"></service>
+
+        <service android:name=".data.UpdaterService"
+            android:exported="false" />
+
+        <provider android:name=".data.ActivityItemsProvider"
+            android:authorities="com.oklab.githubjourney"
+            android:exported="false" />
+
     </application>
 
 </manifest>

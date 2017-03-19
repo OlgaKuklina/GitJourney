@@ -11,7 +11,7 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.oklab.githubjourney.data.GitHubJourneyWidgetDataEntry;
-import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;

@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.oklab.githubjourney.adapters.ContributionsByDateAdapter;
 import com.oklab.githubjourney.asynctasks.ContributionsAsyncTask;
-import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.R;
 
 import java.util.List;
 

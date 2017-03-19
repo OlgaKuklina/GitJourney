@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
 import com.oklab.githubjourney.data.UserSessionData;
-import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.services.FollowersParser;
 import com.oklab.githubjourney.utils.Utils;
 

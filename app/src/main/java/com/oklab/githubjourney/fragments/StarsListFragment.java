@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import com.oklab.githubjourney.adapters.StarsListAdapter;
 import com.oklab.githubjourney.asynctasks.StarsAsyncTask;
 import com.oklab.githubjourney.data.StarsDataEntry;
-import com.oklab.githubjourney.githubjourney.R;
+import com.oklab.githubjourney.R;
 
 import java.util.List;
 
