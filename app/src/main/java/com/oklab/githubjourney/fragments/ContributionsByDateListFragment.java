@@ -1,9 +1,12 @@
 package com.oklab.githubjourney.fragments;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +18,8 @@ import android.view.ViewGroup;
 import com.oklab.githubjourney.adapters.ContributionsByDateAdapter;
 import com.oklab.githubjourney.asynctasks.ContributionsAsyncTask;
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.data.ActivityItemsContract;
+import com.oklab.githubjourney.data.ContributionsDataLoader;
 
 import java.util.List;
 
@@ -25,16 +30,12 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ContributionsByDateListFragment extends Fragment implements ContributionsAsyncTask.OnContributionsLoadedListener, SwipeRefreshLayout.OnRefreshListener {
+public class ContributionsByDateListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = ContributionsByDateListFragment.class.getSimpleName();
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ContributionsByDateAdapter contributionsListAdapter;
-    private OnListFragmentInteractionListener mListener;
     private LinearLayoutManager linearLayoutManager;
-    private int currentPage = 1;
-    private boolean feedExhausted = false;
-    private boolean loading = false;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -43,9 +44,7 @@ public class ContributionsByDateListFragment extends Fragment implements Contrib
     public ContributionsByDateListFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static ContributionsByDateListFragment newInstance(int columnCount) {
+    public static ContributionsByDateListFragment newInstance() {
         Log.v(TAG, " ContributionsByDateListFragment newInstance ");
         ContributionsByDateListFragment fragment = new ContributionsByDateListFragment();
         Bundle args = new Bundle();
@@ -63,8 +62,8 @@ public class ContributionsByDateListFragment extends Fragment implements Contrib
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.v(TAG, "onCreateView savedInstanceState = " + savedInstanceState);
-        View v = inflater.inflate(R.layout.fragment_contributions, container, false);
-        recyclerView = (RecyclerView) v.findViewById(R.id.c_list);
+        View v = inflater.inflate(R.layout.fragment_contributions_list, container, false);
+        recyclerView = (RecyclerView) v.findViewById(R.id.c_items_list_recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.c_swipe_refresh_layout);
         return v;
     }
@@ -75,30 +74,8 @@ public class ContributionsByDateListFragment extends Fragment implements Contrib
         Log.v(TAG, "onActivityCreated");
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        contributionsListAdapter = new ContributionsByDateAdapter(this.getContext());
-        recyclerView.setAdapter(contributionsListAdapter);
-        recyclerView.addOnScrollListener(new ContributionsByDateListFragment.ContributionItemsListOnScrollListner());
         swipeRefreshLayout.setOnRefreshListener(this);
-
-        loading = true;
-        new ContributionsAsyncTask(ContributionsByDateListFragment.this.getContext(), ContributionsByDateListFragment.this).execute(currentPage++);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+        getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -106,9 +83,21 @@ public class ContributionsByDateListFragment extends Fragment implements Contrib
 
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return ContributionsDataLoader.newAllItemsLoader(getContext());
+    }
 
     @Override
-    public void OnContributionsLoaded(List contributionsDataEntry) {
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.v(TAG, "loader finished " + data.getCount());
+        contributionsListAdapter = new ContributionsByDateAdapter(this.getContext(), data);
+        contributionsListAdapter.setHasStableIds(true);
+        recyclerView.setAdapter(contributionsListAdapter);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 
@@ -125,21 +114,5 @@ public class ContributionsByDateListFragment extends Fragment implements Contrib
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         //  void onListFragmentInteraction(DummyItem item);
-    }
-
-    private class ContributionItemsListOnScrollListner extends RecyclerView.OnScrollListener {
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            int lastScrollPosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
-            int itemsCount = contributionsListAdapter.getItemCount();
-            Log.v(TAG, "onScrolled - imetsCount = " + itemsCount);
-            Log.v(TAG, "onScrolled - lastScrollPosition = " + lastScrollPosition);
-            if (lastScrollPosition == itemsCount - 1 && !feedExhausted && !loading) {
-                loading = true;
-                new ContributionsAsyncTask(ContributionsByDateListFragment.this.getContext(), ContributionsByDateListFragment.this).execute(currentPage++);
-            }
-        }
     }
 }

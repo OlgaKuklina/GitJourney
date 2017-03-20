@@ -62,7 +62,7 @@ public class ContributionsAsyncTask extends AsyncTask<Integer, Void, List<Contri
             Log.v(TAG, "response = " + response);
             JSONArray jsonArray = new JSONArray(response);
 
-            return new ContributionsParser().parse(jsonArray);
+            return new ContributionsParser(context).parse(jsonArray);
 
         } catch (Exception e) {
             Log.e(TAG, "Get contributions failed", e);

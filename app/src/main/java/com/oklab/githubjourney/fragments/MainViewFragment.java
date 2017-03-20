@@ -29,7 +29,6 @@ public class MainViewFragment extends Fragment {
     String monthName;
     private ContributionsListAdapter contributionsListAdapter;
     private GridView gridView;
-    private LinearLayout contributionsList;
     private ScrollView scrollView;
     private Calendar calendar = (Calendar) Calendar.getInstance().clone();
     private TextView monthTitle;
@@ -65,7 +64,6 @@ public class MainViewFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
         gridView = (GridView) v.findViewById(R.id.gridview);
         scrollView = (ScrollView) v.findViewById(R.id.contributions_activity_container);
-        contributionsList = (LinearLayout) v.findViewById(R.id.contribution_activity);
         monthTitle = (TextView) v.findViewById(R.id.month_title);
         monthTitle.setText(monthName);
         return v;

@@ -78,12 +78,11 @@ public class UpdaterService extends IntentService {
                 values.put(ActivityItemsContract.Items.PUBLISHED_DATE, entry.getDate().getTimeInMillis());
                 cpo.add(ContentProviderOperation.newInsert(dirUri).withValues(values).build());
             }
-
-            try {
-                this.getContentResolver().applyBatch(ActivityItemsContract.CONTENT_AUTHORITY, cpo);
-            } catch ( RemoteException | OperationApplicationException e) {
-                Log.e(UpdaterService.TAG, "Error updating content.", e);
-            }
+        }
+        try {
+            this.getContentResolver().applyBatch(ActivityItemsContract.CONTENT_AUTHORITY, cpo);
+        } catch ( RemoteException | OperationApplicationException e) {
+            Log.e(UpdaterService.TAG, "Error updating content.", e);
         }
     }
 
@@ -105,7 +104,7 @@ public class UpdaterService extends IntentService {
             Log.v(TAG, "response = " + response);
             JSONArray jsonArray = new JSONArray(response);
 
-            return new ContributionsParser().parse(jsonArray);
+            return new ContributionsParser(this).parse(jsonArray);
 
         } catch (Exception e) {
             Log.e(TAG, "Get contributions failed", e);

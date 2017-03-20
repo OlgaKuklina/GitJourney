@@ -1,7 +1,9 @@
 package com.oklab.githubjourney.services;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.data.ActionType;
 import com.oklab.githubjourney.data.ContributionDataEntry;
 
@@ -24,6 +26,12 @@ public class ContributionsParser {
 
     private static final String TAG = ContributionsParser.class.getSimpleName();
     private static final String PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+
+    private final Context context;
+
+    public ContributionsParser(Context context) {
+        this.context = context;
+    }
 
     public List<ContributionDataEntry> parse(JSONArray jsonArray) throws JSONException {
 
@@ -76,7 +84,7 @@ public class ContributionsParser {
             if (!object1.getString("name").isEmpty()) {
                 desc = object1.getString("name");
                 if (!object1.getString("url").isEmpty()) {
-                    desc = desc + object1.getString("url");
+                    desc = context.getString(R.string.contribution_description, desc, object1.getString("url"));
                 }
             }
         }

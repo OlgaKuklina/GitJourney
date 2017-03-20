@@ -1,28 +1,28 @@
 package com.oklab.githubjourney.adapters;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.oklab.githubjourney.data.ContributionDataEntry;
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.data.ContributionsDataLoader;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class ContributionsByDateAdapter extends RecyclerView.Adapter<ContributionsByDateAdapter.ContributionsByDateViewHolder> {
 
-    private static final String TAG = FeedListAdapter.class.getSimpleName();
-    private final ArrayList<ContributionDataEntry> contributionDataEntryList = new ArrayList<>(1000);
+    private static final String TAG = ContributionsByDateAdapter.class.getSimpleName();
     private final Context context;
+    private final Cursor cursor;
 
-    public ContributionsByDateAdapter(Context context) {
+    public ContributionsByDateAdapter(Context context, Cursor cursor) {
         this.context = context;
+        this.cursor = cursor;
     }
 
     @Override
@@ -34,28 +34,24 @@ public class ContributionsByDateAdapter extends RecyclerView.Adapter<Contributio
 
     @Override
     public void onBindViewHolder(final ContributionsByDateViewHolder holder, int position) {
-        ContributionDataEntry entry = contributionDataEntryList.get(position);
-        holder.populateContributionData(entry);
+        cursor.moveToPosition(position);
+        holder.populateContributionData();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        cursor.moveToPosition(position);
+        return cursor.getLong(ContributionsDataLoader.Query._ID);
     }
 
     @Override
     public int getItemCount() {
-        return contributionDataEntryList.size();
-    }
-
-    public void add(List<ContributionDataEntry> entryList) {
-        contributionDataEntryList.addAll(entryList);
-        notifyDataSetChanged();
-    }
-
-    public void resetAllData() {
-        contributionDataEntryList.clear();
-        notifyDataSetChanged();
+        return cursor.getCount();
     }
 
     public class ContributionsByDateViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView contribTypeImage;
+        private TextView date;
         private TextView title;
         private TextView description;
 
@@ -63,14 +59,17 @@ public class ContributionsByDateAdapter extends RecyclerView.Adapter<Contributio
             super(v);
             title = (TextView) v.findViewById(R.id.title);
             description = (TextView) v.findViewById(R.id.action_desc);
-            contribTypeImage = (ImageView) v.findViewById(R.id.action_icon);
+            date = (TextView) v.findViewById(R.id.date);
         }
 
-        private void populateContributionData(ContributionDataEntry contribData) {
-            title.setText(contribData.getTitle());
-            CharSequence desc = Html.fromHtml(Html.fromHtml(contribData.getDescription()).toString());
-            description.setText(desc);
-
+        private void populateContributionData() {
+            title.setText(cursor.getString(ContributionsDataLoader.Query.TITLE));
+            description.setText(cursor.getString(ContributionsDataLoader.Query.DESCRIPTION));
+            Calendar calendar =  Calendar.getInstance();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
+            long date = cursor.getLong(ContributionsDataLoader.Query.PUBLISHED_DATE);
+            calendar.setTimeInMillis(date);
+            this.date.setText(formatter.format(calendar.getTime()));
         }
     }
 }
