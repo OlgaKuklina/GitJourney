@@ -1,6 +1,7 @@
 package com.oklab.githubjourney.adapters;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,12 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.data.ContributionsDataLoader;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * Created by olgakuklina on 2017-01-24.
@@ -23,13 +28,35 @@ public class ContributionsListAdapter extends BaseAdapter {
     private final int numberOfDays;
     private final int numberOfEmptyDaysInMonth;
     private Calendar calendar = (Calendar) Calendar.getInstance().clone();
+    private final HashMap<Integer, Integer> contributionsMap;
+    private final int colorIntensivity;
 
-    public ContributionsListAdapter(Context context, int offset) {
+    public ContributionsListAdapter(Context context, int offset, Cursor cursor) {
         this.context = context;
         calendar.add(Calendar.MONTH, -offset);
         numberOfDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         numberOfEmptyDaysInMonth = calendar.get(Calendar.DAY_OF_WEEK) - Calendar.SUNDAY;
+
+        contributionsMap = new HashMap<Integer, Integer>();
+        cursor.moveToPosition(-1);
+        Calendar calendar =  Calendar.getInstance();
+        int colorIntensivity = 0;
+        while(cursor.moveToNext()) {
+            long date = cursor.getLong(ContributionsDataLoader.Query.PUBLISHED_DATE);
+            calendar.setTimeInMillis(date);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            if(contributionsMap.containsKey(day)) {
+                contributionsMap.put(day, contributionsMap.get(day) +1);
+            }
+            else {
+                contributionsMap.put(day, 1);
+            }
+            if(contributionsMap.get(day) > colorIntensivity) {
+                colorIntensivity = contributionsMap.get(day);
+            }
+        }
+        this.colorIntensivity = colorIntensivity;
     }
 
     @Override
@@ -54,52 +81,46 @@ public class ContributionsListAdapter extends BaseAdapter {
         if (i >= numberOfEmptyDaysInMonth) {
             v = inflater.inflate(R.layout.grid_list_item, viewGroup, false);
             ImageButton button = (ImageButton) v.findViewById(R.id.contribution_button);
-            switch (i) {
-                case 4:
-                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_2));
+
+            Log.v(TAG, "contribMap = " + contributionsMap);
+            Integer colorIntRes = contributionsMap.get(i-numberOfEmptyDaysInMonth + 1);
+           double a =  ((colorIntRes !=null ? colorIntRes.intValue():0) * 100)/colorIntensivity;
+            int intensivity =(int) (a/10);
+            switch (intensivity) {
+                case 0:
+                    button.setBackground(context.getResources().getDrawable(R.color.empty));
                     break;
-                case 10:
-                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_3));
+                case 1:
+                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_10));
+                    break;
+                case 2:
+                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_9));
+                    break;
+                case 3:
+                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_8));
+                    break;
+                case 4:
+                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_7));
+                    break;
+                case 5:
+                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_6));
+                    break;
+                case 6:
+                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_5));
                     break;
                 case 7:
                     button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_4));
                     break;
-                case 15:
-                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_5));
+                case 8:
+                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_3));
                     break;
-                case 12:
-                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_6));
+                case 9:
+                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_2));
                     break;
-                case 20:
-                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_7));
-                    break;
-                case 25:
-                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_8));
-                    break;
-                case 30:
-                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_9));
-                    break;
-                case 18:
-                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_10));
-                    break;
-                case 13:
+                case 10:
                     button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_1));
                     break;
-                case 1:
-                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_1));
-                    break;
-                case 22:
-                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_1));
-                    break;
-                case 19:
-                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_1));
-                    break;
-                case 29:
-                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_1));
-                    break;
-                case 11:
-                    button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_1));
-                    break;
+
                 default:
                     button.setBackgroundColor(context.getResources().getColor(R.color.empty));
                     break;
@@ -107,7 +128,7 @@ public class ContributionsListAdapter extends BaseAdapter {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "number of contributions" + contributionsMap.get(i), Toast.LENGTH_SHORT).show();
                 }
             });
             Log.v(TAG, "i " + i);

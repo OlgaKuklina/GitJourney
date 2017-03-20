@@ -26,6 +26,7 @@ public class ActivityItemsProvider extends ContentProvider {
     }
     private static final int ITEMS = 0;
     private static final int ITEMS_ID = 1;
+    private static final int ITEMS_RANGE = 2;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
     private static UriMatcher buildUriMatcher() {
@@ -33,6 +34,8 @@ public class ActivityItemsProvider extends ContentProvider {
         final String authority = ActivityItemsContract.CONTENT_AUTHORITY;
         matcher.addURI(authority, "items", ITEMS);
         matcher.addURI(authority, "items/#", ITEMS_ID);
+        matcher.addURI(authority, "range/#/#", ITEMS_RANGE);
+
         return matcher;
     }
 
@@ -63,6 +66,8 @@ public class ActivityItemsProvider extends ContentProvider {
                 return ActivityItemsContract.Items.CONTENT_TYPE;
             case ITEMS_ID:
                 return ActivityItemsContract.Items.CONTENT_ITEM_TYPE;
+            case ITEMS_RANGE:
+                return ActivityItemsContract.Items.CONTENT_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }

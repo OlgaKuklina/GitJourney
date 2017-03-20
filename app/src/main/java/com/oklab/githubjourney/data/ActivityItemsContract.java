@@ -45,6 +45,9 @@ public class ActivityItemsContract {
                 return BASE_URI.buildUpon().appendPath("items").appendPath(Long.toString(_id)).build();
             }
 
+            public static Uri buildItemUri(long minDate, int maxDate) {
+                return BASE_URI.buildUpon().appendPath("range").appendPath(Long.toString(minDate)).appendPath(Long.toString(maxDate)).build();
+            }
             /** Read item ID item detail URI. */
             public static long getItemId(Uri itemUri) {
                 return Long.parseLong(itemUri.getPathSegments().get(1));

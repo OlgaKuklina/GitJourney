@@ -10,11 +10,20 @@ import android.support.v4.content.CursorLoader;
 
 public class ContributionsDataLoader extends CursorLoader {
     private  ContributionsDataLoader(Context context, Uri uri) {
-        super(context, uri, Query.PROJECTION, null, null, ActivityItemsContract.Items.DEFAULT_SORT);
+        this(context, uri, null, null);
+    }
+    private  ContributionsDataLoader(Context context, Uri uri, String selection, String[] selectionArgs) {
+        super(context, uri, Query.PROJECTION, selection, selectionArgs, ActivityItemsContract.Items.DEFAULT_SORT);
     }
 
     public static ContributionsDataLoader newAllItemsLoader(Context context) {
         return new ContributionsDataLoader(context, ActivityItemsContract.Items.buildDirUri());
+
+    }
+    public static ContributionsDataLoader newRangeLoader(Context context, long minRange, long maxRange) {
+        String selection  = ActivityItemsContract.ItemsColumns.PUBLISHED_DATE + " >= ? AND " + ActivityItemsContract.ItemsColumns.PUBLISHED_DATE + " <= ?";
+        String[] selectionArgs = {Long.toString(minRange), Long.toString(maxRange)};
+        return new ContributionsDataLoader(context, ActivityItemsContract.Items.buildDirUri(), selection, selectionArgs);
 
     }
 

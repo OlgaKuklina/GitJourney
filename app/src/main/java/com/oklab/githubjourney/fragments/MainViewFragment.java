@@ -1,9 +1,13 @@
 package com.oklab.githubjourney.fragments;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.oklab.githubjourney.adapters.ContributionsByDateAdapter;
 import com.oklab.githubjourney.adapters.ContributionsListAdapter;
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.data.ContributionsDataLoader;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,7 +28,7 @@ import java.util.Calendar;
  * Created by olgakuklina on 2017-01-24.
  */
 
-public class MainViewFragment extends Fragment {
+public class MainViewFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private static final String TAG = MainViewFragment.class.getSimpleName();
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -54,8 +60,7 @@ public class MainViewFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        contributionsListAdapter = new ContributionsListAdapter(this.getActivity(), getArguments().getInt(ARG_SECTION_NUMBER));
-        gridView.setAdapter(contributionsListAdapter);
+        getLoaderManager().initLoader(0, null, this);
     }
 
     @Nullable
@@ -74,5 +79,34 @@ public class MainViewFragment extends Fragment {
         calendar.add(Calendar.MONTH, -offset);
         SimpleDateFormat month_date = new SimpleDateFormat("MMMM, yyyy");
         monthName = month_date.format(calendar.getTime());
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        int numberOfDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        Calendar newCalendar = (Calendar) calendar.clone();
+        newCalendar.set(Calendar.DAY_OF_MONTH, 1);
+        newCalendar.set(Calendar.HOUR, 0);
+        newCalendar.set(Calendar.MINUTE, 0);
+        newCalendar.set(Calendar.SECOND, 0);
+        Log.v(TAG, "numberOfDays = " + numberOfDays);
+        long minDate = newCalendar.getTimeInMillis();
+       newCalendar.set(Calendar.DAY_OF_MONTH, numberOfDays);
+        newCalendar.set(Calendar.HOUR, 23);
+        newCalendar.set(Calendar.MINUTE, 59);
+        newCalendar.set(Calendar.SECOND, 59);
+        long maxDate = newCalendar.getTimeInMillis();
+        return ContributionsDataLoader.newRangeLoader(getContext(), minDate, maxDate);    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.v(TAG, "loader finished " + data.getCount());
+        contributionsListAdapter = new ContributionsListAdapter(this.getContext(), getArguments().getInt(ARG_SECTION_NUMBER), data);
+        gridView.setAdapter(contributionsListAdapter);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }
