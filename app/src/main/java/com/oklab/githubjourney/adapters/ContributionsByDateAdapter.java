@@ -69,16 +69,10 @@ public class ContributionsByDateAdapter extends RecyclerView.Adapter<Contributio
             title.setText(cursor.getString(ContributionsDataLoader.Query.TITLE));
             description.setText(cursor.getString(ContributionsDataLoader.Query.DESCRIPTION));
             Calendar calendar =  Calendar.getInstance();
-
-            //calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
             long date = cursor.getLong(ContributionsDataLoader.Query.PUBLISHED_DATE);
-            formatter.setTimeZone(TimeZone.getTimeZone("PST"));
-
             calendar.setTimeInMillis(date);
            this.date.setText(formatter.format(calendar.getTime()));
-//            Date d  = new Date(date);
-//            this.date.setText(formatter.format(d));
         }
     }
 }
