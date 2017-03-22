@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.oklab.githubjourney.data.UpdaterService;
+import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.fragments.ContributionsByDateListFragment;
 import com.oklab.githubjourney.fragments.MainViewFragment;
 import com.oklab.githubjourney.R;
@@ -120,9 +121,26 @@ public class MainActivity extends AppCompatActivity
                 return true;
             }
         } else if (id == R.id.settings) {
+            String currentSessionData = prefs.getString("userSessionData", null);
+            if (currentSessionData != null) {
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            }
 
         } else if (id == R.id.sing_out) {
-
+            SharedPreferences prefs = this.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
+            String sessionDataStr = prefs.getString("userSessionData", null);
+            if (sessionDataStr != null) {
+                prefs.edit().clear();
+            }
+            Log.v(TAG, "clear SharedPreferences data " + sessionDataStr);
+            String currentSessionData = prefs.getString("userSessionData", null);
+            if (currentSessionData == null) {
+                Intent intent = new Intent(this, AuthenticationActivity.class);
+                startActivity(intent);
+                return true;
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

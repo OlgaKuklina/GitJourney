@@ -13,8 +13,6 @@ import android.widget.Toast;
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.data.ContributionsDataLoader;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -27,9 +25,9 @@ public class ContributionsListAdapter extends BaseAdapter {
     private final Context context;
     private final int numberOfDays;
     private final int numberOfEmptyDaysInMonth;
-    private Calendar calendar = (Calendar) Calendar.getInstance().clone();
     private final HashMap<Integer, Integer> contributionsMap;
     private final int colorIntensivity;
+    private Calendar calendar = (Calendar) Calendar.getInstance().clone();
 
     public ContributionsListAdapter(Context context, int offset, Cursor cursor) {
         this.context = context;
@@ -40,19 +38,18 @@ public class ContributionsListAdapter extends BaseAdapter {
 
         contributionsMap = new HashMap<Integer, Integer>();
         cursor.moveToPosition(-1);
-        Calendar calendar =  Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         int colorIntensivity = 0;
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             long date = cursor.getLong(ContributionsDataLoader.Query.PUBLISHED_DATE);
             calendar.setTimeInMillis(date);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
-            if(contributionsMap.containsKey(day)) {
-                contributionsMap.put(day, contributionsMap.get(day) +1);
-            }
-            else {
+            if (contributionsMap.containsKey(day)) {
+                contributionsMap.put(day, contributionsMap.get(day) + 1);
+            } else {
                 contributionsMap.put(day, 1);
             }
-            if(contributionsMap.get(day) > colorIntensivity) {
+            if (contributionsMap.get(day) > colorIntensivity) {
                 colorIntensivity = contributionsMap.get(day);
             }
         }
@@ -83,10 +80,12 @@ public class ContributionsListAdapter extends BaseAdapter {
             ImageButton button = (ImageButton) v.findViewById(R.id.contribution_button);
 
             Log.v(TAG, "contribMap = " + contributionsMap);
-            Integer colorIntRes = contributionsMap.get(i-numberOfEmptyDaysInMonth + 1);
-           double a =  ((colorIntRes !=null ? colorIntRes.intValue():0) * 100)/colorIntensivity;
-            int intensivity =(int) (a/10);
-            switch (intensivity) {
+            Integer colorIntRes = contributionsMap.get(i - numberOfEmptyDaysInMonth + 1);
+
+            if (colorIntRes == null) {
+                colorIntRes = -1;
+            }
+            switch (colorIntRes) {
                 case 0:
                     button.setBackground(context.getResources().getDrawable(R.color.empty));
                     break;
@@ -125,10 +124,11 @@ public class ContributionsListAdapter extends BaseAdapter {
                     button.setBackgroundColor(context.getResources().getColor(R.color.empty));
                     break;
             }
+
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, "number of contributions" + contributionsMap.get(i), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, contributionsMap.get(i - numberOfEmptyDaysInMonth + 1) + " contributions at" + (i - numberOfEmptyDaysInMonth + 1), Toast.LENGTH_SHORT).show();
                 }
             });
             Log.v(TAG, "i " + i);

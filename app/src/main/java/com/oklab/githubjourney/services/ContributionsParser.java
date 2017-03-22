@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by olgakuklina on 2017-02-28.
@@ -93,7 +94,9 @@ public class ContributionsParser {
         Calendar contributionDate = null;
         if (!object.getString("created_at").isEmpty()) {
             String date = object.getString("created_at");
-            Date entryDate = new SimpleDateFormat(PATTERN).parse(date);
+            SimpleDateFormat format = new SimpleDateFormat(PATTERN);
+            format.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date entryDate = format.parse(date);
             contributionDate = Calendar.getInstance();
             contributionDate.setTime(entryDate);
         }
