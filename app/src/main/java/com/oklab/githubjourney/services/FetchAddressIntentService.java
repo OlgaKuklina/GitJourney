@@ -27,8 +27,9 @@ import java.util.Locale;
 public class FetchAddressIntentService extends IntentService {
     private static final String TAG = FetchAddressIntentService.class.getSimpleName();
     protected ResultReceiver mReceiver;
-    public FetchAddressIntentService(String name) {
-        super(name);
+
+    public FetchAddressIntentService() {
+        super("FetchAddressIntentService");
     }
 
     @Override

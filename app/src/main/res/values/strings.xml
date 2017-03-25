@@ -40,6 +40,7 @@
     <string name="stars">Stars</string>
     <string name="followers">Followers</string>
     <string name="following">Following</string>
+    <string name="map">Map</string>
     <!-- Strings related to Location service -->
 
     <string name="service_not_available">Service not available</string>

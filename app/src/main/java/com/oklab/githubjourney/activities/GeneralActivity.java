@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.SupportMapFragment;
 import com.oklab.githubjourney.fragments.FeedListFragment;
 import com.oklab.githubjourney.fragments.FollowersListFragment;
 import com.oklab.githubjourney.fragments.FollowingListFragment;
@@ -158,6 +159,8 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
                     return FollowersListFragment.newInstance();
                 case 4:
                     return StarsListFragment.newInstance();
+                case 5:
+                    return SupportMapFragment.newInstance();
             }
             return PlaceholderFragment.newInstance(position + 1);
         }
@@ -165,7 +168,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
         @Override
         public int getCount() {
             // Show 5 total pages.
-            return 5;
+            return 6;
         }
 
         @Override
@@ -181,6 +184,8 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
                     return getApplicationContext().getString(R.string.followers);
                 case 4:
                     return getApplicationContext().getString(R.string.stars);
+                case 5:
+                    return getApplicationContext().getString(R.string.map);
             }
             return null;
         }
