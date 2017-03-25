@@ -8,11 +8,9 @@ import android.util.Log;
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.data.GitHubUserLocationDataEntry;
 import com.oklab.githubjourney.data.HTTPConnectionResult;
-import com.oklab.githubjourney.data.GitHubUsersDataEntry;
 import com.oklab.githubjourney.data.UserSessionData;
-import com.oklab.githubjourney.services.FollowersParser;
-import com.oklab.githubjourney.services.HTTPConnectionFetcher;
-import com.oklab.githubjourney.services.LocationDataParser;
+import com.oklab.githubjourney.services.FetchHTTPConnectionService;
+import com.oklab.githubjourney.parsers.LocationDataParser;
 import com.oklab.githubjourney.utils.Utils;
 
 import org.json.JSONArray;
@@ -49,7 +47,7 @@ public class UserProfileAsyncTask extends AsyncTask<Integer, Void, List<GitHubUs
     protected List<GitHubUserLocationDataEntry> doInBackground(Integer... args) {
         Integer page = args[0];
         String Uri = context.getString(R.string.url_users, page, currentSessionData.getLogin());
-        HTTPConnectionFetcher connectionFetcher = new HTTPConnectionFetcher(Uri, currentSessionData);
+        FetchHTTPConnectionService connectionFetcher = new FetchHTTPConnectionService(Uri, currentSessionData);
         HTTPConnectionResult result = connectionFetcher.establishConnection();
         Log.v(TAG, "responseCode = " + result.getResponceCode());
         Log.v(TAG, "response = " + result.getResult());

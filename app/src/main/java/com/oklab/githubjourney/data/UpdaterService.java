@@ -14,7 +14,7 @@ import android.os.RemoteException;
 import android.util.Log;
 
 import com.oklab.githubjourney.R;
-import com.oklab.githubjourney.services.ContributionsParser;
+import com.oklab.githubjourney.parsers.ContributionsParser;
 import com.oklab.githubjourney.utils.Utils;
 
 import org.apache.commons.io.IOUtils;

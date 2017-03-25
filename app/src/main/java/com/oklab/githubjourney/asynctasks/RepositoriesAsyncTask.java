@@ -8,7 +8,7 @@ import android.util.Log;
 import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.R;
-import com.oklab.githubjourney.services.ReposParser;
+import com.oklab.githubjourney.parsers.ReposParser;
 import com.oklab.githubjourney.utils.Utils;
 
 import org.apache.commons.io.IOUtils;

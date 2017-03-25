@@ -1,4 +1,4 @@
-package com.oklab.githubjourney.services;
+package com.oklab.githubjourney.parsers;
 
 import com.oklab.githubjourney.data.ReposDataEntry;
 

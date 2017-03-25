@@ -6,7 +6,6 @@ import com.oklab.githubjourney.data.HTTPConnectionResult;
 import com.oklab.githubjourney.data.UserSessionData;
 
 import org.apache.commons.io.IOUtils;
-import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -17,12 +16,12 @@ import java.nio.charset.StandardCharsets;
  * Created by olgakuklina on 2017-03-22.
  */
 
-public class HTTPConnectionFetcher {
-    private static final String TAG = HTTPConnectionFetcher.class.getSimpleName();
+public class FetchHTTPConnectionService {
+    private static final String TAG = FetchHTTPConnectionService.class.getSimpleName();
     private final String uri;
     private final UserSessionData currentSessionData;
 
-    public HTTPConnectionFetcher(String uri, UserSessionData currentSessionData) {
+    public FetchHTTPConnectionService(String uri, UserSessionData currentSessionData) {
         this.uri = uri;
         this.currentSessionData = currentSessionData;
     }

@@ -1,4 +1,4 @@
-package com.oklab.githubjourney.services;
+package com.oklab.githubjourney.parsers;
 
 import android.content.Context;
 import android.util.Log;

@@ -17,7 +17,7 @@ import com.oklab.githubjourney.adapters.FeedListAdapter;
 import com.oklab.githubjourney.asynctasks.FeedsAsyncTask;
 import com.oklab.githubjourney.data.FeedDataEntry;
 import com.oklab.githubjourney.R;
-import com.oklab.githubjourney.services.FeedListAtomParser;
+import com.oklab.githubjourney.parsers.FeedListAtomParser;
 
 import java.util.List;
 
