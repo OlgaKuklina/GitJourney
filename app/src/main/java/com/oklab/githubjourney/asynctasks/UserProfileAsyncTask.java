@@ -15,6 +15,7 @@ import com.oklab.githubjourney.utils.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
  * Created by olgakuklina on 2017-03-21.
  */
 
-public class UserProfileAsyncTask extends AsyncTask<Integer, Void, List<GitHubUserLocationDataEntry>> {
+public class UserProfileAsyncTask extends AsyncTask<String, Void, GitHubUserLocationDataEntry> {
 
     private static final String TAG = UserProfileAsyncTask.class.getSimpleName();
     private final Context context;
@@ -44,32 +45,32 @@ public class UserProfileAsyncTask extends AsyncTask<Integer, Void, List<GitHubUs
     }
 
     @Override
-    protected List<GitHubUserLocationDataEntry> doInBackground(Integer... args) {
-        Integer page = args[0];
-        String Uri = context.getString(R.string.url_users, page, currentSessionData.getLogin());
+    protected GitHubUserLocationDataEntry doInBackground(String... args) {
+        String login  = args[0];
+        String Uri = context.getString(R.string.url_users, login);
         FetchHTTPConnectionService connectionFetcher = new FetchHTTPConnectionService(Uri, currentSessionData);
         HTTPConnectionResult result = connectionFetcher.establishConnection();
         Log.v(TAG, "responseCode = " + result.getResponceCode());
         Log.v(TAG, "response = " + result.getResult());
 
         try {
-            JSONArray jsonArray = new JSONArray(result.getResult());
-            return new LocationDataParser().parse(jsonArray);
+            JSONObject jsonObject = new JSONObject(result.getResult());
+            return new LocationDataParser().parse(jsonObject);
 
         } catch (JSONException e) {
             Log.e(TAG, "", e);
         }
-        return Collections.emptyList();
+        return null;
     }
 
 
     @Override
-    protected void onPostExecute(List<GitHubUserLocationDataEntry> entryList) {
-        super.onPostExecute(entryList);
-        listener.OnProfilesLoaded(entryList);
+    protected void onPostExecute(GitHubUserLocationDataEntry entry) {
+        super.onPostExecute(entry);
+        listener.OnProfilesLoaded(entry);
     }
 
     public interface OnProfilesLoadedListener {
-        void OnProfilesLoaded(List<GitHubUserLocationDataEntry> followersDataEntry);
+        void OnProfilesLoaded(GitHubUserLocationDataEntry followersDataEntry);
     }
 }

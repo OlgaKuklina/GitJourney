@@ -16,14 +16,9 @@ import java.util.List;
 public class LocationDataParser {
     private static final String TAG = LocationDataParser.class.getSimpleName();
 
-    public List<GitHubUserLocationDataEntry> parse(JSONArray jsonArray) throws JSONException {
-
-        List<GitHubUserLocationDataEntry> dataEntriesList = new ArrayList<>(jsonArray.length());
-        for (int i = 0; i < jsonArray.length(); i++) {
-            GitHubUserLocationDataEntry entry = parseItem(jsonArray.getJSONObject(i));
-            dataEntriesList.add(entry);
-        }
-        return dataEntriesList;
+    public GitHubUserLocationDataEntry parse(JSONObject jsonObject) throws JSONException {
+        GitHubUserLocationDataEntry entry = parseItem(jsonObject);
+        return entry;
     }
 
     private GitHubUserLocationDataEntry parseItem(JSONObject object) throws JSONException {

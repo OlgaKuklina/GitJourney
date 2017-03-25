@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.SupportMapFragment;
+import com.oklab.githubjourney.asynctasks.LocationsReadyCallback;
 import com.oklab.githubjourney.fragments.FeedListFragment;
 import com.oklab.githubjourney.fragments.FollowersListFragment;
 import com.oklab.githubjourney.fragments.FollowingListFragment;
@@ -160,7 +161,10 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
                 case 4:
                     return StarsListFragment.newInstance();
                 case 5:
-                    return SupportMapFragment.newInstance();
+                    LocationsReadyCallback callback = new LocationsReadyCallback(getBaseContext());
+                    SupportMapFragment fragment = SupportMapFragment.newInstance();
+                    fragment.getMapAsync(callback);
+                    return fragment;
             }
             return PlaceholderFragment.newInstance(position + 1);
         }
