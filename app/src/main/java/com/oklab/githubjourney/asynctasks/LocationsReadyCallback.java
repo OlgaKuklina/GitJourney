@@ -14,6 +14,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.oklab.githubjourney.data.GitHubUserLocationDataEntry;
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
 import com.oklab.githubjourney.data.LocationConstants;
@@ -34,6 +36,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
     private int count = 0;
     private ArrayList<GitHubUserLocationDataEntry> locationsList;
     private AddressResultReceiver mResultReceiver;
+    private GoogleMap map;
 
     public LocationsReadyCallback(Context context) {
         this.context = context;
@@ -42,6 +45,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
     public void onMapReady(GoogleMap googleMap) {
         new FollowersAsyncTask(context, this).execute(currentPage++);
         mResultReceiver = new AddressResultReceiver(new Handler());
+        map = googleMap;
     }
 
     protected void startIntentService() {
@@ -79,7 +83,17 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
 
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
-            Log.v(TAG, "onReceiveResult = " + resultCode + resultData.toString());
+            Log.v(TAG, "onReceiveResult");
+            ArrayList<GitHubUserLocationDataEntry> locationsList = resultData.getParcelableArrayList(LocationConstants.LOCATION_DATA_EXTRA);
+            Log.v(TAG, "ArrayList.size() = " + locationsList.size());
+            for(GitHubUserLocationDataEntry entry: locationsList) {
+                if(entry.getLatitude() != 0.0 || entry.getLongitude() != 0.0) {
+                    Log.v(TAG, "getLatitude = " + entry.getLatitude());
+                    LatLng position = new LatLng (entry.getLatitude(), entry.getLongitude());
+                    MarkerOptions options= new MarkerOptions().position(position).title(entry.getName());
+                    map.addMarker(options);
+                }
+            }
         }
     }
 }
