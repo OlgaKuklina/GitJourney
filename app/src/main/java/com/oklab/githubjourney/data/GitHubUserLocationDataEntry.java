@@ -70,7 +70,7 @@ public class GitHubUserLocationDataEntry extends GitHubUsersDataEntry implements
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(location);
-        parcel.writeString(getName());
+        parcel.writeString(getLogin());
         parcel.writeString(getImageUri());
         parcel.writeString(getProfileUri());
         parcel.writeDouble(latitude);

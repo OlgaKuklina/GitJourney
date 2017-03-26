@@ -24,7 +24,6 @@ import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -76,12 +75,12 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
         ArrayList<GitHubUsersDataEntry> list = new ArrayList<>(followingsLocationsList.size() + followersLocationsList.size());
 
         for(GitHubUsersDataEntry entry: followersLocationsList) {
-            set.add(entry.getName());
+            set.add(entry.getLogin());
             list.add(entry);
         }
         for(GitHubUsersDataEntry entry: followingsLocationsList) {
-            if(!set.contains(entry.getName())) {
-                set.add(entry.getName());
+            if(!set.contains(entry.getLogin())) {
+                set.add(entry.getLogin());
                 list.add(entry);
             }
         }
@@ -89,7 +88,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
         Log.v(TAG, "list = " + list.size());
         locationsDataList = new ArrayList<>(count);
         for(GitHubUsersDataEntry entry: list) {
-            new UserProfileAsyncTask(context, this).execute(entry.getName());
+            new UserProfileAsyncTask(context, this).execute(entry.getLogin());
         }
     }
     @Override
@@ -118,7 +117,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
                     Log.v(TAG, "getLatitude = " + entry.getLatitude());
                     LatLng position = new LatLng (entry.getLatitude(), entry.getLongitude());
                     if(entry.getImageUri() == null) {
-                        MarkerOptions options = new MarkerOptions().position(position).title(entry.getName());
+                        MarkerOptions options = new MarkerOptions().position(position).title(entry.getLogin());
                         map.addMarker(options);
                     }
                     else {
@@ -126,7 +125,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
                             @Override
                             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                 BitmapDescriptor desc = BitmapDescriptorFactory.fromBitmap(bitmap);
-                                MarkerOptions options = new MarkerOptions().position(position).title(entry.getName()).icon(desc);
+                                MarkerOptions options = new MarkerOptions().position(position).title(entry.getLogin()).icon(desc);
                                 map.addMarker(options);
                             }
 

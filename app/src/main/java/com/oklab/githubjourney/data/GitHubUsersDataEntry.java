@@ -5,18 +5,18 @@ package com.oklab.githubjourney.data;
  */
 
 public class GitHubUsersDataEntry {
-    private final String name;
+    private final String login;
     private final String imageUri;
     private final String profileUri;
 
     public GitHubUsersDataEntry(String name, String imageUri, String profileUri) {
-        this.name = name;
+        this.login = name;
         this.imageUri = imageUri;
         this.profileUri = profileUri;
     }
 
-    public String getName() {
-        return name;
+    public String getLogin() {
+        return login;
     }
 
     public String getImageUri() {

@@ -70,8 +70,8 @@ public class FollowersListAdapter extends RecyclerView.Adapter<FollowersListAdap
         }
 
         private void populateFollowersViewData(GitHubUsersDataEntry followersDataEntry) {
-            Log.v(TAG, "followersDataEntry.getName() - " + followersDataEntry.getName());
-            name.setText(followersDataEntry.getName());
+            Log.v(TAG, "followersDataEntry.getLogin() - " + followersDataEntry.getLogin());
+            name.setText(followersDataEntry.getLogin());
 
             Picasso pic = Picasso.with(context);
             Log.v(TAG, "path" + followersDataEntry.getImageUri());

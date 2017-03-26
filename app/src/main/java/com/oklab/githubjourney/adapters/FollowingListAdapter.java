@@ -69,7 +69,7 @@ public class FollowingListAdapter extends RecyclerView.Adapter<FollowingListAdap
         }
 
         private void populateFollowingViewData(GitHubUsersDataEntry followingDataEntry) {
-            name.setText(followingDataEntry.getName());
+            name.setText(followingDataEntry.getLogin());
 
             Picasso pic = Picasso.with(context);
             Log.v(TAG, "path" + followingDataEntry.getImageUri());
