@@ -13,9 +13,10 @@ import java.util.List;
  * Created by olgakuklina on 2017-03-24.
  */
 
-public class LocationDataParser {
+public class LocationDataParser implements Parser<GitHubUserLocationDataEntry>{
     private static final String TAG = LocationDataParser.class.getSimpleName();
 
+    @Override
     public GitHubUserLocationDataEntry parse(JSONObject jsonObject) throws JSONException {
         GitHubUserLocationDataEntry entry = parseItem(jsonObject);
         return entry;

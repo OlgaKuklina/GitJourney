@@ -15,16 +15,21 @@ import android.view.ViewGroup;
 
 import com.oklab.githubjourney.adapters.FollowersListAdapter;
 import com.oklab.githubjourney.asynctasks.FollowersAsyncTask;
+import com.oklab.githubjourney.asynctasks.UserProfileAsyncTask;
+import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.parsers.GitHubUserProfileDataParser;
+import com.oklab.githubjourney.parsers.Parser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by olgakuklina on 2017-02-06.
  */
 
-public class FollowersListFragment extends Fragment implements FollowersAsyncTask.OnFollowersLoadedListener, SwipeRefreshLayout.OnRefreshListener {
+public class FollowersListFragment extends Fragment implements FollowersAsyncTask.OnFollowersLoadedListener, UserProfileAsyncTask.OnProfilesLoadedListener<GitHubUserProfileDataEntry>, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = StarsListFragment.class.getSimpleName();
 
     private RecyclerView recyclerView;
@@ -32,9 +37,11 @@ public class FollowersListFragment extends Fragment implements FollowersAsyncTas
     private FollowersListAdapter followersListAdapter;
     private FollowersListFragment.OnFragmentInteractionListener mListener;
     private LinearLayoutManager linearLayoutManager;
+    ArrayList<GitHubUserProfileDataEntry> profileDataEntryList;
     private int currentPage = 1;
     private boolean followersExhausted = false;
     private boolean loading = false;
+    private int count = 0;
 
     public FollowersListFragment() {
     }
@@ -113,14 +120,33 @@ public class FollowersListFragment extends Fragment implements FollowersAsyncTas
     }
 
     @Override
-    public void OnFollowersLoaded(List<GitHubUsersDataEntry> followersDataEntry) {
+    public void OnFollowersLoaded(List<GitHubUsersDataEntry> followersDataEntryList) {
         loading = false;
-        if (followersDataEntry != null && followersDataEntry.isEmpty()) {
+        if (followersDataEntryList != null && followersDataEntryList.isEmpty()) {
             followersExhausted = true;
             return;
         }
-        followersListAdapter.add(followersDataEntry);
+        //followersListAdapter.add(followersDataEntryList);
+        Parser<GitHubUserProfileDataEntry> parser = new GitHubUserProfileDataParser();
+        count = followersDataEntryList.size();
+        profileDataEntryList = new ArrayList<>(count);
+        for(GitHubUsersDataEntry entry: followersDataEntryList) {
+            new UserProfileAsyncTask<GitHubUserProfileDataEntry>(getContext(), this, parser).execute(entry.getLogin());
+        }
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void OnProfilesLoaded(GitHubUserProfileDataEntry profileDataEntry) {
+
+        Log.v(TAG, "OnProfilesLoaded " + count + " , " +  profileDataEntry);
+        count--;
+        if (profileDataEntry != null && profileDataEntry.getLocation()!=null && !profileDataEntry.getLocation().isEmpty()) {
+            profileDataEntryList.add(profileDataEntry);
+        }
+        if(count == 0) {
+            followersListAdapter.add(profileDataEntryList);
+        }
     }
 
     /**

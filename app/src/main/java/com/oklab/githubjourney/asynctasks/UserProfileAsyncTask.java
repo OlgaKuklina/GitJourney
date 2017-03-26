@@ -9,6 +9,7 @@ import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.data.GitHubUserLocationDataEntry;
 import com.oklab.githubjourney.data.HTTPConnectionResult;
 import com.oklab.githubjourney.data.UserSessionData;
+import com.oklab.githubjourney.parsers.Parser;
 import com.oklab.githubjourney.services.FetchHTTPConnectionService;
 import com.oklab.githubjourney.parsers.LocationDataParser;
 import com.oklab.githubjourney.utils.Utils;
@@ -24,16 +25,18 @@ import java.util.List;
  * Created by olgakuklina on 2017-03-21.
  */
 
-public class UserProfileAsyncTask extends AsyncTask<String, Void, GitHubUserLocationDataEntry> {
+public class UserProfileAsyncTask<T> extends AsyncTask<String, Void, T> {
 
     private static final String TAG = UserProfileAsyncTask.class.getSimpleName();
     private final Context context;
     private UserSessionData currentSessionData;
-    private UserProfileAsyncTask.OnProfilesLoadedListener listener;
+    private final UserProfileAsyncTask.OnProfilesLoadedListener<T> listener;
+    private final Parser<T> parser;
 
-    public UserProfileAsyncTask(Context context, UserProfileAsyncTask.OnProfilesLoadedListener listener) {
+    public UserProfileAsyncTask(Context context, UserProfileAsyncTask.OnProfilesLoadedListener<T> listener, Parser<T> parser) {
         this.context = context;
         this.listener = listener;
+        this.parser = parser;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class UserProfileAsyncTask extends AsyncTask<String, Void, GitHubUserLoca
     }
 
     @Override
-    protected GitHubUserLocationDataEntry doInBackground(String... args) {
+    protected T doInBackground(String... args) {
         String login  = args[0];
         String Uri = context.getString(R.string.url_users, login);
         FetchHTTPConnectionService connectionFetcher = new FetchHTTPConnectionService(Uri, currentSessionData);
@@ -55,7 +58,7 @@ public class UserProfileAsyncTask extends AsyncTask<String, Void, GitHubUserLoca
 
         try {
             JSONObject jsonObject = new JSONObject(result.getResult());
-            return new LocationDataParser().parse(jsonObject);
+            return parser.parse(jsonObject);
 
         } catch (JSONException e) {
             Log.e(TAG, "", e);
@@ -65,12 +68,12 @@ public class UserProfileAsyncTask extends AsyncTask<String, Void, GitHubUserLoca
 
 
     @Override
-    protected void onPostExecute(GitHubUserLocationDataEntry entry) {
+    protected void onPostExecute(T entry) {
         super.onPostExecute(entry);
         listener.OnProfilesLoaded(entry);
     }
 
-    public interface OnProfilesLoadedListener {
-        void OnProfilesLoaded(GitHubUserLocationDataEntry followersDataEntry);
+    public interface OnProfilesLoadedListener<T> {
+        void OnProfilesLoaded(T dataEntry);
     }
 }

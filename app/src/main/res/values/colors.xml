@@ -16,4 +16,6 @@
     <color name="temp9">#91d7f5</color>
     <color name="temp10">#c0e2f4</color>
     <color name="empty">#ccd8de</color>
+
+    <color name="color">#ffffff</color>
 </resources>

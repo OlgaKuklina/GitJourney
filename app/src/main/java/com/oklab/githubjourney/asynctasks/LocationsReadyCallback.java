@@ -18,6 +18,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.oklab.githubjourney.data.GitHubUserLocationDataEntry;
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
 import com.oklab.githubjourney.data.LocationConstants;
+import com.oklab.githubjourney.parsers.LocationDataParser;
+import com.oklab.githubjourney.parsers.Parser;
 import com.oklab.githubjourney.services.FetchAddressIntentService;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -31,12 +33,10 @@ import java.util.List;
  * Created by olgakuklina on 2017-03-25.
  */
 
-public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyncTask.OnFollowersLoadedListener,FollowingAsyncTask.OnFollowingLoadedListener,  UserProfileAsyncTask.OnProfilesLoadedListener {
+public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyncTask.OnFollowersLoadedListener,FollowingAsyncTask.OnFollowingLoadedListener,  UserProfileAsyncTask.OnProfilesLoadedListener<GitHubUserLocationDataEntry> {
     private static final String TAG = LocationsReadyCallback.class.getSimpleName();
     private final Context context;
-    private int currentPage = 1;
     private int count = 0;
-    private int followersCount = 0;
     private List<GitHubUsersDataEntry> followersLocationsList;
     private List<GitHubUsersDataEntry> followingsLocationsList;
     private ArrayList<GitHubUserLocationDataEntry> locationsDataList;
@@ -48,6 +48,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Log.v(TAG, "onMapReady");
         new FollowersAsyncTask(context, this).execute(1);
         mResultReceiver = new AddressResultReceiver(new Handler());
         map = googleMap;
@@ -87,12 +88,14 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
         count = list.size();
         Log.v(TAG, "list = " + list.size());
         locationsDataList = new ArrayList<>(count);
+        Parser<GitHubUserLocationDataEntry> parser = new LocationDataParser();
         for(GitHubUsersDataEntry entry: list) {
-            new UserProfileAsyncTask(context, this).execute(entry.getLogin());
+            new UserProfileAsyncTask<GitHubUserLocationDataEntry>(context, this, parser).execute(entry.getLogin());
         }
     }
     @Override
     public void OnProfilesLoaded(GitHubUserLocationDataEntry locationDataEntry) {
+        Log.v(TAG, "OnProfilesLoaded " + count + " , " +  locationDataEntry);
         count--;
         if (locationDataEntry != null && locationDataEntry.getLocation()!=null && !locationDataEntry.getLocation().isEmpty()) {
             locationsDataList.add(locationDataEntry);

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
 import com.oklab.githubjourney.R;
 import com.squareup.picasso.Picasso;
@@ -24,7 +25,7 @@ public class FollowersListAdapter extends RecyclerView.Adapter<FollowersListAdap
 
     private static final String TAG = FollowersListAdapter.class.getSimpleName();
 
-    private final ArrayList<GitHubUsersDataEntry> followersDataEntrylist = new ArrayList<>(1000);
+    private final ArrayList<GitHubUserProfileDataEntry> followersDataEntrylist = new ArrayList<>(1000);
     private final Context context;
 
     public FollowersListAdapter(Context context) {
@@ -39,7 +40,7 @@ public class FollowersListAdapter extends RecyclerView.Adapter<FollowersListAdap
 
     @Override
     public void onBindViewHolder(FollowersListAdapter.FollowersListViewHolder holder, int position) {
-        GitHubUsersDataEntry entry = followersDataEntrylist.get(position);
+        GitHubUserProfileDataEntry entry = followersDataEntrylist.get(position);
         holder.populateFollowersViewData(entry);
     }
 
@@ -49,7 +50,7 @@ public class FollowersListAdapter extends RecyclerView.Adapter<FollowersListAdap
         return followersDataEntrylist.size();
     }
 
-    public void add(List<GitHubUsersDataEntry> entryList) {
+    public void add(List<GitHubUserProfileDataEntry> entryList) {
         followersDataEntrylist.addAll(entryList);
         notifyDataSetChanged();
     }
@@ -61,18 +62,26 @@ public class FollowersListAdapter extends RecyclerView.Adapter<FollowersListAdap
 
     public class FollowersListViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
+        private TextView login;
+        private TextView email;
+        private TextView location;
         private ImageView avatar;
 
         public FollowersListViewHolder(View v) {
             super(v);
             name = (TextView) v.findViewById(R.id.followers_user_name);
+            login = (TextView) v.findViewById(R.id.followers_login);
+            email = (TextView) v.findViewById(R.id.followers_email);
+            location = (TextView) v.findViewById(R.id.followers_location);
             avatar = (ImageView) v.findViewById(R.id.followers_avatar_image);
         }
 
-        private void populateFollowersViewData(GitHubUsersDataEntry followersDataEntry) {
+        private void populateFollowersViewData(GitHubUserProfileDataEntry followersDataEntry) {
             Log.v(TAG, "followersDataEntry.getLogin() - " + followersDataEntry.getLogin());
-            name.setText(followersDataEntry.getLogin());
-
+            name.setText(followersDataEntry.getName());
+            login.setText(followersDataEntry.getLogin());
+            email.setText(followersDataEntry.getEmail());
+            location.setText(followersDataEntry.getLocation());
             Picasso pic = Picasso.with(context);
             Log.v(TAG, "path" + followersDataEntry.getImageUri());
             pic.load(followersDataEntry.getImageUri())
@@ -80,6 +89,5 @@ public class FollowersListAdapter extends RecyclerView.Adapter<FollowersListAdap
                     .error(R.drawable.octocat)
                     .into(avatar);
         }
-
     }
 }
