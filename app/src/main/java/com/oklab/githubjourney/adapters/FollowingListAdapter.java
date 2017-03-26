@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
 import com.oklab.githubjourney.R;
 import com.squareup.picasso.Picasso;
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class FollowingListAdapter extends RecyclerView.Adapter<FollowingListAdapter.FollowingListViewHolder> {
     private static final String TAG = FeedListAdapter.class.getSimpleName();
-    private final ArrayList<GitHubUsersDataEntry> followingDataEntrylist = new ArrayList<>(1000);
+    private final ArrayList<GitHubUserProfileDataEntry> followingDataEntrylist = new ArrayList<>(1000);
     private final Context context;
 
     public FollowingListAdapter(Context context) {
@@ -37,7 +38,7 @@ public class FollowingListAdapter extends RecyclerView.Adapter<FollowingListAdap
 
     @Override
     public void onBindViewHolder(FollowingListAdapter.FollowingListViewHolder holder, int position) {
-        GitHubUsersDataEntry entry = followingDataEntrylist.get(position);
+        GitHubUserProfileDataEntry entry = followingDataEntrylist.get(position);
         holder.populateFollowingViewData(entry);
     }
 
@@ -46,7 +47,7 @@ public class FollowingListAdapter extends RecyclerView.Adapter<FollowingListAdap
         return followingDataEntrylist.size();
     }
 
-    public void add(List<GitHubUsersDataEntry> entryList) {
+    public void add(List<GitHubUserProfileDataEntry> entryList) {
         followingDataEntrylist.addAll(entryList);
         notifyDataSetChanged();
     }
@@ -59,6 +60,9 @@ public class FollowingListAdapter extends RecyclerView.Adapter<FollowingListAdap
     public class FollowingListViewHolder extends RecyclerView.ViewHolder {
 
         private TextView name;
+        private TextView login;
+        private TextView email;
+        private TextView location;
         private ImageView avatar;
 
 
@@ -66,19 +70,23 @@ public class FollowingListAdapter extends RecyclerView.Adapter<FollowingListAdap
             super(v);
             name = (TextView) v.findViewById(R.id.following_user_name);
             avatar = (ImageView) v.findViewById(R.id.following_avatar_image);
+            login = (TextView) v.findViewById(R.id.following_login);
+            email = (TextView) v.findViewById(R.id.following_email);
+            location = (TextView) v.findViewById(R.id.following_location);
+            avatar = (ImageView) v.findViewById(R.id.following_avatar_image);
         }
 
-        private void populateFollowingViewData(GitHubUsersDataEntry followingDataEntry) {
-            name.setText(followingDataEntry.getLogin());
-
+        private void populateFollowingViewData(GitHubUserProfileDataEntry followingDataEntry) {
+            name.setText(followingDataEntry.getName());
+            login.setText(followingDataEntry.getLogin());
+            email.setText(followingDataEntry.getEmail());
+            location.setText(followingDataEntry.getLocation());
             Picasso pic = Picasso.with(context);
             Log.v(TAG, "path" + followingDataEntry.getImageUri());
-
             pic.load(followingDataEntry.getImageUri())
                     .fit().centerCrop()
                     .error(R.drawable.octocat)
                     .into(avatar);
         }
-
     }
 }
