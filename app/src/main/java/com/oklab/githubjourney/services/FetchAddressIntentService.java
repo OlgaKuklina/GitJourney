@@ -4,13 +4,10 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
-
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.data.GitHubUserLocationDataEntry;
@@ -40,13 +37,13 @@ public class FetchAddressIntentService extends IntentService {
         // Get the location passed to this service through an extra.
         ArrayList<GitHubUserLocationDataEntry> locationsList = intent.getParcelableArrayListExtra(
                 LocationConstants.LOCATION_DATA_EXTRA);
-        ResultReceiver mReceiver =  intent.getParcelableExtra(
+        ResultReceiver mReceiver = intent.getParcelableExtra(
                 LocationConstants.RECEIVER);
         try {
-            for(int i = 0; i < locationsList.size(); i++) {
+            for (int i = 0; i < locationsList.size(); i++) {
                 GitHubUserLocationDataEntry entry = locationsList.get(i);
                 List<Address> addressList = geocoder.getFromLocationName(entry.getLocation(), 1);
-                if(!addressList.isEmpty()){
+                if (!addressList.isEmpty()) {
                     Address address = addressList.get(0);
                     entry.setLatitude(address.getLatitude());
                     entry.setLongitude(address.getLongitude());

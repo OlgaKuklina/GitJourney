@@ -8,22 +8,6 @@ import android.os.Parcelable;
  */
 
 public class GitHubUserLocationDataEntry extends GitHubUsersDataEntry implements Parcelable {
-    private final String location;
-    private double latitude;
-    private double longitude;
-
-
-
-    public GitHubUserLocationDataEntry(String name, String imageUri, String profileUri, String location, double latitude, double longitude) {
-        super(name, imageUri, profileUri);
-        this.location = location;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-    public GitHubUserLocationDataEntry(String name, String imageUri, String profileUri, String location) {
-        this(name, imageUri, profileUri, location, 0.0, 0.0);
-    }
-
     public static final Creator<GitHubUserLocationDataEntry> CREATOR = new Creator<GitHubUserLocationDataEntry>() {
         @Override
         public GitHubUserLocationDataEntry createFromParcel(Parcel in) {
@@ -42,26 +26,41 @@ public class GitHubUserLocationDataEntry extends GitHubUsersDataEntry implements
             return new GitHubUserLocationDataEntry[size];
         }
     };
+    private final String location;
+    private double latitude;
+    private double longitude;
+
+    public GitHubUserLocationDataEntry(String name, String imageUri, String profileUri, String location, double latitude, double longitude) {
+        super(name, imageUri, profileUri);
+        this.location = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public GitHubUserLocationDataEntry(String name, String imageUri, String profileUri, String location) {
+        this(name, imageUri, profileUri, location, 0.0, 0.0);
+    }
 
     public double getLatitude() {
         return latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public String getLocation() {
-        return location;
     }
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
+    public double getLongitude() {
+        return longitude;
+    }
+
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    public String getLocation() {
+        return location;
+    }
+
     @Override
     public int describeContents() {
         return 0;

@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
-import com.oklab.githubjourney.data.GitHubUsersDataEntry;
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

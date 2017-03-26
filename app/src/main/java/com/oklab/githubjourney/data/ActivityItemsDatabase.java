@@ -27,8 +27,8 @@ public class ActivityItemsDatabase extends SQLiteOpenHelper {
                 + ActivityItemsContract.ItemsColumns.AUTHOR_ID + " TEXT NOT NULL,"
                 + ActivityItemsContract.ItemsColumns.DESCRIPTION + " TEXT,"
                 + ActivityItemsContract.ItemsColumns.ACTION_TYPE + " TEXT NOT NULL,"
-                 + ActivityItemsContract.ItemsColumns.PUBLISHED_DATE + " INTEGER NOT NULL DEFAULT 0"
-                + ")" );
+                + ActivityItemsContract.ItemsColumns.PUBLISHED_DATE + " INTEGER NOT NULL DEFAULT 0"
+                + ")");
     }
 
     @Override

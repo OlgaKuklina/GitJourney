@@ -7,9 +7,9 @@ import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
 
+import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.activities.MainActivity;
 import com.oklab.githubjourney.data.UserSessionData;
-import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.utils.Utils;
 
 import org.apache.commons.httpclient.HttpStatus;

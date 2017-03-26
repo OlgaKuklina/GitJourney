@@ -1,7 +1,5 @@
 package com.oklab.githubjourney.data;
 
-import org.json.JSONObject;
-
 /**
  * Created by olgakuklina on 2017-03-22.
  */

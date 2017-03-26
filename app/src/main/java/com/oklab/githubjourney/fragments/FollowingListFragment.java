@@ -13,12 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.FollowingListAdapter;
 import com.oklab.githubjourney.asynctasks.FollowingAsyncTask;
 import com.oklab.githubjourney.asynctasks.UserProfileAsyncTask;
 import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
-import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.parsers.GitHubUserProfileDataParser;
 import com.oklab.githubjourney.parsers.Parser;
 
@@ -29,14 +29,14 @@ import java.util.List;
  * Created by olgakuklina on 2017-02-06.
  */
 
-public class FollowingListFragment extends Fragment implements FollowingAsyncTask.OnFollowingLoadedListener,UserProfileAsyncTask.OnProfilesLoadedListener<GitHubUserProfileDataEntry>, SwipeRefreshLayout.OnRefreshListener {
+public class FollowingListFragment extends Fragment implements FollowingAsyncTask.OnFollowingLoadedListener, UserProfileAsyncTask.OnProfilesLoadedListener<GitHubUserProfileDataEntry>, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = FollowingListFragment.class.getSimpleName();
+    ArrayList<GitHubUserProfileDataEntry> profileDataEntryList;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FollowingListAdapter followingListAdapter;
     private FollowingListFragment.OnFragmentInteractionListener mListener;
     private LinearLayoutManager linearLayoutManager;
-    ArrayList<GitHubUserProfileDataEntry> profileDataEntryList;
     private int count = 0;
     private int currentPage = 1;
     private boolean followingExhausted = false;
@@ -128,7 +128,7 @@ public class FollowingListFragment extends Fragment implements FollowingAsyncTas
         Parser<GitHubUserProfileDataEntry> parser = new GitHubUserProfileDataParser();
         count = followingDataEntryList.size();
         profileDataEntryList = new ArrayList<>(count);
-        for(GitHubUsersDataEntry entry: followingDataEntryList) {
+        for (GitHubUsersDataEntry entry : followingDataEntryList) {
             new UserProfileAsyncTask<GitHubUserProfileDataEntry>(getContext(), this, parser).execute(entry.getLogin());
         }
         swipeRefreshLayout.setRefreshing(false);
@@ -136,12 +136,12 @@ public class FollowingListFragment extends Fragment implements FollowingAsyncTas
 
     @Override
     public void OnProfilesLoaded(GitHubUserProfileDataEntry profileDataEntry) {
-        Log.v(TAG, "OnProfilesLoaded " + count + " , " +  profileDataEntry);
+        Log.v(TAG, "OnProfilesLoaded " + count + " , " + profileDataEntry);
         count--;
-        if (profileDataEntry != null && profileDataEntry.getLocation()!=null && !profileDataEntry.getLocation().isEmpty()) {
+        if (profileDataEntry != null && profileDataEntry.getLocation() != null && !profileDataEntry.getLocation().isEmpty()) {
             profileDataEntryList.add(profileDataEntry);
         }
-        if(count == 0) {
+        if (count == 0) {
             followingListAdapter.add(profileDataEntryList);
         }
     }

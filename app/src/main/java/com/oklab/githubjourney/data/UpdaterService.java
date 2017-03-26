@@ -34,6 +34,11 @@ import java.util.List;
 public class UpdaterService extends IntentService {
     private static final String TAG = "UpdaterService";
     private UserSessionData currentSessionData;
+
+    public UpdaterService() {
+        super(UpdaterService.TAG);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -41,10 +46,6 @@ public class UpdaterService extends IntentService {
         String sessionDataStr = prefs.getString("userSessionData", null);
         currentSessionData = UserSessionData.createUserSessionDataFromString(sessionDataStr);
 
-    }
-
-    public UpdaterService() {
-        super(UpdaterService.TAG);
     }
 
     @Override
@@ -60,14 +61,14 @@ public class UpdaterService extends IntentService {
         cpo.add(ContentProviderOperation.newDelete(dirUri).build());
 
         int pageIndex = 1;
-        while(true) {
-            Log.v(TAG, "reading page # = "+pageIndex);
+        while (true) {
+            Log.v(TAG, "reading page # = " + pageIndex);
             List<ContributionDataEntry> contributionsDataList = readActivityLog(pageIndex++);
             Log.v(TAG, "contributionsDataList number of elements = " + contributionsDataList.size());
-            if(contributionsDataList.isEmpty()) {
+            if (contributionsDataList.isEmpty()) {
                 break;
             }
-            for (ContributionDataEntry entry: contributionsDataList) {
+            for (ContributionDataEntry entry : contributionsDataList) {
                 ContentValues values = new ContentValues();
                 values.put(ActivityItemsContract.Items._ID, entry.getEntryId());
                 values.put(ActivityItemsContract.Items.ENTRY_URL, entry.getEntryURL());
@@ -81,7 +82,7 @@ public class UpdaterService extends IntentService {
         }
         try {
             this.getContentResolver().applyBatch(ActivityItemsContract.CONTENT_AUTHORITY, cpo);
-        } catch ( RemoteException | OperationApplicationException e) {
+        } catch (RemoteException | OperationApplicationException e) {
             Log.e(UpdaterService.TAG, "Error updating content.", e);
         }
     }

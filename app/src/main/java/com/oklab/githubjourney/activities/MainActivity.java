@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
@@ -17,11 +16,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.data.UpdaterService;
-import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.fragments.ContributionsByDateListFragment;
 import com.oklab.githubjourney.fragments.MainViewFragment;
-import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.utils.Utils;
 
 public class MainActivity extends AppCompatActivity
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ContributionsByDateListFragment contributionsActivityFragment =  ContributionsByDateListFragment.newInstance();
+        ContributionsByDateListFragment contributionsActivityFragment = ContributionsByDateListFragment.newInstance();
         getSupportFragmentManager().beginTransaction().replace(R.id.contrib_fragment, contributionsActivityFragment).commit();
     }
 

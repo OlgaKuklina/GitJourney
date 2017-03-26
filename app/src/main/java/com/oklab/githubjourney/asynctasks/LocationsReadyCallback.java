@@ -33,7 +33,7 @@ import java.util.List;
  * Created by olgakuklina on 2017-03-25.
  */
 
-public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyncTask.OnFollowersLoadedListener,FollowingAsyncTask.OnFollowingLoadedListener,  UserProfileAsyncTask.OnProfilesLoadedListener<GitHubUserLocationDataEntry> {
+public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyncTask.OnFollowersLoadedListener, FollowingAsyncTask.OnFollowingLoadedListener, UserProfileAsyncTask.OnProfilesLoadedListener<GitHubUserLocationDataEntry> {
     private static final String TAG = LocationsReadyCallback.class.getSimpleName();
     private final Context context;
     private int count = 0;
@@ -46,6 +46,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
     public LocationsReadyCallback(Context context) {
         this.context = context;
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.v(TAG, "onMapReady");
@@ -61,26 +62,28 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
         intent.putExtra(LocationConstants.RECEIVER, mResultReceiver);
         context.startService(intent);
     }
+
     @Override
     public void OnFollowersLoaded(List<GitHubUsersDataEntry> followersDataEntry) {
-        followersLocationsList = followersDataEntry !=null ? followersDataEntry: Collections.emptyList();
+        followersLocationsList = followersDataEntry != null ? followersDataEntry : Collections.emptyList();
         Log.v(TAG, "followersLocationsList = " + followersLocationsList.size());
         new FollowingAsyncTask(context, this).execute(1);
     }
+
     @Override
     public void onFollowingLoaded(List<GitHubUsersDataEntry> followingDataEntry) {
-        followingsLocationsList = followingDataEntry !=null ? followingDataEntry: Collections.emptyList();
+        followingsLocationsList = followingDataEntry != null ? followingDataEntry : Collections.emptyList();
 
         Log.v(TAG, "followingsLocationsList = " + followingsLocationsList.size());
         HashSet<String> set = new HashSet<>();
         ArrayList<GitHubUsersDataEntry> list = new ArrayList<>(followingsLocationsList.size() + followersLocationsList.size());
 
-        for(GitHubUsersDataEntry entry: followersLocationsList) {
+        for (GitHubUsersDataEntry entry : followersLocationsList) {
             set.add(entry.getLogin());
             list.add(entry);
         }
-        for(GitHubUsersDataEntry entry: followingsLocationsList) {
-            if(!set.contains(entry.getLogin())) {
+        for (GitHubUsersDataEntry entry : followingsLocationsList) {
+            if (!set.contains(entry.getLogin())) {
                 set.add(entry.getLogin());
                 list.add(entry);
             }
@@ -89,18 +92,19 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
         Log.v(TAG, "list = " + list.size());
         locationsDataList = new ArrayList<>(count);
         Parser<GitHubUserLocationDataEntry> parser = new LocationDataParser();
-        for(GitHubUsersDataEntry entry: list) {
+        for (GitHubUsersDataEntry entry : list) {
             new UserProfileAsyncTask<GitHubUserLocationDataEntry>(context, this, parser).execute(entry.getLogin());
         }
     }
+
     @Override
     public void OnProfilesLoaded(GitHubUserLocationDataEntry locationDataEntry) {
-        Log.v(TAG, "OnProfilesLoaded " + count + " , " +  locationDataEntry);
+        Log.v(TAG, "OnProfilesLoaded " + count + " , " + locationDataEntry);
         count--;
-        if (locationDataEntry != null && locationDataEntry.getLocation()!=null && !locationDataEntry.getLocation().isEmpty()) {
+        if (locationDataEntry != null && locationDataEntry.getLocation() != null && !locationDataEntry.getLocation().isEmpty()) {
             locationsDataList.add(locationDataEntry);
         }
-        if(count == 0) {
+        if (count == 0) {
             startIntentService();
         }
     }
@@ -115,16 +119,15 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
             Log.v(TAG, "onReceiveResult");
             ArrayList<GitHubUserLocationDataEntry> locationsList = resultData.getParcelableArrayList(LocationConstants.LOCATION_DATA_EXTRA);
             Log.v(TAG, "ArrayList.size() = " + locationsList.size());
-            for(GitHubUserLocationDataEntry entry: locationsList) {
-                if(entry.getLatitude() != 0.0 || entry.getLongitude() != 0.0) {
+            for (GitHubUserLocationDataEntry entry : locationsList) {
+                if (entry.getLatitude() != 0.0 || entry.getLongitude() != 0.0) {
                     Log.v(TAG, "getLatitude = " + entry.getLatitude());
-                    LatLng position = new LatLng (entry.getLatitude(), entry.getLongitude());
-                    if(entry.getImageUri() == null) {
+                    LatLng position = new LatLng(entry.getLatitude(), entry.getLongitude());
+                    if (entry.getImageUri() == null) {
                         MarkerOptions options = new MarkerOptions().position(position).title(entry.getLogin());
                         map.addMarker(options);
-                    }
-                    else {
-                        Picasso.with(context).load(entry.getImageUri()).resize(100,100).into(new Target() {
+                    } else {
+                        Picasso.with(context).load(entry.getImageUri()).resize(100, 100).into(new Target() {
                             @Override
                             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                 BitmapDescriptor desc = BitmapDescriptorFactory.fromBitmap(bitmap);

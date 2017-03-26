@@ -20,14 +20,11 @@ import java.util.List;
  */
 
 public class ActivityItemsProvider extends ContentProvider {
-    private SQLiteOpenHelper mOpenHelper;
-    interface Tables {
-        String ITEMS = "items";
-    }
     private static final int ITEMS = 0;
     private static final int ITEMS_ID = 1;
     private static final int ITEMS_RANGE = 2;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
+    private SQLiteOpenHelper mOpenHelper;
 
     private static UriMatcher buildUriMatcher() {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -107,6 +104,7 @@ public class ActivityItemsProvider extends ContentProvider {
         return builder.where(selection, selectionArgs).update(db, values);
 
     }
+
     private SelectionBuilder buildSelection(Uri uri) {
         final SelectionBuilder builder = new SelectionBuilder();
         final int match = sUriMatcher.match(uri);
@@ -128,6 +126,7 @@ public class ActivityItemsProvider extends ContentProvider {
             }
         }
     }
+
     /**
      * Apply the given set of {@link ContentProviderOperation}, executing inside
      * a {@link SQLiteDatabase} transaction. All changes will be rolled back if
@@ -148,5 +147,9 @@ public class ActivityItemsProvider extends ContentProvider {
         } finally {
             db.endTransaction();
         }
+    }
+
+    interface Tables {
+        String ITEMS = "items";
     }
 }

@@ -1,6 +1,7 @@
 package com.oklab.githubjourney.parsers;
 
 import android.util.Log;
+
 import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
 
 import org.json.JSONException;
@@ -16,7 +17,7 @@ import java.util.TimeZone;
  * Created by olgakuklina on 2017-03-25.
  */
 
-public class GitHubUserProfileDataParser implements Parser<GitHubUserProfileDataEntry>{
+public class GitHubUserProfileDataParser implements Parser<GitHubUserProfileDataEntry> {
     private static final String TAG = GitHubUserProfileDataParser.class.getSimpleName();
     private static final String PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
@@ -102,5 +103,5 @@ public class GitHubUserProfileDataParser implements Parser<GitHubUserProfileData
             }
         }
         return new GitHubUserProfileDataEntry(name, avatarUrl, profileUri, location, login, company, blogURI, email, bio, publicRepos, publicGists, followers, following, createdAt);
-        }
+    }
 }

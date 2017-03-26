@@ -18,13 +18,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.SupportMapFragment;
+import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.asynctasks.LocationsReadyCallback;
 import com.oklab.githubjourney.fragments.FeedListFragment;
 import com.oklab.githubjourney.fragments.FollowersListFragment;
 import com.oklab.githubjourney.fragments.FollowingListFragment;
 import com.oklab.githubjourney.fragments.RepositoriesListFragment;
 import com.oklab.githubjourney.fragments.StarsListFragment;
-import com.oklab.githubjourney.R;
 
 public class GeneralActivity extends AppCompatActivity implements FeedListFragment.OnFragmentInteractionListener, RepositoriesListFragment.OnFragmentInteractionListener, StarsListFragment.OnFragmentInteractionListener, FollowersListFragment.OnFragmentInteractionListener, FollowingListFragment.OnFragmentInteractionListener {
 

@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.parsers.AtomParser;
 import com.oklab.githubjourney.utils.Utils;
 

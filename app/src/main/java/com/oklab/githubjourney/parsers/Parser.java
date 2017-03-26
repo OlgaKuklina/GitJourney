@@ -1,4 +1,5 @@
 package com.oklab.githubjourney.parsers;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -7,5 +8,5 @@ import org.json.JSONObject;
  */
 
 public interface Parser<T> {
-     T parse(JSONObject jsonObject) throws JSONException;
+    T parse(JSONObject jsonObject) throws JSONException;
 }

@@ -12,13 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.oklab.githubjourney.adapters.ContributionsByDateAdapter;
-import com.oklab.githubjourney.adapters.ContributionsListAdapter;
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.adapters.ContributionsListAdapter;
 import com.oklab.githubjourney.data.ContributionsDataLoader;
 
 import java.text.SimpleDateFormat;
@@ -28,7 +26,7 @@ import java.util.Calendar;
  * Created by olgakuklina on 2017-01-24.
  */
 
-public class MainViewFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class MainViewFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = MainViewFragment.class.getSimpleName();
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -91,12 +89,13 @@ public class MainViewFragment extends Fragment implements LoaderManager.LoaderCa
         newCalendar.set(Calendar.SECOND, 0);
         Log.v(TAG, "numberOfDays = " + numberOfDays);
         long minDate = newCalendar.getTimeInMillis();
-       newCalendar.set(Calendar.DAY_OF_MONTH, numberOfDays);
+        newCalendar.set(Calendar.DAY_OF_MONTH, numberOfDays);
         newCalendar.set(Calendar.HOUR, 23);
         newCalendar.set(Calendar.MINUTE, 59);
         newCalendar.set(Calendar.SECOND, 59);
         long maxDate = newCalendar.getTimeInMillis();
-        return ContributionsDataLoader.newRangeLoader(getContext(), minDate, maxDate);    }
+        return ContributionsDataLoader.newRangeLoader(getContext(), minDate, maxDate);
+    }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {

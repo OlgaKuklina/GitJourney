@@ -1,19 +1,17 @@
 package com.oklab.githubjourney.parsers;
+
 import android.util.Log;
+
 import com.oklab.githubjourney.data.GitHubUserLocationDataEntry;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by olgakuklina on 2017-03-24.
  */
 
-public class LocationDataParser implements Parser<GitHubUserLocationDataEntry>{
+public class LocationDataParser implements Parser<GitHubUserLocationDataEntry> {
     private static final String TAG = LocationDataParser.class.getSimpleName();
 
     @Override

@@ -122,7 +122,6 @@
     <string name="section_format">Hello World from section: %1$d</string>
 
 
-
     <!-- widget -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="appwidget_title">Todays feed list</string>

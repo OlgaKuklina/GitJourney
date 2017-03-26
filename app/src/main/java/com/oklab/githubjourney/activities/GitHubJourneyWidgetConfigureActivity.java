@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.oklab.githubjourney.data.GitHubJourneyWidgetDataEntry;
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.data.GitHubJourneyWidgetDataEntry;
 
 /**
  * The configuration screen for the {@link GitHubJourneyWidgetProvider GitHubJourneyWidget} AppWidget.

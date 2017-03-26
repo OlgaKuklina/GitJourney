@@ -3,7 +3,6 @@ package com.oklab.githubjourney.adapters;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,6 @@ import com.oklab.githubjourney.data.ContributionsDataLoader;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
 
 public class ContributionsByDateAdapter extends RecyclerView.Adapter<ContributionsByDateAdapter.ContributionsByDateViewHolder> {
 
@@ -68,11 +65,11 @@ public class ContributionsByDateAdapter extends RecyclerView.Adapter<Contributio
         private void populateContributionData() {
             title.setText(cursor.getString(ContributionsDataLoader.Query.TITLE));
             description.setText(cursor.getString(ContributionsDataLoader.Query.DESCRIPTION));
-            Calendar calendar =  Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance();
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
             long date = cursor.getLong(ContributionsDataLoader.Query.PUBLISHED_DATE);
             calendar.setTimeInMillis(date);
-           this.date.setText(formatter.format(calendar.getTime()));
+            this.date.setText(formatter.format(calendar.getTime()));
         }
     }
 }

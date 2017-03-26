@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.oklab.githubjourney.data.FeedDataEntry;
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.data.FeedDataEntry;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

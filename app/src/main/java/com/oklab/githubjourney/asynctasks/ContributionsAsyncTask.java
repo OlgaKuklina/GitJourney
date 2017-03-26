@@ -5,9 +5,9 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.data.ContributionDataEntry;
 import com.oklab.githubjourney.data.UserSessionData;
-import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.parsers.ContributionsParser;
 import com.oklab.githubjourney.utils.Utils;
 

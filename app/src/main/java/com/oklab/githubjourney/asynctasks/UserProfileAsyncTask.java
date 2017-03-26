@@ -6,20 +6,14 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.oklab.githubjourney.R;
-import com.oklab.githubjourney.data.GitHubUserLocationDataEntry;
 import com.oklab.githubjourney.data.HTTPConnectionResult;
 import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.parsers.Parser;
 import com.oklab.githubjourney.services.FetchHTTPConnectionService;
-import com.oklab.githubjourney.parsers.LocationDataParser;
 import com.oklab.githubjourney.utils.Utils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by olgakuklina on 2017-03-21.
@@ -29,9 +23,9 @@ public class UserProfileAsyncTask<T> extends AsyncTask<String, Void, T> {
 
     private static final String TAG = UserProfileAsyncTask.class.getSimpleName();
     private final Context context;
-    private UserSessionData currentSessionData;
     private final UserProfileAsyncTask.OnProfilesLoadedListener<T> listener;
     private final Parser<T> parser;
+    private UserSessionData currentSessionData;
 
     public UserProfileAsyncTask(Context context, UserProfileAsyncTask.OnProfilesLoadedListener<T> listener, Parser<T> parser) {
         this.context = context;
@@ -49,7 +43,7 @@ public class UserProfileAsyncTask<T> extends AsyncTask<String, Void, T> {
 
     @Override
     protected T doInBackground(String... args) {
-        String login  = args[0];
+        String login = args[0];
         String Uri = context.getString(R.string.url_users, login);
         FetchHTTPConnectionService connectionFetcher = new FetchHTTPConnectionService(Uri, currentSessionData);
         HTTPConnectionResult result = connectionFetcher.establishConnection();

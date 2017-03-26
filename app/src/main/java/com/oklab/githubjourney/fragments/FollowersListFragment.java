@@ -13,12 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.FollowersListAdapter;
 import com.oklab.githubjourney.asynctasks.FollowersAsyncTask;
 import com.oklab.githubjourney.asynctasks.UserProfileAsyncTask;
 import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
-import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.parsers.GitHubUserProfileDataParser;
 import com.oklab.githubjourney.parsers.Parser;
 
@@ -31,13 +31,12 @@ import java.util.List;
 
 public class FollowersListFragment extends Fragment implements FollowersAsyncTask.OnFollowersLoadedListener, UserProfileAsyncTask.OnProfilesLoadedListener<GitHubUserProfileDataEntry>, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = StarsListFragment.class.getSimpleName();
-
+    ArrayList<GitHubUserProfileDataEntry> profileDataEntryList;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FollowersListAdapter followersListAdapter;
     private FollowersListFragment.OnFragmentInteractionListener mListener;
     private LinearLayoutManager linearLayoutManager;
-    ArrayList<GitHubUserProfileDataEntry> profileDataEntryList;
     private int currentPage = 1;
     private boolean followersExhausted = false;
     private boolean loading = false;
@@ -130,7 +129,7 @@ public class FollowersListFragment extends Fragment implements FollowersAsyncTas
         Parser<GitHubUserProfileDataEntry> parser = new GitHubUserProfileDataParser();
         count = followersDataEntryList.size();
         profileDataEntryList = new ArrayList<>(count);
-        for(GitHubUsersDataEntry entry: followersDataEntryList) {
+        for (GitHubUsersDataEntry entry : followersDataEntryList) {
             new UserProfileAsyncTask<GitHubUserProfileDataEntry>(getContext(), this, parser).execute(entry.getLogin());
         }
         swipeRefreshLayout.setRefreshing(false);
@@ -139,12 +138,12 @@ public class FollowersListFragment extends Fragment implements FollowersAsyncTas
     @Override
     public void OnProfilesLoaded(GitHubUserProfileDataEntry profileDataEntry) {
 
-        Log.v(TAG, "OnProfilesLoaded " + count + " , " +  profileDataEntry);
+        Log.v(TAG, "OnProfilesLoaded " + count + " , " + profileDataEntry);
         count--;
-        if (profileDataEntry != null && profileDataEntry.getLocation()!=null && !profileDataEntry.getLocation().isEmpty()) {
+        if (profileDataEntry != null && profileDataEntry.getLocation() != null && !profileDataEntry.getLocation().isEmpty()) {
             profileDataEntryList.add(profileDataEntry);
         }
-        if(count == 0) {
+        if (count == 0) {
             followersListAdapter.add(profileDataEntryList);
         }
     }

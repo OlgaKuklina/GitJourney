@@ -13,10 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.FeedListAdapter;
 import com.oklab.githubjourney.asynctasks.FeedsAsyncTask;
 import com.oklab.githubjourney.data.FeedDataEntry;
-import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.parsers.FeedListAtomParser;
 
 import java.util.List;

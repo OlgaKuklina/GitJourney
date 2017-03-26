@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.data.ReposDataEntry;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -90,18 +90,18 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
             Picasso pic = Picasso.with(context);
             Log.v(TAG, "path" + reposDataEntry.isPrivate());
             if (reposDataEntry.isForked()) {
-                pic.load(R.drawable.book_multiple)
+                pic.load(R.drawable.octocat)
                         .fit().centerCrop()
                         .into(type);
             } else if (reposDataEntry.isPrivate()) {
-                pic.load(R.drawable.book_multiple)
+                pic.load(R.drawable.octocat)
                         .fit().centerCrop()
-                        .error(R.drawable.book_multiple)
+                        .error(R.drawable.octocat)
                         .into(type);
             } else {
-                pic.load(R.drawable.book_multiple)
+                pic.load(R.drawable.octocat)
                         .fit().centerCrop()
-                        .error(R.drawable.book_multiple)
+                        .error(R.drawable.octocat)
                         .into(type);
             }
 
