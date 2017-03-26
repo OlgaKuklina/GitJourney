@@ -2,6 +2,8 @@ package com.oklab.githubjourney.asynctasks;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
@@ -9,12 +11,16 @@ import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.oklab.githubjourney.data.GitHubUserLocationDataEntry;
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
 import com.oklab.githubjourney.data.LocationConstants;
 import com.oklab.githubjourney.services.FetchAddressIntentService;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -111,8 +117,31 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
                 if(entry.getLatitude() != 0.0 || entry.getLongitude() != 0.0) {
                     Log.v(TAG, "getLatitude = " + entry.getLatitude());
                     LatLng position = new LatLng (entry.getLatitude(), entry.getLongitude());
-                    MarkerOptions options= new MarkerOptions().position(position).title(entry.getName());
-                    map.addMarker(options);
+                    if(entry.getImageUri() == null) {
+                        MarkerOptions options = new MarkerOptions().position(position).title(entry.getName());
+                        map.addMarker(options);
+                    }
+                    else {
+                        Picasso.with(context).load(entry.getImageUri()).resize(100,100).into(new Target() {
+                            @Override
+                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                BitmapDescriptor desc = BitmapDescriptorFactory.fromBitmap(bitmap);
+                                MarkerOptions options = new MarkerOptions().position(position).title(entry.getName()).icon(desc);
+                                map.addMarker(options);
+                            }
+
+                            @Override
+                            public void onBitmapFailed(Drawable errorDrawable) {
+                                Log.v(TAG, "error onBitmapFailed");
+                            }
+
+                            @Override
+                            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                            }
+                        });
+                    }
+
                 }
             }
         }
