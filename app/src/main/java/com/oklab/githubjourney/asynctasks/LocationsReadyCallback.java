@@ -2,16 +2,11 @@ package com.oklab.githubjourney.asynctasks;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
@@ -22,19 +17,24 @@ import com.oklab.githubjourney.data.LocationConstants;
 import com.oklab.githubjourney.services.FetchAddressIntentService;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 /**
  * Created by olgakuklina on 2017-03-25.
  */
 
-public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyncTask.OnFollowersLoadedListener, UserProfileAsyncTask.OnProfilesLoadedListener {
+public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyncTask.OnFollowersLoadedListener,FollowingAsyncTask.OnFollowingLoadedListener,  UserProfileAsyncTask.OnProfilesLoadedListener {
     private static final String TAG = LocationsReadyCallback.class.getSimpleName();
     private final Context context;
     private int currentPage = 1;
     private int count = 0;
-    private ArrayList<GitHubUserLocationDataEntry> locationsList;
+    private int followersCount = 0;
+    private List<GitHubUsersDataEntry> followersLocationsList;
+    private List<GitHubUsersDataEntry> followingsLocationsList;
+    private ArrayList<GitHubUserLocationDataEntry> locationsDataList;
     private AddressResultReceiver mResultReceiver;
     private GoogleMap map;
 
@@ -43,39 +43,60 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        new FollowersAsyncTask(context, this).execute(currentPage++);
+        new FollowersAsyncTask(context, this).execute(1);
         mResultReceiver = new AddressResultReceiver(new Handler());
         map = googleMap;
     }
 
     protected void startIntentService() {
         Intent intent = new Intent(context, FetchAddressIntentService.class);
-        intent.putParcelableArrayListExtra(LocationConstants.LOCATION_DATA_EXTRA, locationsList);
+        Log.v(TAG, "locationsDataList = " + locationsDataList.size());
+        intent.putParcelableArrayListExtra(LocationConstants.LOCATION_DATA_EXTRA, locationsDataList);
         intent.putExtra(LocationConstants.RECEIVER, mResultReceiver);
         context.startService(intent);
     }
     @Override
     public void OnFollowersLoaded(List<GitHubUsersDataEntry> followersDataEntry) {
-        if (followersDataEntry != null && followersDataEntry.isEmpty()) {
-            return;
+        followersLocationsList = followersDataEntry !=null ? followersDataEntry: Collections.emptyList();
+        Log.v(TAG, "followersLocationsList = " + followersLocationsList.size());
+        new FollowingAsyncTask(context, this).execute(1);
+    }
+    @Override
+    public void onFollowingLoaded(List<GitHubUsersDataEntry> followingDataEntry) {
+        followingsLocationsList = followingDataEntry !=null ? followingDataEntry: Collections.emptyList();
+
+        Log.v(TAG, "followingsLocationsList = " + followingsLocationsList.size());
+        HashSet<String> set = new HashSet<>();
+        ArrayList<GitHubUsersDataEntry> list = new ArrayList<>(followingsLocationsList.size() + followersLocationsList.size());
+
+        for(GitHubUsersDataEntry entry: followersLocationsList) {
+            set.add(entry.getName());
+            list.add(entry);
         }
-        locationsList = new ArrayList<>(followersDataEntry.size());
-        count = followersDataEntry.size();
-        for(GitHubUsersDataEntry entry: followersDataEntry) {
+        for(GitHubUsersDataEntry entry: followingsLocationsList) {
+            if(!set.contains(entry.getName())) {
+                set.add(entry.getName());
+                list.add(entry);
+            }
+        }
+        count = list.size();
+        Log.v(TAG, "list = " + list.size());
+        locationsDataList = new ArrayList<>(count);
+        for(GitHubUsersDataEntry entry: list) {
             new UserProfileAsyncTask(context, this).execute(entry.getName());
         }
     }
-
     @Override
     public void OnProfilesLoaded(GitHubUserLocationDataEntry locationDataEntry) {
         count--;
         if (locationDataEntry != null && locationDataEntry.getLocation()!=null && !locationDataEntry.getLocation().isEmpty()) {
-            locationsList.add(locationDataEntry);
+            locationsDataList.add(locationDataEntry);
         }
         if(count == 0) {
             startIntentService();
         }
     }
+
     class AddressResultReceiver extends ResultReceiver {
         public AddressResultReceiver(Handler handler) {
             super(handler);
