@@ -2,8 +2,13 @@ package com.oklab.githubjourney.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
@@ -15,12 +20,18 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.data.UpdaterService;
 import com.oklab.githubjourney.fragments.ContributionsByDateListFragment;
 import com.oklab.githubjourney.fragments.MainViewFragment;
+import com.oklab.githubjourney.services.TakeScreenshotService;
 import com.oklab.githubjourney.utils.Utils;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ContributionsByDateListFragment.OnListFragmentInteractionListener {
@@ -29,12 +40,12 @@ public class MainActivity extends AppCompatActivity
     private SharedPreferences prefs;
     private ViewPager calendarYearviewPager;
     private CalendarYearPagerAdapter calendarYearPagerAdapter;
+    private TakeScreenshotService takeScreenshotService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         calendarYearPagerAdapter = new CalendarYearPagerAdapter(getSupportFragmentManager());
@@ -42,7 +53,6 @@ public class MainActivity extends AppCompatActivity
         // Set up the ViewPager with the sections adapter.
         calendarYearviewPager = (ViewPager) findViewById(R.id.pager);
         calendarYearviewPager.setAdapter(calendarYearPagerAdapter);
-
         prefs = this.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
         String currentSessionData = prefs.getString("userSessionData", null);
         if (currentSessionData == null) {
@@ -50,7 +60,6 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
             return;
         }
-
         this.startService(new Intent(this, UpdaterService.class));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -58,12 +67,18 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         ContributionsByDateListFragment contributionsActivityFragment = ContributionsByDateListFragment.newInstance();
         getSupportFragmentManager().beginTransaction().replace(R.id.contrib_fragment, contributionsActivityFragment).commit();
+        takeScreenshotService = new TakeScreenshotService(this);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                takeScreenshotService.takeScreenShot();
+            }
+        });
     }
 
     @Override
