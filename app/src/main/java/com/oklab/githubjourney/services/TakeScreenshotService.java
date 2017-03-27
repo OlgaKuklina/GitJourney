@@ -1,7 +1,6 @@
 package com.oklab.githubjourney.services;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -14,7 +13,6 @@ import com.oklab.githubjourney.utils.Utils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 
 /**
  * Created by olgakuklina on 2017-03-26.
@@ -23,10 +21,12 @@ import java.io.PrintStream;
 public class TakeScreenshotService {
 
     private static final String TAG = TakeScreenshotService.class.getSimpleName();
-    private final  Activity activity;
+    private final Activity activity;
+
     public TakeScreenshotService(Activity activity) {
         this.activity = activity;
     }
+
     public void takeScreenShot() {
         View v1 = activity.getWindow().getDecorView().getRootView();
         v1.setDrawingCacheEnabled(true);

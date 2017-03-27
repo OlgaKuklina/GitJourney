@@ -1,20 +1,15 @@
 package com.oklab.githubjourney.activities;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,11 +25,6 @@ import com.oklab.githubjourney.fragments.FollowingListFragment;
 import com.oklab.githubjourney.fragments.RepositoriesListFragment;
 import com.oklab.githubjourney.fragments.StarsListFragment;
 import com.oklab.githubjourney.services.TakeScreenshotService;
-import com.oklab.githubjourney.utils.Utils;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class GeneralActivity extends AppCompatActivity implements FeedListFragment.OnFragmentInteractionListener, RepositoriesListFragment.OnFragmentInteractionListener, StarsListFragment.OnFragmentInteractionListener, FollowersListFragment.OnFragmentInteractionListener, FollowingListFragment.OnFragmentInteractionListener {
     private static final String TAG = GeneralActivity.class.getSimpleName();

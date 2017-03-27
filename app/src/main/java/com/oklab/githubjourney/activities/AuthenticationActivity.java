@@ -1,16 +1,15 @@
 package com.oklab.githubjourney.activities;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.asynctasks.AuthenticationAsyncTask;
-import com.oklab.githubjourney.data.UserSessionData;
 
 /**
  * Created by olgakuklina on 2017-01-08.
@@ -18,7 +17,6 @@ import com.oklab.githubjourney.data.UserSessionData;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
-    private final AsyncTask<String, Integer, UserSessionData> authenticationTask = new AuthenticationAsyncTask(this);
     private EditText passwordText;
     private EditText loginText;
 
@@ -39,7 +37,11 @@ public class AuthenticationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String login = loginText.getText().toString();
                 String password = passwordText.getText().toString();
-                authenticationTask.execute(login, password);
+                if (login == null || login.isEmpty() || password == null || password.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "empty login or/and password", Toast.LENGTH_LONG).show();
+                } else {
+                    new AuthenticationAsyncTask(AuthenticationActivity.this).execute(login, password);
+                }
             }
         });
     }

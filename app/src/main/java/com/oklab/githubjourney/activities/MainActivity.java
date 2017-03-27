@@ -2,13 +2,9 @@ package com.oklab.githubjourney.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
@@ -23,15 +19,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.asynctasks.DeleteUserAuthorizationAsyncTask;
 import com.oklab.githubjourney.data.UpdaterService;
 import com.oklab.githubjourney.fragments.ContributionsByDateListFragment;
 import com.oklab.githubjourney.fragments.MainViewFragment;
 import com.oklab.githubjourney.services.TakeScreenshotService;
 import com.oklab.githubjourney.utils.Utils;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ContributionsByDateListFragment.OnListFragmentInteractionListener {
@@ -58,6 +51,7 @@ public class MainActivity extends AppCompatActivity
         if (currentSessionData == null) {
             Intent intent = new Intent(this, AuthenticationActivity.class);
             startActivity(intent);
+            finish();
             return;
         }
         this.startService(new Intent(this, UpdaterService.class));
@@ -142,18 +136,7 @@ public class MainActivity extends AppCompatActivity
             }
 
         } else if (id == R.id.sing_out) {
-            SharedPreferences prefs = this.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
-            String sessionDataStr = prefs.getString("userSessionData", null);
-            if (sessionDataStr != null) {
-                prefs.edit().clear();
-            }
-            Log.v(TAG, "clear SharedPreferences data " + sessionDataStr);
-            String currentSessionData = prefs.getString("userSessionData", null);
-            if (currentSessionData == null) {
-                Intent intent = new Intent(this, AuthenticationActivity.class);
-                startActivity(intent);
-                return true;
-            }
+            new DeleteUserAuthorizationAsyncTask(this).execute();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

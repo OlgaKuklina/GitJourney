@@ -49,7 +49,6 @@ public class ContributionsAsyncTask extends AsyncTask<Integer, Void, List<Contri
         try {
             HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_events, page)).openConnection();
             connect.setRequestMethod("GET");
-
             String authentication = "token " + currentSessionData.getToken();
             connect.setRequestProperty("Authorization", authentication);
 

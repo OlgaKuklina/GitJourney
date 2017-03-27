@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.activities.MainActivity;
@@ -22,6 +23,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 /**
  * Created by olgakuklina on 2017-01-08.
@@ -50,7 +53,6 @@ public class AuthenticationAsyncTask extends AsyncTask<String, Integer, UserSess
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("client_id", context.getString(R.string.client_id));
             jsonObject.put("client_secret", context.getString(R.string.client_secret));
-            //jsonObject.put("fingerprint", context.getString(R.string.fingerprint));
             jsonObject.put("note", context.getString(R.string.note));
             JSONArray jsonArray = new JSONArray();
             jsonArray.put("repo");
@@ -85,10 +87,7 @@ public class AuthenticationAsyncTask extends AsyncTask<String, Integer, UserSess
             response = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
             Log.v(TAG, "response = " + response);
             JSONObject object = new JSONObject(response);
-
             UserSessionData data = new UserSessionData(jObj.getString("id"), credentials, jObj.getString("token"), object.getString("login"));
-
-
             return data;
         } catch (Exception e) {
             Log.e(TAG, "Login failed", e);
@@ -99,12 +98,15 @@ public class AuthenticationAsyncTask extends AsyncTask<String, Integer, UserSess
     @Override
     protected void onPostExecute(UserSessionData userSessionData) {
         super.onPostExecute(userSessionData);
-
-        SharedPreferences prefs = context.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
-        SharedPreferences.Editor e = prefs.edit();
-        e.putString("userSessionData", userSessionData.toString()); // save "value" to the SharedPreferences
-        e.commit();
-        Intent intent = new Intent(context, MainActivity.class);
-        context.startActivity(intent);
+        if (userSessionData != null) {
+            SharedPreferences prefs = context.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
+            SharedPreferences.Editor e = prefs.edit();
+            e.putString("userSessionData", userSessionData.toString()); // save "value" to the SharedPreferences
+            e.commit();
+            Intent intent = new Intent(context, MainActivity.class);
+            context.startActivity(intent);
+        } else {
+            Toast.makeText(context, "Login failed", LENGTH_SHORT).show();
+        }
     }
 }
