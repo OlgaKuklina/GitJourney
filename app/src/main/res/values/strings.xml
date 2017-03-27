@@ -6,6 +6,10 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
+    <!-- Strings related to Authentication Activity  -->
+    <string name="empty_login_password">Empty login or/and password</string>
+    <string name="login_failed">Login failed</string>
+
 
     <!-- URL strings-->
     <string name="url_connect" translatable="false">https://api.github.com/authorizations</string>
@@ -34,6 +38,7 @@
 
     <!-- Strings related to Main Activity  -->
     <string name="contribution_description">%1$s, full path: %2$s</string>
+    <string name="user_session_data" translatable="false">userSessionData</string>
 
     <!-- Strings related to General Activity Tabs -->
     <string name="feed">Feed</string>
@@ -130,5 +135,6 @@
     <string name="appwidget_title_empty">Your feed list is empty</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
+    <string name="add_widget_date_format">EEE MMM dd hh:mm:ss yyyy</string>
 
 </resources>

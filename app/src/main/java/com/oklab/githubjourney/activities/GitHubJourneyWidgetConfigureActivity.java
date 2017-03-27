@@ -95,7 +95,6 @@ public class GitHubJourneyWidgetConfigureActivity extends Activity {
             finish();
             return;
         }
-
         mAppWidgetText.setText(loadTitlePref(GitHubJourneyWidgetConfigureActivity.this, mAppWidgetId));
     }
 }

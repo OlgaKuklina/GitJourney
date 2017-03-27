@@ -16,7 +16,6 @@ import com.oklab.githubjourney.asynctasks.AuthenticationAsyncTask;
  */
 
 public class AuthenticationActivity extends AppCompatActivity {
-
     private EditText passwordText;
     private EditText loginText;
 
@@ -38,7 +37,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                 String login = loginText.getText().toString();
                 String password = passwordText.getText().toString();
                 if (login == null || login.isEmpty() || password == null || password.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "empty login or/and password", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getBaseContext().getString(R.string.empty_login_password), Toast.LENGTH_SHORT).show();
                 } else {
                     new AuthenticationAsyncTask(AuthenticationActivity.this).execute(login, password);
                 }

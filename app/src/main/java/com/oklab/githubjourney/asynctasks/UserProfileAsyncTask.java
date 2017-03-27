@@ -60,7 +60,6 @@ public class UserProfileAsyncTask<T> extends AsyncTask<String, Void, T> {
         return null;
     }
 
-
     @Override
     protected void onPostExecute(T entry) {
         super.onPostExecute(entry);

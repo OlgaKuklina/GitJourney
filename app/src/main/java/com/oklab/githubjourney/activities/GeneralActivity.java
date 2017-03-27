@@ -27,6 +27,7 @@ import com.oklab.githubjourney.fragments.StarsListFragment;
 import com.oklab.githubjourney.services.TakeScreenshotService;
 
 public class GeneralActivity extends AppCompatActivity implements FeedListFragment.OnFragmentInteractionListener, RepositoriesListFragment.OnFragmentInteractionListener, StarsListFragment.OnFragmentInteractionListener, FollowersListFragment.OnFragmentInteractionListener, FollowingListFragment.OnFragmentInteractionListener {
+
     private static final String TAG = GeneralActivity.class.getSimpleName();
     private TakeScreenshotService takeScreenshotService;
     /**
@@ -38,7 +39,6 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -125,7 +125,6 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_general_list, container, false);
-
             return rootView;
         }
     }

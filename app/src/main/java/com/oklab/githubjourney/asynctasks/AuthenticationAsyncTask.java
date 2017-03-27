@@ -106,7 +106,7 @@ public class AuthenticationAsyncTask extends AsyncTask<String, Integer, UserSess
             Intent intent = new Intent(context, MainActivity.class);
             context.startActivity(intent);
         } else {
-            Toast.makeText(context, "Login failed", LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.login_failed), LENGTH_SHORT).show();
         }
     }
 }

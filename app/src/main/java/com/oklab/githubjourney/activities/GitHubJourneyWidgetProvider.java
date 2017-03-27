@@ -31,7 +31,6 @@ public class GitHubJourneyWidgetProvider extends AppWidgetProvider implements Fe
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId, Parcelable[] parcelables) {
         Log.v(TAG, "updateAppWidget");
-        //CharSequence widgetText = GitHubJourneyWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.git_hub_journey_widget);
 
@@ -40,7 +39,7 @@ public class GitHubJourneyWidgetProvider extends AppWidgetProvider implements Fe
         views.setPendingIntentTemplate(R.id.widget_data_view, startActivityPendingIntent);
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(context.getString(R.string.add_widget_date_format));
         System.out.println(dateFormat.format(calendar.getTime()));
 
         views.setTextViewText(R.id.widget_date, dateFormat.format(calendar.getTime()));
@@ -56,12 +55,10 @@ public class GitHubJourneyWidgetProvider extends AppWidgetProvider implements Fe
         views.setEmptyView(R.id.widget_data_view, R.id.empty_view);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
-        Log.v(TAG, "updateAppWidget - end");
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-
         Log.v(TAG, "onUpdate");
         new FeedsAsyncTask<>(context, this, new WidgetDataAtomParser(), new State(appWidgetIds, context)).execute(1);
     }
@@ -102,20 +99,6 @@ public class GitHubJourneyWidgetProvider extends AppWidgetProvider implements Fe
         Log.v(TAG, "onFeedLoaded end");
     }
 
-    //    @Override
-//    public void onReceive(Context context, Intent intent) {
-//        super.onReceive(context, intent);
-//        if (intent.getAction() != null && intent.getAction().equals("android.appwidget.action.REDRAW_WIDGET")) {
-//            int[] extraArray = intent.getIntArrayExtra("appWidgetIds");
-//            if (extraArray != null) {
-//                // There may be multiple widgets active, so update all of them
-//                final int N = extraArray.length;
-//                for (int i = 0; i < N; i++) {
-//                    updateAppWidget(context, AppWidgetManager.getInstance(context), extraArray[i]);
-//                }
-//            }
-//        }
-//    }
     private static class State {
         public final int[] appWidgetIds;
         public final Context context;
