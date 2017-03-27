@@ -40,6 +40,16 @@
     <string name="contribution_description">%1$s, full path: %2$s</string>
     <string name="user_session_data" translatable="false">userSessionData</string>
 
+
+    <!-- Strings related to take screenshot service  -->
+    <string name="screenshot_msg_title">User contributions activity screenshot</string>
+    <string name="screenshot_msg_extra_text">This is a contributions activity screenshot mail from GitHubJourney app</string>
+    <string name="screenshot_msg_desc">Send mail...</string>
+
+    <string name="local_path" translatable="false">Pictures/screenshot.png</string>
+    <string name="content_type" translatable="false">image/png</string>
+    <string name="content_path" translatable="false">file://</string>
+
     <!-- Strings related to General Activity Tabs -->
     <string name="feed">Feed</string>
     <string name="repositories">Repositories</string>

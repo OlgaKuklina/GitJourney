@@ -72,11 +72,10 @@ public class ContributionsAsyncTask extends AsyncTask<Integer, Void, List<Contri
     @Override
     protected void onPostExecute(List<ContributionDataEntry> entryList) {
         super.onPostExecute(entryList);
-        listener.OnContributionsLoaded(entryList);
+        listener.onContributionsLoaded(entryList);
     }
 
     public interface OnContributionsLoadedListener<ContributionDataEntry> {
-        void OnContributionsLoaded(List<ContributionDataEntry> contributionsDataEntry);
+        void onContributionsLoaded(List<ContributionDataEntry> contributionsDataEntry);
     }
-
 }

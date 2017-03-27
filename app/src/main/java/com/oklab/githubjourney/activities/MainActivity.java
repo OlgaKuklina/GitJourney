@@ -119,7 +119,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.github_events) {
-
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
         } else if (id == R.id.profile) {
             String currentSessionData = prefs.getString("userSessionData", null);
             if (currentSessionData != null) {

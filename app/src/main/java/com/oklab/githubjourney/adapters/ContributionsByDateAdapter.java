@@ -3,6 +3,7 @@ package com.oklab.githubjourney.adapters;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,7 @@ public class ContributionsByDateAdapter extends RecyclerView.Adapter<Contributio
         }
 
         private void populateContributionData() {
+            Log.v(TAG, "populateContributionData");
             title.setText(cursor.getString(ContributionsDataLoader.Query.TITLE));
             description.setText(cursor.getString(ContributionsDataLoader.Query.DESCRIPTION));
             Calendar calendar = Calendar.getInstance();

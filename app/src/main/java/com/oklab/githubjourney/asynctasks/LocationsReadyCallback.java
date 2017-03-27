@@ -64,7 +64,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
     }
 
     @Override
-    public void OnFollowersLoaded(List<GitHubUsersDataEntry> followersDataEntry) {
+    public void onFollowersLoaded(List<GitHubUsersDataEntry> followersDataEntry) {
         followersLocationsList = followersDataEntry != null ? followersDataEntry : Collections.emptyList();
         Log.v(TAG, "followersLocationsList = " + followersLocationsList.size());
         new FollowingAsyncTask(context, this).execute(1);

@@ -119,7 +119,7 @@ public class FollowersListFragment extends Fragment implements FollowersAsyncTas
     }
 
     @Override
-    public void OnFollowersLoaded(List<GitHubUsersDataEntry> followersDataEntryList) {
+    public void onFollowersLoaded(List<GitHubUsersDataEntry> followersDataEntryList) {
         loading = false;
         if (followersDataEntryList != null && followersDataEntryList.isEmpty()) {
             followersExhausted = true;

@@ -74,10 +74,10 @@ public class FollowersAsyncTask extends AsyncTask<Integer, Void, List<GitHubUser
     @Override
     protected void onPostExecute(List<GitHubUsersDataEntry> entryList) {
         super.onPostExecute(entryList);
-        listener.OnFollowersLoaded(entryList);
+        listener.onFollowersLoaded(entryList);
     }
 
     public interface OnFollowersLoadedListener {
-        void OnFollowersLoaded(List<GitHubUsersDataEntry> followersDataEntry);
+        void onFollowersLoaded(List<GitHubUsersDataEntry> followersDataEntry);
     }
 }

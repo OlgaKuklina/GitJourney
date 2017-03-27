@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 
+import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.utils.Utils;
 
 import java.io.File;
@@ -41,7 +42,7 @@ public class TakeScreenshotService {
     private String saveBitmap(Bitmap bitmap) {
         Utils.verifyStoragePermissions(activity);
         String filePath = Environment.getExternalStorageDirectory()
-                + File.separator + "Pictures/screenshot.png";
+                + File.separator + activity.getString(R.string.local_path);
         File imagePath = new File(filePath);
         FileOutputStream stream;
         try {
@@ -59,12 +60,12 @@ public class TakeScreenshotService {
     private void sendMail(String path) {
         Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
         emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-                "User contributions activity screenshot");
+                activity.getString(R.string.screenshot_msg_title));
         emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-                "This is a contributions activity screenshot mail from GitHubJourney app");
-        emailIntent.setType("image/png");
-        Uri myUri = Uri.parse("file://" + path);
+                activity.getString(R.string.screenshot_msg_extra_text));
+        emailIntent.setType(activity.getString(R.string.content_type));
+        Uri myUri = Uri.parse(activity.getString(R.string.content_path) + path);
         emailIntent.putExtra(Intent.EXTRA_STREAM, myUri);
-        activity.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+        activity.startActivity(Intent.createChooser(emailIntent, activity.getString(R.string.screenshot_msg_desc)));
     }
 }
