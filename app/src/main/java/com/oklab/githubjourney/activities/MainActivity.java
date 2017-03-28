@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.asynctasks.DeleteUserAuthorizationAsyncTask;
 import com.oklab.githubjourney.data.UpdaterService;
@@ -34,11 +35,12 @@ public class MainActivity extends AppCompatActivity
     private ViewPager calendarYearviewPager;
     private CalendarYearPagerAdapter calendarYearPagerAdapter;
     private TakeScreenshotService takeScreenshotService;
-
+    private FirebaseAnalytics firebaseAnalytics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         calendarYearPagerAdapter = new CalendarYearPagerAdapter(getSupportFragmentManager());
@@ -84,7 +86,11 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAnalytics.setCurrentScreen(this, "MainActivityFirebaseAnalytics", null);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -117,6 +123,10 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, Integer.toString(item.getItemId()));
+        bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "MainActivityNavigationItemSelected");
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
 
         if (id == R.id.github_events) {
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
