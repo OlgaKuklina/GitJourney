@@ -28,8 +28,6 @@ import com.oklab.githubjourney.fragments.RepositoriesListFragment;
 import com.oklab.githubjourney.fragments.StarsListFragment;
 import com.oklab.githubjourney.services.TakeScreenshotService;
 
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
-
 public class GeneralActivity extends AppCompatActivity implements FeedListFragment.OnFragmentInteractionListener, RepositoriesListFragment.OnFragmentInteractionListener, StarsListFragment.OnFragmentInteractionListener, FollowersListFragment.OnFragmentInteractionListener, FollowingListFragment.OnFragmentInteractionListener {
 
     private static final String TAG = GeneralActivity.class.getSimpleName();
@@ -126,7 +124,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-        Log.v(TAG, "onFragmentInteraction " );
+        Log.v(TAG, "onFragmentInteraction ");
     }
 
     /**
@@ -147,7 +145,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
          * number.
          */
         public static PlaceholderFragment newInstance(int sectionNumber) {
-            Log.v(TAG, "newInstance " );
+            Log.v(TAG, "newInstance ");
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -158,7 +156,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            Log.v(TAG, "onCreateView " );
+            Log.v(TAG, "onCreateView ");
             View rootView = inflater.inflate(R.layout.fragment_general_list, container, false);
             return rootView;
         }
@@ -208,7 +206,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
 
         @Override
         public CharSequence getPageTitle(int position) {
-            Log.v(TAG, "getPageTitle " );
+            Log.v(TAG, "getPageTitle ");
             switch (position) {
                 case 0:
                     return getApplicationContext().getString(R.string.feed);

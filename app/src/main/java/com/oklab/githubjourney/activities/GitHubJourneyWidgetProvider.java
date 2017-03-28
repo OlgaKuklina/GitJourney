@@ -30,7 +30,7 @@ public class GitHubJourneyWidgetProvider extends AppWidgetProvider implements Fe
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId, Parcelable[] parcelables) {
-        Log.v(TAG, "updateAppWidget");
+        Log.v(TAG, "updateAppWidget parcelables = " + parcelables.length);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.git_hub_journey_widget);
 

@@ -37,12 +37,6 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
     public FeedListFragment() {
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.v(TAG, " FeedListFragment onStart ");
-    }
-
     public static FeedListFragment newInstance() {
         Log.v(TAG, " FeedListFragment newInstance ");
         FeedListFragment fragment = new FeedListFragment();
@@ -50,6 +44,12 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
         fragment.setArguments(args);
         fragment.setRetainInstance(true);
         return fragment;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.v(TAG, " FeedListFragment onStart ");
     }
 
     @Override

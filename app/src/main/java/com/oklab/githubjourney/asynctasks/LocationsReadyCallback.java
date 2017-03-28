@@ -130,6 +130,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
                         Picasso.with(context).load(entry.getImageUri()).resize(100, 100).into(new Target() {
                             @Override
                             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                Log.v(TAG, "onBitmapLoaded");
                                 BitmapDescriptor desc = BitmapDescriptorFactory.fromBitmap(bitmap);
                                 MarkerOptions options = new MarkerOptions().position(position).title(entry.getLogin()).icon(desc);
                                 map.addMarker(options);
