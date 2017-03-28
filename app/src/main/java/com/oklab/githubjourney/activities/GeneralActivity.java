@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.asynctasks.LocationsReadyCallback;
 import com.oklab.githubjourney.fragments.FeedListFragment;
@@ -27,10 +28,13 @@ import com.oklab.githubjourney.fragments.RepositoriesListFragment;
 import com.oklab.githubjourney.fragments.StarsListFragment;
 import com.oklab.githubjourney.services.TakeScreenshotService;
 
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+
 public class GeneralActivity extends AppCompatActivity implements FeedListFragment.OnFragmentInteractionListener, RepositoriesListFragment.OnFragmentInteractionListener, StarsListFragment.OnFragmentInteractionListener, FollowersListFragment.OnFragmentInteractionListener, FollowingListFragment.OnFragmentInteractionListener {
 
     private static final String TAG = GeneralActivity.class.getSimpleName();
     private TakeScreenshotService takeScreenshotService;
+    private FirebaseAnalytics firebaseAnalytics;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -49,6 +53,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_general);
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -58,6 +63,26 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Log.v(TAG, "onPageSelected, position = " + position);
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, Integer.toString(position));
+                bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "GeneralActivityTabChange");
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         mViewPager.setOffscreenPageLimit(5);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
@@ -70,6 +95,12 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
                 takeScreenshotService.takeScreenShot();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAnalytics.setCurrentScreen(this, "GeneralActivityFirebaseAnalytics", null);
     }
 
     @Override
@@ -95,7 +126,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
+        Log.v(TAG, "onFragmentInteraction " );
     }
 
     /**
@@ -116,6 +147,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
          * number.
          */
         public static PlaceholderFragment newInstance(int sectionNumber) {
+            Log.v(TAG, "newInstance " );
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -126,6 +158,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            Log.v(TAG, "onCreateView " );
             View rootView = inflater.inflate(R.layout.fragment_general_list, container, false);
             return rootView;
         }
@@ -141,8 +174,10 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
             super(fm);
         }
 
+
         @Override
         public Fragment getItem(int position) {
+            Log.v(TAG, "getItem, position = " + position);
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
@@ -173,6 +208,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
 
         @Override
         public CharSequence getPageTitle(int position) {
+            Log.v(TAG, "getPageTitle " );
             switch (position) {
                 case 0:
                     return getApplicationContext().getString(R.string.feed);

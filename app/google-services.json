@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "397588370221",
+    "firebase_url": "https://githubjourney-1490427160166.firebaseio.com",
+    "project_id": "githubjourney-1490427160166",
+    "storage_bucket": "githubjourney-1490427160166.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397588370221:android:71b90980c36e7e90",
+        "android_client_info": {
+          "package_name": "com.oklab.githubjourney"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397588370221-bre0i8q5p89g7rgoht445or9eme7l30f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIVrvBBkSKVycktyt3wD5vCNU_1mnugOY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

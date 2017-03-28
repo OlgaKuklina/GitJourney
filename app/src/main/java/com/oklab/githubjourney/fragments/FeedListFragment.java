@@ -37,6 +37,12 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
     public FeedListFragment() {
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.v(TAG, " FeedListFragment onStart ");
+    }
+
     public static FeedListFragment newInstance() {
         Log.v(TAG, " FeedListFragment newInstance ");
         FeedListFragment fragment = new FeedListFragment();
@@ -59,6 +65,12 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
         recyclerView = (RecyclerView) v.findViewById(R.id.items_list_recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.v(TAG, "onResume");
     }
 
     @Override
@@ -114,6 +126,7 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
 
     @Override
     public void onRefresh() {
+        Log.v(TAG, "onRefresh");
         if (loading) {
             swipeRefreshLayout.setRefreshing(false);
             return;
@@ -138,6 +151,7 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
     }
 
     private class FeedItemsListOnScrollListner extends RecyclerView.OnScrollListener {
