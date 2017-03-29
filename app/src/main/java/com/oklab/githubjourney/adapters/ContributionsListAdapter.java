@@ -1,7 +1,9 @@
 package com.oklab.githubjourney.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +14,13 @@ import android.widget.Toast;
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.data.ContributionsDataLoader;
+import com.oklab.githubjourney.utils.Utils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 /**
  * Created by olgakuklina on 2017-01-24.
@@ -43,6 +49,15 @@ public class ContributionsListAdapter extends BaseAdapter {
         while (cursor.moveToNext()) {
             long date = cursor.getLong(ContributionsDataLoader.Query.PUBLISHED_DATE);
             calendar.setTimeInMillis(date);
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean timeZone = sharedPref.getBoolean("timezone_switch", true);
+            if (timeZone){
+                calendar.setTimeZone(TimeZone.getDefault());
+            }
+            else {
+                String customTimeZone = sharedPref.getString("timezone_list", TimeZone.getDefault().getID());
+                calendar.setTimeZone(TimeZone.getTimeZone(customTimeZone));
+            }
             int day = calendar.get(Calendar.DAY_OF_MONTH);
             if (contributionsMap.containsKey(day)) {
                 contributionsMap.put(day, contributionsMap.get(day) + 1);
