@@ -11,10 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.data.ContributionsDataLoader;
 import com.oklab.githubjourney.data.FeedDataEntry;
 import com.squareup.picasso.Picasso;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -61,7 +65,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
     public class FeedListViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView personalProfImage;
-        private ImageView eventTypeImage;
+        private TextView action_date;
         private TextView title;
         private TextView authorName;
         private TextView description;
@@ -72,7 +76,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
             authorName = (TextView) v.findViewById(R.id.author_name);
             title = (TextView) v.findViewById(R.id.title);
             description = (TextView) v.findViewById(R.id.action_desc);
-            eventTypeImage = (ImageView) v.findViewById(R.id.action_icon);
+            action_date = (TextView) v.findViewById(R.id.action_date);
         }
 
         private void populateFeedViewData(FeedDataEntry feedData) {
@@ -80,6 +84,10 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
             title.setText(feedData.getTitle());
             CharSequence desc = Html.fromHtml(Html.fromHtml(feedData.getDescription()).toString());
             description.setText(desc);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            Calendar date = feedData.getDate();
+            Log.v(TAG, "feedData date = " + feedData);
+            action_date.setText(formatter.format(date.getTime()));
 
             Picasso pic = Picasso.with(context);
             Log.v(TAG, "path" + feedData.getAvatarURL());

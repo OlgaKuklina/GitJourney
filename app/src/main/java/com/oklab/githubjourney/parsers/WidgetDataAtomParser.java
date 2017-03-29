@@ -81,7 +81,6 @@ public class WidgetDataAtomParser implements AtomParser<GitHubJourneyWidgetDataE
         NodeList publishedNodeList = element.getElementsByTagName("published");
         Element dateNode = (Element) publishedNodeList.item(0);
         String date = dateNode.getTextContent();
-        Calendar entryDate = null;
 
         GitHubJourneyWidgetDataEntry entry = new GitHubJourneyWidgetDataEntry(name, avatarUri, eventTitle, description, date);
         Log.v(TAG, "GitHubJourneyWidgetDataEntry = " + entry);

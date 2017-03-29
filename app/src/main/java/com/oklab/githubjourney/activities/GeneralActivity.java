@@ -32,6 +32,8 @@ import com.oklab.githubjourney.fragments.StarsListFragment;
 import com.oklab.githubjourney.services.TakeScreenshotService;
 import com.oklab.githubjourney.utils.Utils;
 
+import java.util.TimeZone;
+
 public class GeneralActivity extends AppCompatActivity implements FeedListFragment.OnFragmentInteractionListener, RepositoriesListFragment.OnFragmentInteractionListener, StarsListFragment.OnFragmentInteractionListener, FollowersListFragment.OnFragmentInteractionListener, FollowingListFragment.OnFragmentInteractionListener {
 
     private static final String TAG = GeneralActivity.class.getSimpleName();
@@ -62,7 +64,8 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-
+        String timezone  = TimeZone.getDefault().toString();
+        Log.v(TAG, "onCreate timezone = " + timezone);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
