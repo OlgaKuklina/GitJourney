@@ -16,7 +16,9 @@ import com.oklab.githubjourney.adapters.StackWidgetService;
 import com.oklab.githubjourney.asynctasks.FeedsAsyncTask;
 import com.oklab.githubjourney.data.GitHubJourneyWidgetDataEntry;
 import com.oklab.githubjourney.parsers.WidgetDataAtomParser;
+import com.oklab.githubjourney.utils.Utils;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -39,9 +41,7 @@ public class GitHubJourneyWidgetProvider extends AppWidgetProvider implements Fe
         views.setPendingIntentTemplate(R.id.widget_data_view, startActivityPendingIntent);
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat(context.getString(R.string.add_widget_date_format));
-        System.out.println(dateFormat.format(calendar.getTime()));
-
+        DateFormat dateFormat = Utils.createDateFormatterWithTimeZone(context, context.getString(R.string.add_widget_date_format));
         views.setTextViewText(R.id.widget_date, dateFormat.format(calendar.getTime()));
         Intent intent = new Intent(context, StackWidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
