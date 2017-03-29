@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private CalendarYearPagerAdapter calendarYearPagerAdapter;
     private TakeScreenshotService takeScreenshotService;
     private FirebaseAnalytics firebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,11 +88,13 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
     @Override
     protected void onStart() {
         super.onStart();
         firebaseAnalytics.setCurrentScreen(this, "MainActivityFirebaseAnalytics", null);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

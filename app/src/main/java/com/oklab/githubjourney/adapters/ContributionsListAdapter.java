@@ -128,7 +128,7 @@ public class ContributionsListAdapter extends BaseAdapter {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, contributionsMap.get(i - numberOfEmptyDaysInMonth + 1) + " contributions at" + (i - numberOfEmptyDaysInMonth + 1), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, contributionsMap.get(i - numberOfEmptyDaysInMonth + 1) + " contributions at " + (i - numberOfEmptyDaysInMonth + 1), Toast.LENGTH_SHORT).show();
                 }
             });
             Log.v(TAG, "i " + i);
