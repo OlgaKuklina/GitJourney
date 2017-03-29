@@ -1,7 +1,9 @@
 package com.oklab.githubjourney.activities;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -20,6 +22,7 @@ import android.view.ViewGroup;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.adapters.FirebaseAnalyticsWrapper;
 import com.oklab.githubjourney.asynctasks.LocationsReadyCallback;
 import com.oklab.githubjourney.fragments.FeedListFragment;
 import com.oklab.githubjourney.fragments.FollowersListFragment;
@@ -27,12 +30,13 @@ import com.oklab.githubjourney.fragments.FollowingListFragment;
 import com.oklab.githubjourney.fragments.RepositoriesListFragment;
 import com.oklab.githubjourney.fragments.StarsListFragment;
 import com.oklab.githubjourney.services.TakeScreenshotService;
+import com.oklab.githubjourney.utils.Utils;
 
 public class GeneralActivity extends AppCompatActivity implements FeedListFragment.OnFragmentInteractionListener, RepositoriesListFragment.OnFragmentInteractionListener, StarsListFragment.OnFragmentInteractionListener, FollowersListFragment.OnFragmentInteractionListener, FollowingListFragment.OnFragmentInteractionListener {
 
     private static final String TAG = GeneralActivity.class.getSimpleName();
     private TakeScreenshotService takeScreenshotService;
-    private FirebaseAnalytics firebaseAnalytics;
+    private FirebaseAnalyticsWrapper firebaseAnalytics;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -50,17 +54,20 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v(TAG, "onCreate");
         setContentView(R.layout.activity_general);
-        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        firebaseAnalytics = new FirebaseAnalyticsWrapper(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -98,7 +105,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
     @Override
     protected void onStart() {
         super.onStart();
-        firebaseAnalytics.setCurrentScreen(this, "GeneralActivityFirebaseAnalytics", null);
+        firebaseAnalytics.setCurrentScreen(this, "GeneralActivityFirebaseAnalytics");
     }
 
     @Override
@@ -200,8 +207,15 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
 
         @Override
         public int getCount() {
-            // Show 5 total pages.
-            return 6;
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(GeneralActivity.this);
+            boolean map = sharedPref.getBoolean("map_switch", true);
+            Log.v(TAG, "map value = " + map);
+            if(map) {
+                return 6;
+            }
+            else {
+                return 5;
+            }
         }
 
         @Override

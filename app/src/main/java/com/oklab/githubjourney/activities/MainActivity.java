@@ -20,6 +20,7 @@ import android.view.View;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.adapters.FirebaseAnalyticsWrapper;
 import com.oklab.githubjourney.asynctasks.DeleteUserAuthorizationAsyncTask;
 import com.oklab.githubjourney.data.UpdaterService;
 import com.oklab.githubjourney.fragments.ContributionsByDateListFragment;
@@ -35,14 +36,14 @@ public class MainActivity extends AppCompatActivity
     private ViewPager calendarYearviewPager;
     private CalendarYearPagerAdapter calendarYearPagerAdapter;
     private TakeScreenshotService takeScreenshotService;
-    private FirebaseAnalytics firebaseAnalytics;
+    private FirebaseAnalyticsWrapper firebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.v(TAG, "onCreate");
         setContentView(R.layout.activity_main);
-        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        firebaseAnalytics = new FirebaseAnalyticsWrapper(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         calendarYearPagerAdapter = new CalendarYearPagerAdapter(getSupportFragmentManager());
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        firebaseAnalytics.setCurrentScreen(this, "MainActivityFirebaseAnalytics", null);
+        firebaseAnalytics.setCurrentScreen(this, "MainActivityFirebaseAnalytics");
     }
 
     @Override

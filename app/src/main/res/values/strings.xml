@@ -69,9 +69,9 @@
     <string name="pref_header_general">General</string>
 
     <string name="pref_system_timezone">Enable system timezone</string>
-    <string name="pref_description_system_timezone">TimeZone settings
-        based on your system preferences or manual setup
-    </string>
+    <string name="pref_description_system_timezone">TimeZone settings based on your system preferences or manual setup</string>
+    <string name="pref_firebase_analytics">Enable firebase analytics</string>
+    <string name="pref_description_firebase_analytics">Firebase Analytics reports help application developer investigate users behavior for better app marketing and performance optimizations</string>
     <string name="pref_title_display_map">Display Map</string>
     <string name="pref_description_display_map">Display following/followers contacts on Google Map</string>
 
