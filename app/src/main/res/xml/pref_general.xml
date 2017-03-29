@@ -2,7 +2,7 @@
 
     <SwitchPreference
         android:defaultValue="true"
-        android:key="example_switch"
+        android:key="map_switch"
         android:summary="@string/pref_description_display_map"
         android:title="@string/pref_title_display_map" />
 
@@ -10,7 +10,8 @@
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <SwitchPreference
         android:defaultValue="true"
-        android:key="example_switch"
+        android:key="timezone_switch"
+        android:disableDependentsState="true"
         android:summary="@string/pref_description_system_timezone"
         android:title="@string/pref_system_timezone" />
 
@@ -20,10 +21,11 @@
     <ListPreference
         android:defaultValue="-1"
         android:entries="@array/pref_timezone_list_titles"
-        android:entryValues="@array/pref_list_timezone_offsets"
-        android:key="example_list"
+        android:entryValues="@array/pref_timezone_list_titles"
+        android:key="timezone_list"
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
-        android:title="@string/pref_title_add_timezone" />
+        android:title="@string/pref_title_add_timezone"
+        android:dependency="timezone_switch"/>
 
 </PreferenceScreen>
