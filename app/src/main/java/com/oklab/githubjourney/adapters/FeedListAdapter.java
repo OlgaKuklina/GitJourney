@@ -13,13 +13,16 @@ import android.widget.TextView;
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.data.ContributionsDataLoader;
 import com.oklab.githubjourney.data.FeedDataEntry;
+import com.oklab.githubjourney.utils.Utils;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by olgakuklina on 2017-01-15.
@@ -84,13 +87,11 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
             title.setText(feedData.getTitle());
             CharSequence desc = Html.fromHtml(Html.fromHtml(feedData.getDescription()).toString());
             description.setText(desc);
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            DateFormat formatter = Utils.createDateFormatterWithTimeZone(context, Utils.DMY_DATE_FORMAT_PATTERN);
             Calendar date = feedData.getDate();
-            Log.v(TAG, "feedData date = " + feedData);
             action_date.setText(formatter.format(date.getTime()));
 
             Picasso pic = Picasso.with(context);
-            Log.v(TAG, "path" + feedData.getAvatarURL());
             if (feedData.getAvatarURL() == null || feedData.getAvatarURL().isEmpty()) {
                 pic.load(R.drawable.octocat)
                         .fit().centerCrop()
@@ -102,7 +103,6 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
                         .into(personalProfImage);
             }
         }
-
     }
 }
 

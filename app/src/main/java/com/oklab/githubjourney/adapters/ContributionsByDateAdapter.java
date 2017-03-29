@@ -11,9 +11,13 @@ import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.data.ContributionsDataLoader;
+import com.oklab.githubjourney.utils.Utils;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import static com.oklab.githubjourney.R.id.action_date;
 
 public class ContributionsByDateAdapter extends RecyclerView.Adapter<ContributionsByDateAdapter.ContributionsByDateViewHolder> {
 
@@ -68,7 +72,7 @@ public class ContributionsByDateAdapter extends RecyclerView.Adapter<Contributio
             title.setText(cursor.getString(ContributionsDataLoader.Query.TITLE));
             description.setText(cursor.getString(ContributionsDataLoader.Query.DESCRIPTION));
             Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            DateFormat formatter = Utils.createDateFormatterWithTimeZone(context, Utils.DMY_DATE_FORMAT_PATTERN);
             long date = cursor.getLong(ContributionsDataLoader.Query.PUBLISHED_DATE);
             calendar.setTimeInMillis(date);
             this.date.setText(formatter.format(calendar.getTime()));

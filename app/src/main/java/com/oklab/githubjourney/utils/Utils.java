@@ -2,9 +2,16 @@ package com.oklab.githubjourney.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 /**
  * Created by olgakuklina on 2017-01-09.
@@ -17,11 +24,10 @@ public final class Utils {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
-
+    public static final String DMY_DATE_FORMAT_PATTERN = "dd-MM-yyyy";
     private Utils() {
 
     }
-
     public static void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -34,5 +40,18 @@ public final class Utils {
                     REQUEST_EXTERNAL_STORAGE
             );
         }
+    }
+    public static DateFormat createDateFormatterWithTimeZone(Context context, String pattern) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean timeZone = sharedPref.getBoolean("timezone_switch", true);
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        if (timeZone){
+            formatter.setTimeZone(TimeZone.getDefault());
+        }
+        else {
+            String customTimeZone = sharedPref.getString("timezone_list", TimeZone.getDefault().getID());
+            formatter.setTimeZone(TimeZone.getTimeZone(customTimeZone));
+        }
+        return formatter;
     }
 }
