@@ -19,7 +19,6 @@ import com.oklab.githubjourney.parsers.WidgetDataAtomParser;
 import com.oklab.githubjourney.utils.Utils;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 

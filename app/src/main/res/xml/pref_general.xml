@@ -10,8 +10,8 @@
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <SwitchPreference
         android:defaultValue="true"
-        android:key="timezone_switch"
         android:disableDependentsState="true"
+        android:key="timezone_switch"
         android:summary="@string/pref_description_system_timezone"
         android:title="@string/pref_system_timezone" />
 
@@ -20,12 +20,12 @@
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
     <ListPreference
         android:defaultValue="-1"
+        android:dependency="timezone_switch"
         android:entries="@array/pref_timezone_list_titles"
         android:entryValues="@array/pref_timezone_list_titles"
         android:key="timezone_list"
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
-        android:title="@string/pref_title_add_timezone"
-        android:dependency="timezone_switch"/>
+        android:title="@string/pref_title_add_timezone" />
 
 </PreferenceScreen>

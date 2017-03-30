@@ -19,15 +19,17 @@ import java.util.TimeZone;
 
 public final class Utils {
     public static final String SHARED_PREF_NAME = "com.ok.lab.GitHubJourney";
+    public static final String DMY_DATE_FORMAT_PATTERN = "dd-MM-yyyy";
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
-    public static final String DMY_DATE_FORMAT_PATTERN = "dd-MM-yyyy";
+
     private Utils() {
 
     }
+
     public static void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -41,14 +43,14 @@ public final class Utils {
             );
         }
     }
+
     public static DateFormat createDateFormatterWithTimeZone(Context context, String pattern) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         boolean timeZone = sharedPref.getBoolean("timezone_switch", true);
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-        if (timeZone){
+        if (timeZone) {
             formatter.setTimeZone(TimeZone.getDefault());
-        }
-        else {
+        } else {
             String customTimeZone = sharedPref.getString("timezone_list", TimeZone.getDefault().getID());
             formatter.setTimeZone(TimeZone.getTimeZone(customTimeZone));
         }

@@ -14,10 +14,7 @@ import android.widget.Toast;
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.data.ContributionsDataLoader;
-import com.oklab.githubjourney.utils.Utils;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.TimeZone;
@@ -51,10 +48,9 @@ public class ContributionsListAdapter extends BaseAdapter {
             calendar.setTimeInMillis(date);
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
             boolean timeZone = sharedPref.getBoolean("timezone_switch", true);
-            if (timeZone){
+            if (timeZone) {
                 calendar.setTimeZone(TimeZone.getDefault());
-            }
-            else {
+            } else {
                 String customTimeZone = sharedPref.getString("timezone_list", TimeZone.getDefault().getID());
                 calendar.setTimeZone(TimeZone.getTimeZone(customTimeZone));
             }
@@ -143,7 +139,8 @@ public class ContributionsListAdapter extends BaseAdapter {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, contributionsMap.get(i - numberOfEmptyDaysInMonth + 1) + " contributions at " + (i - numberOfEmptyDaysInMonth + 1), Toast.LENGTH_SHORT).show();
+                    Integer contribNumber = contributionsMap.get(i - numberOfEmptyDaysInMonth + 1);
+                    Toast.makeText(context, (contribNumber != null ? contribNumber : 0) + " contributions at " + (i - numberOfEmptyDaysInMonth + 1), Toast.LENGTH_SHORT).show();
                 }
             });
             Log.v(TAG, "i " + i);

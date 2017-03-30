@@ -30,7 +30,6 @@ import com.oklab.githubjourney.fragments.FollowingListFragment;
 import com.oklab.githubjourney.fragments.RepositoriesListFragment;
 import com.oklab.githubjourney.fragments.StarsListFragment;
 import com.oklab.githubjourney.services.TakeScreenshotService;
-import com.oklab.githubjourney.utils.Utils;
 
 import java.util.TimeZone;
 
@@ -64,7 +63,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        String timezone  = TimeZone.getDefault().toString();
+        String timezone = TimeZone.getDefault().toString();
         Log.v(TAG, "onCreate timezone = " + timezone);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         // Set up the ViewPager with the sections adapter.
@@ -213,10 +212,9 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(GeneralActivity.this);
             boolean map = sharedPref.getBoolean("map_switch", true);
             Log.v(TAG, "map value = " + map);
-            if(map) {
+            if (map) {
                 return 6;
-            }
-            else {
+            } else {
                 return 5;
             }
         }

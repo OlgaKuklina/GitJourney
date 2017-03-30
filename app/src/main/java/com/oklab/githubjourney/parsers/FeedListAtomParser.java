@@ -3,7 +3,6 @@ package com.oklab.githubjourney.parsers;
 import android.util.Log;
 
 import com.oklab.githubjourney.data.ActionType;
-import com.oklab.githubjourney.data.ContributionsDataLoader;
 import com.oklab.githubjourney.data.FeedDataEntry;
 
 import org.w3c.dom.Document;
@@ -30,8 +29,9 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class FeedListAtomParser implements AtomParser<FeedDataEntry> {
     private static final String TAG = FeedListAtomParser.class.getSimpleName();
-    private final DocumentBuilderFactory dBFactory = DocumentBuilderFactory.newInstance();
     private static final String PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    private final DocumentBuilderFactory dBFactory = DocumentBuilderFactory.newInstance();
+
     @Override
     public List<FeedDataEntry> parse(String url) throws ParserConfigurationException, IOException, SAXException, ParseException {
         DocumentBuilder builder = dBFactory.newDocumentBuilder();

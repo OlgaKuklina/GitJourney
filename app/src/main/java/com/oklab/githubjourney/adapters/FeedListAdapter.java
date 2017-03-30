@@ -3,7 +3,6 @@ package com.oklab.githubjourney.adapters;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
-import com.oklab.githubjourney.data.ContributionsDataLoader;
 import com.oklab.githubjourney.data.FeedDataEntry;
 import com.oklab.githubjourney.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 /**
  * Created by olgakuklina on 2017-01-15.

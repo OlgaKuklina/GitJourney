@@ -5,8 +5,8 @@
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
     <SwitchPreference
         android:defaultValue="true"
-        android:key="fbanalytics_switch"
         android:disableDependentsState="true"
+        android:key="fbanalytics_switch"
         android:summary="@string/pref_description_firebase_analytics"
         android:title="@string/pref_firebase_analytics" />
 

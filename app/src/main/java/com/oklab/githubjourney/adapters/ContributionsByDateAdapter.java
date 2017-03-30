@@ -14,10 +14,7 @@ import com.oklab.githubjourney.data.ContributionsDataLoader;
 import com.oklab.githubjourney.utils.Utils;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import static com.oklab.githubjourney.R.id.action_date;
 
 public class ContributionsByDateAdapter extends RecyclerView.Adapter<ContributionsByDateAdapter.ContributionsByDateViewHolder> {
 
