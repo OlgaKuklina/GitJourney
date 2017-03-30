@@ -28,6 +28,7 @@ public class FetchHTTPConnectionService {
         this.uri = uri;
         this.currentSessionData = currentSessionData;
     }
+
     public FetchHTTPConnectionService(String uri, Context context) {
         this.uri = uri;
         SharedPreferences prefs = context.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);

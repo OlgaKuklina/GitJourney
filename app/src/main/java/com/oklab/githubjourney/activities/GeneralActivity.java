@@ -23,10 +23,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.FirebaseAnalyticsWrapper;
-import com.oklab.githubjourney.asynctasks.LocationsReadyCallback;
 import com.oklab.githubjourney.fragments.FeedListFragment;
 import com.oklab.githubjourney.fragments.FollowersListFragment;
 import com.oklab.githubjourney.fragments.FollowingListFragment;
+import com.oklab.githubjourney.fragments.LocationsReadyCallback;
 import com.oklab.githubjourney.fragments.RepositoriesListFragment;
 import com.oklab.githubjourney.fragments.StarsListFragment;
 import com.oklab.githubjourney.services.TakeScreenshotService;
@@ -199,7 +199,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
                 case 4:
                     return StarsListFragment.newInstance();
                 case 5:
-                    LocationsReadyCallback callback = new LocationsReadyCallback(getBaseContext());
+                    LocationsReadyCallback callback = new LocationsReadyCallback(GeneralActivity.this);
                     SupportMapFragment fragment = SupportMapFragment.newInstance();
                     fragment.getMapAsync(callback);
                     return fragment;

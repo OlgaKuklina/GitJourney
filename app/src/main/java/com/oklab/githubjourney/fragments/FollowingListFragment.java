@@ -168,6 +168,7 @@ public class FollowingListFragment extends Fragment implements UserProfileAsyncT
             }
         }
     }
+
     private class FollowingLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<GitHubUsersDataEntry>> {
 
         @Override

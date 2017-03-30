@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.FollowersListAdapter;
-import com.oklab.githubjourney.asynctasks.FollowersAsyncTask;
 import com.oklab.githubjourney.asynctasks.FollowingLoader;
 import com.oklab.githubjourney.asynctasks.UserProfileAsyncTask;
 import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
@@ -170,6 +169,7 @@ public class FollowersListFragment extends Fragment implements UserProfileAsyncT
             }
         }
     }
+
     private class FollowersLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<GitHubUsersDataEntry>> {
 
         @Override

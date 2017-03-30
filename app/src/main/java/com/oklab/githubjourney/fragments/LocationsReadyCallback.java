@@ -1,12 +1,14 @@
-package com.oklab.githubjourney.asynctasks;
+package com.oklab.githubjourney.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -15,6 +17,9 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.oklab.githubjourney.asynctasks.FollowersLoader;
+import com.oklab.githubjourney.asynctasks.FollowingLoader;
+import com.oklab.githubjourney.asynctasks.UserProfileAsyncTask;
 import com.oklab.githubjourney.data.GitHubUserLocationDataEntry;
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
 import com.oklab.githubjourney.data.LocationConstants;
@@ -33,68 +38,36 @@ import java.util.List;
  * Created by olgakuklina on 2017-03-25.
  */
 
-public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyncTask.OnFollowersLoadedListener, FollowingAsyncTask.OnFollowingLoadedListener, UserProfileAsyncTask.OnProfilesLoadedListener<GitHubUserLocationDataEntry> {
+public class LocationsReadyCallback implements OnMapReadyCallback, UserProfileAsyncTask.OnProfilesLoadedListener<GitHubUserLocationDataEntry> {
     private static final String TAG = LocationsReadyCallback.class.getSimpleName();
-    private final Context context;
+    private final AppCompatActivity activity;
     private int count = 0;
     private List<GitHubUsersDataEntry> followersLocationsList;
     private List<GitHubUsersDataEntry> followingsLocationsList;
     private ArrayList<GitHubUserLocationDataEntry> locationsDataList;
-    private AddressResultReceiver mResultReceiver;
+    private LocationsReadyCallback.AddressResultReceiver mResultReceiver;
     private GoogleMap map;
 
-    public LocationsReadyCallback(Context context) {
-        this.context = context;
+    public LocationsReadyCallback(AppCompatActivity activity) {
+        this.activity = activity;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.v(TAG, "onMapReady");
-        new FollowersAsyncTask(context, this).execute(1);
-        mResultReceiver = new AddressResultReceiver(new Handler());
+        Bundle bundle = new Bundle();
+        bundle.putInt("page", 1);
+        activity.getSupportLoaderManager().initLoader(0, bundle, new LocationsReadyCallback.FollowersListLoaderCallbacks()).forceLoad();
+        mResultReceiver = new LocationsReadyCallback.AddressResultReceiver(new Handler());
         map = googleMap;
     }
 
     protected void startIntentService() {
-        Intent intent = new Intent(context, FetchAddressIntentService.class);
+        Intent intent = new Intent(activity, FetchAddressIntentService.class);
         Log.v(TAG, "locationsDataList = " + locationsDataList.size());
         intent.putParcelableArrayListExtra(LocationConstants.LOCATION_DATA_EXTRA, locationsDataList);
         intent.putExtra(LocationConstants.RECEIVER, mResultReceiver);
-        context.startService(intent);
-    }
-
-    @Override
-    public void onFollowersLoaded(List<GitHubUsersDataEntry> followersDataEntry) {
-        followersLocationsList = followersDataEntry != null ? followersDataEntry : Collections.emptyList();
-        Log.v(TAG, "followersLocationsList = " + followersLocationsList.size());
-        new FollowingAsyncTask(context, this).execute(1);
-    }
-
-    @Override
-    public void onFollowingLoaded(List<GitHubUsersDataEntry> followingDataEntry) {
-        followingsLocationsList = followingDataEntry != null ? followingDataEntry : Collections.emptyList();
-
-        Log.v(TAG, "followingsLocationsList = " + followingsLocationsList.size());
-        HashSet<String> set = new HashSet<>();
-        ArrayList<GitHubUsersDataEntry> list = new ArrayList<>(followingsLocationsList.size() + followersLocationsList.size());
-
-        for (GitHubUsersDataEntry entry : followersLocationsList) {
-            set.add(entry.getLogin());
-            list.add(entry);
-        }
-        for (GitHubUsersDataEntry entry : followingsLocationsList) {
-            if (!set.contains(entry.getLogin())) {
-                set.add(entry.getLogin());
-                list.add(entry);
-            }
-        }
-        count = list.size();
-        Log.v(TAG, "list = " + list.size());
-        locationsDataList = new ArrayList<>(count);
-        Parser<GitHubUserLocationDataEntry> parser = new LocationDataParser();
-        for (GitHubUsersDataEntry entry : list) {
-            new UserProfileAsyncTask<GitHubUserLocationDataEntry>(context, this, parser).execute(entry.getLogin());
-        }
+        activity.startService(intent);
     }
 
     @Override
@@ -108,6 +81,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
             startIntentService();
         }
     }
+
 
     class AddressResultReceiver extends ResultReceiver {
         public AddressResultReceiver(Handler handler) {
@@ -127,7 +101,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
                         MarkerOptions options = new MarkerOptions().position(position).title(entry.getLogin());
                         map.addMarker(options);
                     } else {
-                        Picasso.with(context).load(entry.getImageUri()).resize(100, 100).into(new Target() {
+                        Picasso.with(activity).load(entry.getImageUri()).resize(100, 100).into(new Target() {
                             @Override
                             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                 Log.v(TAG, "onBitmapLoaded");
@@ -152,4 +126,62 @@ public class LocationsReadyCallback implements OnMapReadyCallback, FollowersAsyn
             }
         }
     }
+
+    private class FollowersListLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<GitHubUsersDataEntry>> {
+
+        @Override
+        public Loader<List<GitHubUsersDataEntry>> onCreateLoader(int id, Bundle args) {
+            Log.v(TAG, "onCreateLoader " + args);
+
+            if (id == 0) {
+                return new FollowingLoader(activity, args.getInt("page"));
+            } else if (id == 1) {
+                return new FollowersLoader(activity, args.getInt("page"));
+            }
+            return null;
+        }
+
+        @Override
+        public void onLoadFinished(Loader<List<GitHubUsersDataEntry>> loader, List<GitHubUsersDataEntry> DataEntryList) {
+            if (DataEntryList != null && DataEntryList.isEmpty()) {
+                activity.getSupportLoaderManager().destroyLoader(loader.getId());
+                return;
+            }
+            if (loader.getId() == 0) {
+                followersLocationsList = DataEntryList != null ? DataEntryList : Collections.emptyList();
+                Log.v(TAG, "followersLocationsList = " + followersLocationsList.size());
+                Bundle bundle = new Bundle();
+                bundle.putInt("page", 1);
+                activity.getSupportLoaderManager().initLoader(1, bundle, new LocationsReadyCallback.FollowersListLoaderCallbacks()).forceLoad();
+            } else {
+                followingsLocationsList = DataEntryList != null ? DataEntryList : Collections.emptyList();
+                HashSet<String> set = new HashSet<>();
+                ArrayList<GitHubUsersDataEntry> list = new ArrayList<>(followingsLocationsList.size() + followersLocationsList.size());
+                for (GitHubUsersDataEntry entry : followersLocationsList) {
+                    set.add(entry.getLogin());
+                    list.add(entry);
+                }
+                for (GitHubUsersDataEntry entry : followingsLocationsList) {
+                    if (!set.contains(entry.getLogin())) {
+                        set.add(entry.getLogin());
+                        list.add(entry);
+                    }
+                }
+
+                count = list.size();
+                Log.v(TAG, "list = " + list.size());
+                locationsDataList = new ArrayList<>(count);
+                Parser<GitHubUserLocationDataEntry> parser = new LocationDataParser();
+                for (GitHubUsersDataEntry entry : list) {
+                    new UserProfileAsyncTask<GitHubUserLocationDataEntry>(activity, LocationsReadyCallback.this, parser).execute(entry.getLogin());
+                }
+            }
+        }
+
+        @Override
+        public void onLoaderReset(Loader<List<GitHubUsersDataEntry>> loader) {
+            Log.v(TAG, "onLoaderReset");
+        }
+    }
 }
+

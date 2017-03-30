@@ -9,14 +9,11 @@ import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
 import com.oklab.githubjourney.data.HTTPConnectionResult;
 import com.oklab.githubjourney.parsers.FollowersParser;
-import com.oklab.githubjourney.parsers.Parser;
 import com.oklab.githubjourney.services.FetchHTTPConnectionService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.List;
 
 /**
