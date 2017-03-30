@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.FollowersListAdapter;
 import com.oklab.githubjourney.asynctasks.FollowersAsyncTask;
+import com.oklab.githubjourney.asynctasks.FollowingLoader;
 import com.oklab.githubjourney.asynctasks.UserProfileAsyncTask;
 import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
@@ -29,7 +32,7 @@ import java.util.List;
  * Created by olgakuklina on 2017-02-06.
  */
 
-public class FollowersListFragment extends Fragment implements FollowersAsyncTask.OnFollowersLoadedListener, UserProfileAsyncTask.OnProfilesLoadedListener<GitHubUserProfileDataEntry>, SwipeRefreshLayout.OnRefreshListener {
+public class FollowersListFragment extends Fragment implements UserProfileAsyncTask.OnProfilesLoadedListener<GitHubUserProfileDataEntry>, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = StarsListFragment.class.getSimpleName();
     ArrayList<GitHubUserProfileDataEntry> profileDataEntryList;
     private RecyclerView recyclerView;
@@ -78,7 +81,9 @@ public class FollowersListFragment extends Fragment implements FollowersAsyncTas
         recyclerView.addOnScrollListener(new FollowersListFragment.FollowersItemsListOnScrollListener());
         swipeRefreshLayout.setOnRefreshListener(this);
         loading = true;
-        new FollowersAsyncTask(getContext(), this).execute(currentPage++);
+        Bundle bundle = new Bundle();
+        bundle.putInt("page", currentPage++);
+        getLoaderManager().initLoader(0, bundle, new FollowersListFragment.FollowersLoaderCallbacks()).forceLoad();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -115,24 +120,9 @@ public class FollowersListFragment extends Fragment implements FollowersAsyncTas
         followersExhausted = false;
         loading = true;
         currentPage = 1;
-        new FollowersAsyncTask(getContext(), this).execute(currentPage++);
-    }
-
-    @Override
-    public void onFollowersLoaded(List<GitHubUsersDataEntry> followersDataEntryList) {
-        loading = false;
-        if (followersDataEntryList != null && followersDataEntryList.isEmpty()) {
-            followersExhausted = true;
-            return;
-        }
-        //followersListAdapter.add(followersDataEntryList);
-        Parser<GitHubUserProfileDataEntry> parser = new GitHubUserProfileDataParser();
-        count = followersDataEntryList.size();
-        profileDataEntryList = new ArrayList<>(count);
-        for (GitHubUsersDataEntry entry : followersDataEntryList) {
-            new UserProfileAsyncTask<GitHubUserProfileDataEntry>(getContext(), this, parser).execute(entry.getLogin());
-        }
-        swipeRefreshLayout.setRefreshing(false);
+        Bundle bundle = new Bundle();
+        bundle.putInt("page", currentPage++);
+        getLoaderManager().initLoader(0, bundle, new FollowersListFragment.FollowersLoaderCallbacks()).forceLoad();
     }
 
     @Override
@@ -174,8 +164,42 @@ public class FollowersListFragment extends Fragment implements FollowersAsyncTas
             Log.v(TAG, "onScrolled - lastScrollPosition = " + lastScrollPosition);
             if (lastScrollPosition == itemsCount - 1 && !followersExhausted && !loading) {
                 loading = true;
-                new FollowersAsyncTask(FollowersListFragment.this.getContext(), FollowersListFragment.this).execute(currentPage++);
+                Bundle bundle = new Bundle();
+                bundle.putInt("page", currentPage++);
+                getLoaderManager().initLoader(0, bundle, new FollowersListFragment.FollowersLoaderCallbacks()).forceLoad();
             }
+        }
+    }
+    private class FollowersLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<GitHubUsersDataEntry>> {
+
+        @Override
+        public Loader<List<GitHubUsersDataEntry>> onCreateLoader(int id, Bundle args) {
+            Log.v(TAG, "onCreateLoader " + args);
+            return new FollowingLoader(getContext(), args.getInt("page"));
+        }
+
+        @Override
+        public void onLoadFinished(Loader<List<GitHubUsersDataEntry>> loader, List<GitHubUsersDataEntry> followersDataEntryList) {
+            loading = false;
+            if (followersDataEntryList != null && followersDataEntryList.isEmpty()) {
+                followersExhausted = true;
+                getLoaderManager().destroyLoader(loader.getId());
+                return;
+            }
+            Parser<GitHubUserProfileDataEntry> parser = new GitHubUserProfileDataParser();
+            count = followersDataEntryList.size();
+            profileDataEntryList = new ArrayList<>(count);
+            for (GitHubUsersDataEntry entry : followersDataEntryList) {
+                new UserProfileAsyncTask<GitHubUserProfileDataEntry>(getContext(), FollowersListFragment.this, parser).execute(entry.getLogin());
+            }
+            swipeRefreshLayout.setRefreshing(false);
+            getLoaderManager().destroyLoader(loader.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<List<GitHubUsersDataEntry>> loader) {
+            Log.v(TAG, "onLoaderReset");
+            loading = false;
         }
     }
 }

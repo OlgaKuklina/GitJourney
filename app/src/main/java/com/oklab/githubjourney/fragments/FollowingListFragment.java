@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +17,7 @@ import android.view.ViewGroup;
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.FollowingListAdapter;
-import com.oklab.githubjourney.asynctasks.FollowingAsyncTask;
+import com.oklab.githubjourney.asynctasks.FollowingLoader;
 import com.oklab.githubjourney.asynctasks.UserProfileAsyncTask;
 import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
 import com.oklab.githubjourney.data.GitHubUsersDataEntry;
@@ -29,7 +31,7 @@ import java.util.List;
  * Created by olgakuklina on 2017-02-06.
  */
 
-public class FollowingListFragment extends Fragment implements FollowingAsyncTask.OnFollowingLoadedListener, UserProfileAsyncTask.OnProfilesLoadedListener<GitHubUserProfileDataEntry>, SwipeRefreshLayout.OnRefreshListener {
+public class FollowingListFragment extends Fragment implements UserProfileAsyncTask.OnProfilesLoadedListener<GitHubUserProfileDataEntry>, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = FollowingListFragment.class.getSimpleName();
     ArrayList<GitHubUserProfileDataEntry> profileDataEntryList;
     private RecyclerView recyclerView;
@@ -78,7 +80,9 @@ public class FollowingListFragment extends Fragment implements FollowingAsyncTas
         recyclerView.addOnScrollListener(new FollowingListFragment.FollowingItemsListOnScrollListener());
         swipeRefreshLayout.setOnRefreshListener(this);
         loading = true;
-        new FollowingAsyncTask(getContext(), this).execute(currentPage++);
+        Bundle bundle = new Bundle();
+        bundle.putInt("page", currentPage++);
+        getLoaderManager().initLoader(0, bundle, new FollowingLoaderCallbacks()).forceLoad();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -108,30 +112,18 @@ public class FollowingListFragment extends Fragment implements FollowingAsyncTas
     @Override
     public void onRefresh() {
         if (loading) {
+            Log.v(TAG, "onRefresh loading true");
             swipeRefreshLayout.setRefreshing(false);
             return;
         }
+        Log.v(TAG, "onRefresh loading false");
         followingListAdapter.resetAllData();
         followingExhausted = false;
         loading = true;
         currentPage = 1;
-        new FollowingAsyncTask(getContext(), this).execute(currentPage++);
-    }
-
-    @Override
-    public void onFollowingLoaded(List<GitHubUsersDataEntry> followingDataEntryList) {
-        loading = false;
-        if (followingDataEntryList != null && followingDataEntryList.isEmpty()) {
-            followingExhausted = true;
-            return;
-        }
-        Parser<GitHubUserProfileDataEntry> parser = new GitHubUserProfileDataParser();
-        count = followingDataEntryList.size();
-        profileDataEntryList = new ArrayList<>(count);
-        for (GitHubUsersDataEntry entry : followingDataEntryList) {
-            new UserProfileAsyncTask<GitHubUserProfileDataEntry>(getContext(), this, parser).execute(entry.getLogin());
-        }
-        swipeRefreshLayout.setRefreshing(false);
+        Bundle bundle = new Bundle();
+        bundle.putInt("page", currentPage++);
+        getLoaderManager().initLoader(0, bundle, new FollowingLoaderCallbacks()).forceLoad();
     }
 
     @Override
@@ -168,12 +160,45 @@ public class FollowingListFragment extends Fragment implements FollowingAsyncTas
             super.onScrolled(recyclerView, dx, dy);
             int lastScrollPosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
             int itemsCount = followingListAdapter.getItemCount();
-            Log.v(TAG, "onScrolled - imetsCount = " + itemsCount);
-            Log.v(TAG, "onScrolled - lastScrollPosition = " + lastScrollPosition);
             if (lastScrollPosition == itemsCount - 1 && !followingExhausted && !loading) {
                 loading = true;
-                new FollowingAsyncTask(FollowingListFragment.this.getContext(), FollowingListFragment.this).execute(currentPage++);
+                Bundle bundle = new Bundle();
+                bundle.putInt("page", currentPage++);
+                getLoaderManager().initLoader(0, bundle, new FollowingLoaderCallbacks()).forceLoad();
             }
         }
+    }
+    private class FollowingLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<GitHubUsersDataEntry>> {
+
+        @Override
+        public Loader<List<GitHubUsersDataEntry>> onCreateLoader(int id, Bundle args) {
+            Log.v(TAG, "onCreateLoader " + args);
+            return new FollowingLoader(getContext(), args.getInt("page"));
+        }
+
+        @Override
+        public void onLoadFinished(Loader<List<GitHubUsersDataEntry>> loader, List<GitHubUsersDataEntry> followingDataEntryList) {
+            loading = false;
+            if (followingDataEntryList != null && followingDataEntryList.isEmpty()) {
+                followingExhausted = true;
+                getLoaderManager().destroyLoader(loader.getId());
+                return;
+            }
+            Parser<GitHubUserProfileDataEntry> parser = new GitHubUserProfileDataParser();
+            count = followingDataEntryList.size();
+            profileDataEntryList = new ArrayList<>(count);
+            for (GitHubUsersDataEntry entry : followingDataEntryList) {
+                new UserProfileAsyncTask<GitHubUserProfileDataEntry>(getContext(), FollowingListFragment.this, parser).execute(entry.getLogin());
+            }
+            swipeRefreshLayout.setRefreshing(false);
+            getLoaderManager().destroyLoader(loader.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<List<GitHubUsersDataEntry>> loader) {
+            Log.v(TAG, "onLoaderReset");
+            loading = false;
+        }
+
     }
 }

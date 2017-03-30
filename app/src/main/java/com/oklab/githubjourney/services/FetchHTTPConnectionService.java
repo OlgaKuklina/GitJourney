@@ -1,9 +1,12 @@
 package com.oklab.githubjourney.services;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.oklab.githubjourney.data.HTTPConnectionResult;
 import com.oklab.githubjourney.data.UserSessionData;
+import com.oklab.githubjourney.utils.Utils;
 
 import org.apache.commons.io.IOUtils;
 
@@ -24,6 +27,12 @@ public class FetchHTTPConnectionService {
     public FetchHTTPConnectionService(String uri, UserSessionData currentSessionData) {
         this.uri = uri;
         this.currentSessionData = currentSessionData;
+    }
+    public FetchHTTPConnectionService(String uri, Context context) {
+        this.uri = uri;
+        SharedPreferences prefs = context.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
+        String sessionDataStr = prefs.getString("userSessionData", null);
+        currentSessionData = UserSessionData.createUserSessionDataFromString(sessionDataStr);
     }
 
     public HTTPConnectionResult establishConnection() {
