@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,13 +17,13 @@ import android.view.ViewGroup;
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.FeedListAdapter;
-import com.oklab.githubjourney.asynctasks.FeedsAsyncTask;
+import com.oklab.githubjourney.asynctasks.FeedListLoader;
 import com.oklab.githubjourney.data.FeedDataEntry;
 import com.oklab.githubjourney.parsers.FeedListAtomParser;
 
 import java.util.List;
 
-public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedLoadedListener<FeedDataEntry>, SwipeRefreshLayout.OnRefreshListener {
+public class FeedListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
 
     private static final String TAG = FeedListFragment.class.getSimpleName();
@@ -86,7 +88,9 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
         swipeRefreshLayout.setOnRefreshListener(this);
 
         loading = true;
-        new FeedsAsyncTask<>(getContext(), this, new FeedListAtomParser(), null).execute(currentPage++);
+        Bundle bundle = new Bundle();
+        bundle.putInt("page", currentPage++);
+        getLoaderManager().initLoader(0, bundle, new FeedListFragment.FeedLoaderCallbacks()).forceLoad();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -114,17 +118,6 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
     }
 
     @Override
-    public void onFeedLoaded(List<FeedDataEntry> feedDataEntry, Object state) {
-        loading = false;
-        if (feedDataEntry != null && feedDataEntry.isEmpty()) {
-            feedExhausted = true;
-            return;
-        }
-        feedListAdapter.add(feedDataEntry);
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
     public void onRefresh() {
         Log.v(TAG, "onRefresh");
         if (loading) {
@@ -135,7 +128,9 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
         feedExhausted = false;
         loading = true;
         currentPage = 1;
-        new FeedsAsyncTask<>(getContext(), this, new FeedListAtomParser(), null).execute(currentPage++);
+        Bundle bundle = new Bundle();
+        bundle.putInt("page", currentPage++);
+        getLoaderManager().initLoader(0, bundle, new FeedListFragment.FeedLoaderCallbacks()).forceLoad();
     }
 
     /**
@@ -165,10 +160,37 @@ public class FeedListFragment extends Fragment implements FeedsAsyncTask.OnFeedL
             Log.v(TAG, "onScrolled - lastScrollPosition = " + lastScrollPosition);
             if (lastScrollPosition == itemsCount - 1 && !feedExhausted && !loading) {
                 loading = true;
-                new FeedsAsyncTask<>(FeedListFragment.this.getContext(), FeedListFragment.this, new FeedListAtomParser(), null).execute(currentPage++);
+                Bundle bundle = new Bundle();
+                bundle.putInt("page", currentPage++);
+                getLoaderManager().initLoader(0, bundle, new FeedListFragment.FeedLoaderCallbacks()).forceLoad();
             }
         }
     }
 
+    private class FeedLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<FeedDataEntry>> {
 
+        @Override
+        public Loader<List<FeedDataEntry>> onCreateLoader(int id, Bundle args) {
+            Log.v(TAG, "onCreateLoader " + args);
+            return new FeedListLoader(getContext(), args.getInt("page"), new FeedListAtomParser());
+        }
+
+        @Override
+        public void onLoadFinished(Loader<List<FeedDataEntry>> loader, List<FeedDataEntry> feedDataEntry) {
+            loading = false;
+            if (feedDataEntry != null && feedDataEntry.isEmpty()) {
+                feedExhausted = true;
+                getLoaderManager().destroyLoader(loader.getId());
+                return;
+            }
+            feedListAdapter.add(feedDataEntry);
+            swipeRefreshLayout.setRefreshing(false);
+            getLoaderManager().destroyLoader(loader.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<List<FeedDataEntry>> loader) {
+            loading = false;
+        }
+    }
 }
