@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +17,7 @@ import android.view.ViewGroup;
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.ReposListAdapter;
-import com.oklab.githubjourney.asynctasks.RepositoriesAsyncTask;
+import com.oklab.githubjourney.asynctasks.RepositoriesLoader;
 import com.oklab.githubjourney.data.ReposDataEntry;
 
 import java.util.List;
@@ -24,7 +26,7 @@ import java.util.List;
  * Created by olgakuklina on 2017-01-16.
  */
 
-public class RepositoriesListFragment extends Fragment implements RepositoriesAsyncTask.OnReposLoadedListener, SwipeRefreshLayout.OnRefreshListener {
+public class RepositoriesListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = RepositoriesListFragment.class.getSimpleName();
 
     private RecyclerView recyclerView;
@@ -72,7 +74,9 @@ public class RepositoriesListFragment extends Fragment implements RepositoriesAs
         recyclerView.addOnScrollListener(new RepositoriesListFragment.ReposItemsListOnScrollListner());
         swipeRefreshLayout.setOnRefreshListener(this);
         loading = true;
-        new RepositoriesAsyncTask(getContext(), this).execute(currentPage++);
+        Bundle bundle = new Bundle();
+        bundle.putInt("page", currentPage++);
+        getLoaderManager().initLoader(0, bundle, new RepositoriesListFragment.ReposLoaderCallbacks()).forceLoad();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -109,20 +113,10 @@ public class RepositoriesListFragment extends Fragment implements RepositoriesAs
         reposExhausted = false;
         loading = true;
         currentPage = 1;
-        new RepositoriesAsyncTask(getContext(), this).execute(currentPage++);
+        Bundle bundle = new Bundle();
+        bundle.putInt("page", currentPage++);
+        getLoaderManager().initLoader(0, bundle, new RepositoriesListFragment.ReposLoaderCallbacks()).forceLoad();
     }
-
-    @Override
-    public void onReposLoaded(List<ReposDataEntry> reposDataEntry) {
-        loading = false;
-        if (reposDataEntry != null && reposDataEntry.isEmpty()) {
-            reposExhausted = true;
-            return;
-        }
-        reposListAdapter.add(reposDataEntry);
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
 
     /**
      * This interface must be implemented by activities that contain this
@@ -150,8 +144,37 @@ public class RepositoriesListFragment extends Fragment implements RepositoriesAs
             Log.v(TAG, "onScrolled - lastScrollPosition = " + lastScrollPosition);
             if (lastScrollPosition == itemsCount - 1 && !reposExhausted && !loading) {
                 loading = true;
-                new RepositoriesAsyncTask(RepositoriesListFragment.this.getContext(), RepositoriesListFragment.this).execute(currentPage++);
+                Bundle bundle = new Bundle();
+                bundle.putInt("page", currentPage++);
+                getLoaderManager().initLoader(0, bundle, new RepositoriesListFragment.ReposLoaderCallbacks()).forceLoad();
             }
+        }
+    }
+
+    private class ReposLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<ReposDataEntry>> {
+
+        @Override
+        public Loader<List<ReposDataEntry>> onCreateLoader(int id, Bundle args) {
+            Log.v(TAG, "onCreateLoader " + args);
+            return new RepositoriesLoader(getContext(), args.getInt("page"));
+        }
+
+        @Override
+        public void onLoadFinished(Loader<List<ReposDataEntry>> loader, List<ReposDataEntry> reposDataEntry) {
+            loading = false;
+            if (reposDataEntry != null && reposDataEntry.isEmpty()) {
+                reposExhausted = true;
+                getLoaderManager().destroyLoader(loader.getId());
+                return;
+            }
+            reposListAdapter.add(reposDataEntry);
+            swipeRefreshLayout.setRefreshing(false);
+            getLoaderManager().destroyLoader(loader.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<List<ReposDataEntry>> loader) {
+            loading = false;
         }
     }
 }
