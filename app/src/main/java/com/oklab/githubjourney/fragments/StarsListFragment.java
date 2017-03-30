@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +17,7 @@ import android.view.ViewGroup;
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.StarsListAdapter;
-import com.oklab.githubjourney.asynctasks.StarsAsyncTask;
+import com.oklab.githubjourney.asynctasks.StarsLoader;
 import com.oklab.githubjourney.data.StarsDataEntry;
 
 import java.util.List;
@@ -24,7 +26,7 @@ import java.util.List;
  * Created by olgakuklina on 2017-02-06.
  */
 
-public class StarsListFragment extends Fragment implements StarsAsyncTask.OnStarsLoadedListener, SwipeRefreshLayout.OnRefreshListener {
+public class StarsListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = StarsListFragment.class.getSimpleName();
 
     private RecyclerView recyclerView;
@@ -72,7 +74,9 @@ public class StarsListFragment extends Fragment implements StarsAsyncTask.OnStar
         recyclerView.addOnScrollListener(new StarsListFragment.StarsItemsListOnScrollListner());
         swipeRefreshLayout.setOnRefreshListener(this);
         loading = true;
-        new StarsAsyncTask(getContext(), this).execute(currentPage++);
+        Bundle bundle = new Bundle();
+        bundle.putInt("page", currentPage++);
+        getLoaderManager().initLoader(0, bundle, new StarsListFragment.StarsLoaderCallbacks()).forceLoad();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -109,19 +113,9 @@ public class StarsListFragment extends Fragment implements StarsAsyncTask.OnStar
         starsExhausted = false;
         loading = true;
         currentPage = 1;
-        new StarsAsyncTask(getContext(), this).execute(currentPage++);
-    }
-
-
-    @Override
-    public void onStarsLoaded(List<StarsDataEntry> starsDataEntry) {
-        loading = false;
-        if (starsDataEntry != null && starsDataEntry.isEmpty()) {
-            starsExhausted = true;
-            return;
-        }
-        starsListAdapter.add(starsDataEntry);
-        swipeRefreshLayout.setRefreshing(false);
+        Bundle bundle = new Bundle();
+        bundle.putInt("page", currentPage++);
+        getLoaderManager().initLoader(0, bundle, new StarsListFragment.StarsLoaderCallbacks()).forceLoad();
     }
 
     /**
@@ -151,8 +145,36 @@ public class StarsListFragment extends Fragment implements StarsAsyncTask.OnStar
             Log.v(TAG, "onScrolled - currentPage = " + currentPage);
             if (lastScrollPosition == itemsCount - 1 && !starsExhausted && !loading) {
                 loading = true;
-                new StarsAsyncTask(StarsListFragment.this.getContext(), StarsListFragment.this).execute(currentPage++);
+                Bundle bundle = new Bundle();
+                bundle.putInt("page", currentPage++);
+                getLoaderManager().initLoader(0, bundle, new StarsListFragment.StarsLoaderCallbacks()).forceLoad();
             }
+        }
+    }
+
+    private class StarsLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<StarsDataEntry>> {
+        @Override
+        public Loader<List<StarsDataEntry>> onCreateLoader(int id, Bundle args) {
+            Log.v(TAG, "onCreateLoader " + args);
+            return new StarsLoader(getContext(), args.getInt("page"));
+        }
+
+        @Override
+        public void onLoadFinished(Loader<List<StarsDataEntry>> loader, List<StarsDataEntry> starsDataEntry) {
+            loading = false;
+            if (starsDataEntry != null && starsDataEntry.isEmpty()) {
+                starsExhausted = true;
+                getLoaderManager().destroyLoader(loader.getId());
+                return;
+            }
+            starsListAdapter.add(starsDataEntry);
+            swipeRefreshLayout.setRefreshing(false);
+            getLoaderManager().destroyLoader(loader.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<List<StarsDataEntry>> loader) {
+            loading = false;
         }
     }
 }
