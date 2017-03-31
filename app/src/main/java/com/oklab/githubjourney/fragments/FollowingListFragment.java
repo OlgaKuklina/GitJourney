@@ -82,7 +82,7 @@ public class FollowingListFragment extends Fragment implements UserProfileAsyncT
         loading = true;
         Bundle bundle = new Bundle();
         bundle.putInt("page", currentPage++);
-        getLoaderManager().initLoader(0, bundle, new FollowingLoaderCallbacks()).forceLoad();
+        getLoaderManager().initLoader(0, bundle, new FollowingLoaderCallbacks());
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -123,7 +123,7 @@ public class FollowingListFragment extends Fragment implements UserProfileAsyncT
         currentPage = 1;
         Bundle bundle = new Bundle();
         bundle.putInt("page", currentPage++);
-        getLoaderManager().initLoader(0, bundle, new FollowingLoaderCallbacks()).forceLoad();
+        getLoaderManager().initLoader(0, bundle, new FollowingLoaderCallbacks());
     }
 
     @Override
@@ -164,7 +164,7 @@ public class FollowingListFragment extends Fragment implements UserProfileAsyncT
                 loading = true;
                 Bundle bundle = new Bundle();
                 bundle.putInt("page", currentPage++);
-                getLoaderManager().initLoader(0, bundle, new FollowingLoaderCallbacks()).forceLoad();
+                getLoaderManager().initLoader(0, bundle, new FollowingLoaderCallbacks());
             }
         }
     }

@@ -27,7 +27,11 @@ public class StarsLoader extends AsyncTaskLoader<List<StarsDataEntry>> {
         super(context);
         this.page = page;
     }
-
+    @Override
+    protected void onStartLoading() {
+        super.onStartLoading();
+        forceLoad();
+    }
     @Override
     public List<StarsDataEntry> loadInBackground() {
         String uri = getContext().getString(R.string.url_starred, page);

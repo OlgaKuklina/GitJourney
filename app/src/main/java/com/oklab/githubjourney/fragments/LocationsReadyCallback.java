@@ -57,7 +57,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, UserProfileAs
         Log.v(TAG, "onMapReady");
         Bundle bundle = new Bundle();
         bundle.putInt("page", 1);
-        activity.getSupportLoaderManager().initLoader(0, bundle, new LocationsReadyCallback.FollowersListLoaderCallbacks()).forceLoad();
+        activity.getSupportLoaderManager().initLoader(0, bundle, new LocationsReadyCallback.FollowersListLoaderCallbacks());
         mResultReceiver = new LocationsReadyCallback.AddressResultReceiver(new Handler());
         map = googleMap;
     }
@@ -152,7 +152,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, UserProfileAs
                 Log.v(TAG, "followersLocationsList = " + followersLocationsList.size());
                 Bundle bundle = new Bundle();
                 bundle.putInt("page", 1);
-                activity.getSupportLoaderManager().initLoader(1, bundle, new LocationsReadyCallback.FollowersListLoaderCallbacks()).forceLoad();
+                activity.getSupportLoaderManager().initLoader(1, bundle, new LocationsReadyCallback.FollowersListLoaderCallbacks());
             } else {
                 followingsLocationsList = DataEntryList != null ? DataEntryList : Collections.emptyList();
                 HashSet<String> set = new HashSet<>();

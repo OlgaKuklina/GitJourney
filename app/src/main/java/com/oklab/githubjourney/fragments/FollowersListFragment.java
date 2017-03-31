@@ -82,7 +82,7 @@ public class FollowersListFragment extends Fragment implements UserProfileAsyncT
         loading = true;
         Bundle bundle = new Bundle();
         bundle.putInt("page", currentPage++);
-        getLoaderManager().initLoader(0, bundle, new FollowersListFragment.FollowersLoaderCallbacks()).forceLoad();
+        getLoaderManager().initLoader(0, bundle, new FollowersListFragment.FollowersLoaderCallbacks());
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -121,7 +121,7 @@ public class FollowersListFragment extends Fragment implements UserProfileAsyncT
         currentPage = 1;
         Bundle bundle = new Bundle();
         bundle.putInt("page", currentPage++);
-        getLoaderManager().initLoader(0, bundle, new FollowersListFragment.FollowersLoaderCallbacks()).forceLoad();
+        getLoaderManager().initLoader(0, bundle, new FollowersListFragment.FollowersLoaderCallbacks());
     }
 
     @Override
@@ -165,7 +165,7 @@ public class FollowersListFragment extends Fragment implements UserProfileAsyncT
                 loading = true;
                 Bundle bundle = new Bundle();
                 bundle.putInt("page", currentPage++);
-                getLoaderManager().initLoader(0, bundle, new FollowersListFragment.FollowersLoaderCallbacks()).forceLoad();
+                getLoaderManager().initLoader(0, bundle, new FollowersListFragment.FollowersLoaderCallbacks());
             }
         }
     }

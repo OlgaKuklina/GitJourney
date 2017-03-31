@@ -90,7 +90,7 @@ public class FeedListFragment extends Fragment implements SwipeRefreshLayout.OnR
         loading = true;
         Bundle bundle = new Bundle();
         bundle.putInt("page", currentPage++);
-        getLoaderManager().initLoader(0, bundle, new FeedListFragment.FeedLoaderCallbacks()).forceLoad();
+        getLoaderManager().initLoader(0, bundle, new FeedListFragment.FeedLoaderCallbacks());
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -130,7 +130,7 @@ public class FeedListFragment extends Fragment implements SwipeRefreshLayout.OnR
         currentPage = 1;
         Bundle bundle = new Bundle();
         bundle.putInt("page", currentPage++);
-        getLoaderManager().initLoader(0, bundle, new FeedListFragment.FeedLoaderCallbacks()).forceLoad();
+        getLoaderManager().initLoader(0, bundle, new FeedListFragment.FeedLoaderCallbacks());
     }
 
     /**
@@ -162,7 +162,7 @@ public class FeedListFragment extends Fragment implements SwipeRefreshLayout.OnR
                 loading = true;
                 Bundle bundle = new Bundle();
                 bundle.putInt("page", currentPage++);
-                getLoaderManager().initLoader(0, bundle, new FeedListFragment.FeedLoaderCallbacks()).forceLoad();
+                getLoaderManager().initLoader(0, bundle, new FeedListFragment.FeedLoaderCallbacks());
             }
         }
     }

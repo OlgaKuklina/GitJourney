@@ -29,6 +29,12 @@ public class RepositoriesLoader extends AsyncTaskLoader<List<ReposDataEntry>> {
     }
 
     @Override
+    protected void onStartLoading() {
+        super.onStartLoading();
+        forceLoad();
+    }
+
+    @Override
     public List<ReposDataEntry> loadInBackground() {
         String uri = getContext().getString(R.string.url_repos, page);
         FetchHTTPConnectionService fetchHTTPConnectionService = new FetchHTTPConnectionService(uri, getContext());

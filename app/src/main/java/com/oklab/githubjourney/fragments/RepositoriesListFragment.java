@@ -76,7 +76,7 @@ public class RepositoriesListFragment extends Fragment implements SwipeRefreshLa
         loading = true;
         Bundle bundle = new Bundle();
         bundle.putInt("page", currentPage++);
-        getLoaderManager().initLoader(0, bundle, new RepositoriesListFragment.ReposLoaderCallbacks()).forceLoad();
+        getLoaderManager().initLoader(0, bundle, new RepositoriesListFragment.ReposLoaderCallbacks());
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -115,7 +115,7 @@ public class RepositoriesListFragment extends Fragment implements SwipeRefreshLa
         currentPage = 1;
         Bundle bundle = new Bundle();
         bundle.putInt("page", currentPage++);
-        getLoaderManager().initLoader(0, bundle, new RepositoriesListFragment.ReposLoaderCallbacks()).forceLoad();
+        getLoaderManager().initLoader(0, bundle, new RepositoriesListFragment.ReposLoaderCallbacks());
     }
 
     /**
@@ -146,7 +146,7 @@ public class RepositoriesListFragment extends Fragment implements SwipeRefreshLa
                 loading = true;
                 Bundle bundle = new Bundle();
                 bundle.putInt("page", currentPage++);
-                getLoaderManager().initLoader(0, bundle, new RepositoriesListFragment.ReposLoaderCallbacks()).forceLoad();
+                getLoaderManager().initLoader(0, bundle, new RepositoriesListFragment.ReposLoaderCallbacks());
             }
         }
     }

@@ -76,7 +76,7 @@ public class StarsListFragment extends Fragment implements SwipeRefreshLayout.On
         loading = true;
         Bundle bundle = new Bundle();
         bundle.putInt("page", currentPage++);
-        getLoaderManager().initLoader(0, bundle, new StarsListFragment.StarsLoaderCallbacks()).forceLoad();
+        getLoaderManager().initLoader(0, bundle, new StarsListFragment.StarsLoaderCallbacks());
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -115,7 +115,7 @@ public class StarsListFragment extends Fragment implements SwipeRefreshLayout.On
         currentPage = 1;
         Bundle bundle = new Bundle();
         bundle.putInt("page", currentPage++);
-        getLoaderManager().initLoader(0, bundle, new StarsListFragment.StarsLoaderCallbacks()).forceLoad();
+        getLoaderManager().initLoader(0, bundle, new StarsListFragment.StarsLoaderCallbacks());
     }
 
     /**
@@ -147,7 +147,7 @@ public class StarsListFragment extends Fragment implements SwipeRefreshLayout.On
                 loading = true;
                 Bundle bundle = new Bundle();
                 bundle.putInt("page", currentPage++);
-                getLoaderManager().initLoader(0, bundle, new StarsListFragment.StarsLoaderCallbacks()).forceLoad();
+                getLoaderManager().initLoader(0, bundle, new StarsListFragment.StarsLoaderCallbacks());
             }
         }
     }
