@@ -2,7 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,7 +16,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:text="Contributions in "
             android:visibility="visible" />
 
@@ -20,12 +25,10 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:visibility="visible" />
-
     </LinearLayout>
 
-
     <GridLayout
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="30dp"
         android:columnCount="7"
         android:rowCount="1">
@@ -120,7 +123,7 @@
         android:paddingTop="10dp"
         android:text="Contribution activity"
         android:visibility="visible" />
-
+    </LinearLayout>
     <ScrollView
         android:id="@+id/contributions_activity_container"
         android:layout_width="match_parent"

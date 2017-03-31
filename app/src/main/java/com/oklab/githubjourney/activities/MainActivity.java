@@ -2,6 +2,7 @@ package com.oklab.githubjourney.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -47,10 +48,11 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         calendarYearPagerAdapter = new CalendarYearPagerAdapter(getSupportFragmentManager());
-
         // Set up the ViewPager with the sections adapter.
         calendarYearviewPager = (ViewPager) findViewById(R.id.pager);
         calendarYearviewPager.setAdapter(calendarYearPagerAdapter);
+        ContributionsByDateListFragment contributionsActivityFragment = ContributionsByDateListFragment.newInstance();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contrib_fragment, contributionsActivityFragment).commit();
         prefs = this.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
         String currentSessionData = prefs.getString("userSessionData", null);
         if (currentSessionData == null) {
@@ -68,8 +70,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        ContributionsByDateListFragment contributionsActivityFragment = ContributionsByDateListFragment.newInstance();
-        getSupportFragmentManager().beginTransaction().replace(R.id.contrib_fragment, contributionsActivityFragment).commit();
+
         takeScreenshotService = new TakeScreenshotService(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
