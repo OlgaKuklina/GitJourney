@@ -8,7 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:elevation="5dp"
         android:orientation="vertical">
 
@@ -21,65 +20,71 @@
         <LinearLayout
             android:id="@+id/details"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="center_vertical"
+            android:layout_height="90dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="Repositories" />
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/repositories"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:gravity="center_vertical"
-                android:text="10" />
+                <TextView
+                    style="@style/DetailViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Repositories" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="25dp"
-                android:gravity="center_vertical"
-                android:text="Stars" />
+                <TextView
+                    android:id="@+id/repositories"
+                    style="@style/DetailViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/stars"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:gravity="center_vertical" />
+                android:layout_marginLeft="35dp"
+                android:elevation="5dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="25dp"
-                android:gravity="center_vertical"
-                android:text="Following" />
+                <TextView
+                    style="@style/DetailViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Following" />
 
-            <TextView
-                android:id="@+id/following"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:gravity="center_vertical" />
+                <TextView
+                    android:id="@+id/following"
+                    style="@style/DetailViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="25dp"
-                android:gravity="center_vertical"
-                android:text="Followers" />
+                android:layout_marginLeft="35dp"
+                android:elevation="5dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/followers"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:gravity="center_vertical" />
+                <TextView
+                    style="@style/DetailViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Followers" />
+
+                <TextView
+                    android:id="@+id/followers"
+                    style="@style/DetailViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

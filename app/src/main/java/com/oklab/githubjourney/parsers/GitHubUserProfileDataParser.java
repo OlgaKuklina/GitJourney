@@ -72,19 +72,19 @@ public class GitHubUserProfileDataParser implements Parser<GitHubUserProfileData
             bio = object.getString("bio");
         }
         int publicRepos = 0;
-        if (!object.has("public_repos")) {
+        if (object.has("public_repos")) {
             publicRepos = object.getInt("public_repos");
         }
         int publicGists = 0;
-        if (!object.has("public_gists")) {
+        if (object.has("public_gists")) {
             publicGists = object.getInt("public_gists");
         }
         int followers = 0;
-        if (!object.has("followers")) {
+        if (object.has("followers")) {
             followers = object.getInt("followers");
         }
         int following = 0;
-        if (!object.has("following")) {
+        if (object.has("following")) {
             following = object.getInt("following");
         }
 

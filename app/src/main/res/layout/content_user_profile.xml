@@ -12,8 +12,7 @@
     <RelativeLayout
         android:id="@+id/user_profile_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#2BFF00">
+        android:layout_height="match_parent">
 
     </RelativeLayout>
 

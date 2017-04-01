@@ -81,15 +81,15 @@ public class UserProfileFragment extends Fragment implements UserProfileAsyncTas
     public void OnProfilesLoaded(GitHubUserProfileDataEntry profileDataEntry) {
 
         Log.v(TAG, "OnProfilesLoaded " + count + " , " + profileDataEntry);
-        if (profileDataEntry != null && profileDataEntry.getLocation() != null && !profileDataEntry.getLocation().isEmpty()) {
-            populateUserProfileData(profileDataEntry);
-        }
+        populateUserProfileData(profileDataEntry);
     }
 
     private void populateUserProfileData(GitHubUserProfileDataEntry profileDataEntry) {
+        Log.v(TAG, "getPublicRepos() = " + profileDataEntry.getPublicRepos());
         repositories.setText(Integer.toString(profileDataEntry.getPublicRepos()));
         followers.setText(Integer.toString(profileDataEntry.getFollowers()));
         following.setText(Integer.toString(profileDataEntry.getFollowing()));
+
         Picasso pic = Picasso.with(this.getContext());
         if (profileDataEntry.getImageUri() == null || profileDataEntry.getImageUri().isEmpty()) {
             pic.load(R.drawable.octocat)

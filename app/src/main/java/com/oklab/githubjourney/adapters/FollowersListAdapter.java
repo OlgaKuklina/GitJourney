@@ -56,6 +56,7 @@ public class FollowersListAdapter extends RecyclerView.Adapter<FollowersListAdap
             }
         });
     }
+
     @Override
     public int getItemCount() {
         return followersDataEntrylist.size();
