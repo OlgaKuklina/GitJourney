@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.asynctasks.FollowersLoader;
 import com.oklab.githubjourney.asynctasks.FollowingLoader;
 import com.oklab.githubjourney.asynctasks.UserProfileAsyncTask;
@@ -101,6 +102,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, UserProfileAs
                         MarkerOptions options = new MarkerOptions().position(position).title(entry.getLogin());
                         map.addMarker(options);
                     } else {
+
                         Picasso.with(activity).load(entry.getImageUri()).resize(100, 100).into(new Target() {
                             @Override
                             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {

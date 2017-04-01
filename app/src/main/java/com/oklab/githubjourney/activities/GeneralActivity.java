@@ -1,5 +1,6 @@
 package com.oklab.githubjourney.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -126,6 +127,8 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
