@@ -1,6 +1,7 @@
 package com.oklab.githubjourney.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.activities.UserProfileActivity;
 import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
 import com.squareup.picasso.Picasso;
 
@@ -39,6 +41,18 @@ public class FollowingListAdapter extends RecyclerView.Adapter<FollowingListAdap
     public void onBindViewHolder(FollowingListAdapter.FollowingListViewHolder holder, int position) {
         GitHubUserProfileDataEntry entry = followingDataEntrylist.get(position);
         holder.populateFollowingViewData(entry);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.v(TAG, " view.getId()" + view.getId());
+                String login = followingDataEntrylist.get(position).getLogin();
+                String name = followingDataEntrylist.get(position).getName();
+                Intent intent = new Intent(context, UserProfileActivity.class);
+                intent.putExtra("login_id", login);
+                intent.putExtra("name", name);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

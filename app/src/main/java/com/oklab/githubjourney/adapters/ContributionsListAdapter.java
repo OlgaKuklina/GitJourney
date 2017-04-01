@@ -140,10 +140,9 @@ public class ContributionsListAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     Integer contribNumber = contributionsMap.get(i - numberOfEmptyDaysInMonth + 1);
-                    Toast.makeText(context, (contribNumber != null ? contribNumber : 0) + " contributions at " + (i - numberOfEmptyDaysInMonth + 1), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, (contribNumber != null ? contribNumber : 0) + context.getString(R.string.contributions_at) + (i - numberOfEmptyDaysInMonth + 1), Toast.LENGTH_SHORT).show();
                 }
             });
-            Log.v(TAG, "i " + i);
 
         } else {
             v = inflater.inflate(R.layout.empty_grid_list_item, viewGroup, false);

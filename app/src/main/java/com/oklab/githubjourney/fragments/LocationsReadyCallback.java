@@ -17,7 +17,6 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.asynctasks.FollowersLoader;
 import com.oklab.githubjourney.asynctasks.FollowingLoader;
 import com.oklab.githubjourney.asynctasks.UserProfileAsyncTask;
@@ -82,7 +81,6 @@ public class LocationsReadyCallback implements OnMapReadyCallback, UserProfileAs
             startIntentService();
         }
     }
-
 
     class AddressResultReceiver extends ResultReceiver {
         public AddressResultReceiver(Handler handler) {

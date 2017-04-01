@@ -40,11 +40,13 @@ public class FeedListLoader<T> extends AsyncTaskLoader<List<T>> {
         String sessionDataStr = prefs.getString("userSessionData", null);
         currentSessionData = UserSessionData.createUserSessionDataFromString(sessionDataStr);
     }
+
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
         forceLoad();
     }
+
     @Override
     public List<T> loadInBackground() {
         try {

@@ -28,11 +28,13 @@ public class FollowersLoader extends AsyncTaskLoader<List<GitHubUsersDataEntry>>
         super(context);
         this.page = page;
     }
+
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
         forceLoad();
     }
+
     @Override
     public List<GitHubUsersDataEntry> loadInBackground() {
         String uri = getContext().getString(R.string.url_followers, page);
