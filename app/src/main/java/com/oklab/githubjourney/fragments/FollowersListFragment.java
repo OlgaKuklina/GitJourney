@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.FollowersListAdapter;
+import com.oklab.githubjourney.asynctasks.FollowersLoader;
 import com.oklab.githubjourney.asynctasks.FollowingLoader;
 import com.oklab.githubjourney.asynctasks.UserProfileAsyncTask;
 import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
@@ -175,7 +176,7 @@ public class FollowersListFragment extends Fragment implements UserProfileAsyncT
         @Override
         public Loader<List<GitHubUsersDataEntry>> onCreateLoader(int id, Bundle args) {
             Log.v(TAG, "onCreateLoader " + args);
-            return new FollowingLoader(getContext(), args.getInt("page"));
+            return new FollowersLoader(getContext(), args.getInt("page"));
         }
 
         @Override
