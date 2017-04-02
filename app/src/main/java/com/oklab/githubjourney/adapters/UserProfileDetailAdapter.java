@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.data.ReposDataEntry;
+import com.oklab.githubjourney.utils.GithubLanguageColorsMatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +89,13 @@ public class UserProfileDetailAdapter extends RecyclerView.Adapter<UserProfileDe
             }
             repoTitle.setText(data.getTitle());
             if(data.getLanguage() !=null && !data.getLanguage().isEmpty() && !data.getLanguage().equals("null")) {
+                Log.v(TAG, " data.getLanguage() = " + data.getLanguage());
+                int colorId = GithubLanguageColorsMatcher.findMatchedColor(context, data.getLanguage());
+                Log.v(TAG, " colorId = " + colorId);
+                if(colorId!=0) {
+                    language.setTextColor(context.getResources().getColor(colorId));
+                }
+
                 language.setText(data.getLanguage());
             }
             else {
