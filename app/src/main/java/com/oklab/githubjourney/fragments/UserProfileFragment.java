@@ -14,17 +14,14 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
-import com.oklab.githubjourney.asynctasks.UserProfileAsyncTask;
 import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
-import com.oklab.githubjourney.parsers.GitHubUserProfileDataParser;
-import com.oklab.githubjourney.parsers.Parser;
 import com.squareup.picasso.Picasso;
 
 /**
  * Created by olgakuklina on 2017-03-27.
  */
 
-public class UserProfileFragment extends Fragment implements UserProfileAsyncTask.OnProfilesLoadedListener<GitHubUserProfileDataEntry>, SwipeRefreshLayout.OnRefreshListener {
+public class UserProfileFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = StarsListFragment.class.getSimpleName();
     private ScrollView scrollView;
     private ImageView profilePoster;
@@ -61,6 +58,7 @@ public class UserProfileFragment extends Fragment implements UserProfileAsyncTas
         stars = (TextView) v.findViewById(R.id.stars);
         following = (TextView) v.findViewById(R.id.following);
         followers = (TextView) v.findViewById(R.id.followers);
+        populateUserProfileData();
         return v;
     }
 
@@ -69,39 +67,30 @@ public class UserProfileFragment extends Fragment implements UserProfileAsyncTas
         super.onActivityCreated(savedInstanceState);
         Log.v(TAG, "onActivityCreated");
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        Parser<GitHubUserProfileDataEntry> parser = new GitHubUserProfileDataParser();
-        new UserProfileAsyncTask<GitHubUserProfileDataEntry>(getContext(), com.oklab.githubjourney.fragments.UserProfileFragment.this, parser).execute(getArguments().getString("login_id"));
     }
 
     @Override
     public void onRefresh() {
     }
 
-    @Override
-    public void OnProfilesLoaded(GitHubUserProfileDataEntry profileDataEntry) {
+    private void populateUserProfileData() {
+        GitHubUserProfileDataEntry entry = getArguments().getParcelable("entry");
+        repositories.setText(Integer.toString(entry.getPublicRepos()));
+        followers.setText(Integer.toString(entry.getFollowers()));
+        following.setText(Integer.toString(entry.getFollowing()));
 
-        Log.v(TAG, "OnProfilesLoaded " + count + " , " + profileDataEntry);
-        populateUserProfileData(profileDataEntry);
-    }
-
-    private void populateUserProfileData(GitHubUserProfileDataEntry profileDataEntry) {
-        Log.v(TAG, "getPublicRepos() = " + profileDataEntry.getPublicRepos());
-        repositories.setText(Integer.toString(profileDataEntry.getPublicRepos()));
-        followers.setText(Integer.toString(profileDataEntry.getFollowers()));
-        following.setText(Integer.toString(profileDataEntry.getFollowing()));
-
+        Log.v(TAG, "entry.getImageUri() = " + entry.getImageUri());
         Picasso pic = Picasso.with(this.getContext());
-        if (profileDataEntry.getImageUri() == null || profileDataEntry.getImageUri().isEmpty()) {
+        if (entry.getImageUri() == null || entry.getImageUri().isEmpty()) {
             pic.load(R.drawable.octocat)
                     .fit().centerCrop()
                     .into(profilePoster);
         } else {
-            pic.load(profileDataEntry.getImageUri())
+            pic.load(entry.getImageUri())
                     .fit().centerCrop()
                     .error(R.drawable.octocat)
                     .into(profilePoster);
         }
-
     }
 }
 

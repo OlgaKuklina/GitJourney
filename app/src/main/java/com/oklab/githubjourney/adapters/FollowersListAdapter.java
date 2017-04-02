@@ -46,12 +46,9 @@ public class FollowersListAdapter extends RecyclerView.Adapter<FollowersListAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v(TAG, " view.getId()" + view.getId());
-                String login = followersDataEntrylist.get(position).getLogin();
-                String name = followersDataEntrylist.get(position).getName();
+                Log.v(TAG, " entry = " + entry);
                 Intent intent = new Intent(context, UserProfileActivity.class);
-                intent.putExtra("login_id", login);
-                intent.putExtra("name", name);
+                intent.putExtra("profile", entry);
                 context.startActivity(intent);
             }
         });

@@ -8,7 +8,6 @@
     tools:context="com.oklab.githubjourney.activities.UserProfileActivity"
     tools:showIn="@layout/activity_user_profile">
 
-
     <RelativeLayout
         android:id="@+id/user_profile_fragment"
         android:layout_width="match_parent"
