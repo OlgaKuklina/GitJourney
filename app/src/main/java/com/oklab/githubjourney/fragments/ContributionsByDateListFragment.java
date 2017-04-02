@@ -75,7 +75,8 @@ public class ContributionsByDateListFragment extends Fragment implements LoaderM
 
     @Override
     public void onRefresh() {
-
+        recyclerView.setAdapter(null);
+        getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -89,6 +90,7 @@ public class ContributionsByDateListFragment extends Fragment implements LoaderM
         contributionsListAdapter = new ContributionsByDateAdapter(this.getContext(), data);
         contributionsListAdapter.setHasStableIds(true);
         recyclerView.setAdapter(contributionsListAdapter);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
