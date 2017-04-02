@@ -3,8 +3,11 @@ package com.oklab.githubjourney.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +17,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.adapters.UserProfileDetailAdapter;
+import com.oklab.githubjourney.asynctasks.GitHubUserRepositoriesLoader;
 import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
+import com.oklab.githubjourney.data.ReposDataEntry;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 /**
  * Created by olgakuklina on 2017-03-27.
@@ -23,14 +31,19 @@ import com.squareup.picasso.Picasso;
 
 public class UserProfileFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = StarsListFragment.class.getSimpleName();
+    UserProfileDetailAdapter userProfileDetailAdapter;
     private ScrollView scrollView;
+    private RecyclerView recyclerView;
     private ImageView profilePoster;
     private TextView repositories;
     private TextView stars;
     private TextView following;
     private TextView followers;
-    private LinearLayoutManager linearLayoutManager;
-    private int count = 6;
+    private int currentPage = 1;
+    private boolean reposExhausted = false;
+    private boolean loading = false;
+    private GitHubUserProfileDataEntry entry;
+    private GridLayoutManager gridLayoutManager;
 
     public UserProfileFragment() {
     }
@@ -43,38 +56,53 @@ public class UserProfileFragment extends Fragment implements SwipeRefreshLayout.
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.v(TAG, "onCreateView");
+        entry = getArguments().getParcelable("entry");
         View v = inflater.inflate(R.layout.github_user_profile, container, false);
-        scrollView = (ScrollView) v.findViewById(R.id.scroll_view);
+        recyclerView = (RecyclerView) v.findViewById(R.id.gridview);
         profilePoster = (ImageView) v.findViewById(R.id.profile_poster);
         repositories = (TextView) v.findViewById(R.id.repositories);
         stars = (TextView) v.findViewById(R.id.stars);
         following = (TextView) v.findViewById(R.id.following);
         followers = (TextView) v.findViewById(R.id.followers);
-        populateUserProfileData();
         return v;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        userProfileDetailAdapter = new UserProfileDetailAdapter(this.getContext());
+        gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(userProfileDetailAdapter);
+        recyclerView.addOnScrollListener(new UserProfileFragment.UserProfileItemsListOnScrollListener());
+        populateUserProfileData();
         Log.v(TAG, "onActivityCreated");
-        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        Bundle bundle = new Bundle();
+        bundle.putInt("page", currentPage++);
+        bundle.putString("login", entry.getLogin());
+        getLoaderManager().initLoader(0, bundle, new UserProfileFragment.ReposLoaderCallbacks());
     }
 
     @Override
     public void onRefresh() {
+        if (loading) {
+//            swipeRefreshLayout.setRefreshing(false);
+            return;
+        }
+        userProfileDetailAdapter.resetAllData();
+        reposExhausted = false;
+        loading = true;
+        currentPage = 1;
+        Bundle bundle = new Bundle();
+        bundle.putInt("page", currentPage++);
+        bundle.putString("login", entry.getLogin());
+        getLoaderManager().initLoader(0, bundle, new UserProfileFragment.ReposLoaderCallbacks());
     }
 
     private void populateUserProfileData() {
-        GitHubUserProfileDataEntry entry = getArguments().getParcelable("entry");
         repositories.setText(Integer.toString(entry.getPublicRepos()));
         followers.setText(Integer.toString(entry.getFollowers()));
         following.setText(Integer.toString(entry.getFollowing()));
@@ -90,6 +118,50 @@ public class UserProfileFragment extends Fragment implements SwipeRefreshLayout.
                     .fit().centerCrop()
                     .error(R.drawable.octocat)
                     .into(profilePoster);
+        }
+    }
+
+    private class UserProfileItemsListOnScrollListener extends RecyclerView.OnScrollListener {
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            int lastScrollPosition = gridLayoutManager.findLastCompletelyVisibleItemPosition();
+            int itemsCount = userProfileDetailAdapter.getItemCount();
+            if (lastScrollPosition == itemsCount - 1 && !reposExhausted && !loading) {
+                loading = true;
+                Bundle bundle = new Bundle();
+                bundle.putInt("page", currentPage++);
+                bundle.putString("login", entry.getLogin());
+                getLoaderManager().initLoader(0, bundle, new UserProfileFragment.ReposLoaderCallbacks());
+            }
+        }
+    }
+
+    private class ReposLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<ReposDataEntry>> {
+
+        @Override
+        public Loader<List<ReposDataEntry>> onCreateLoader(int id, Bundle args) {
+            Log.v(TAG, "onCreateLoader " + args);
+            return new GitHubUserRepositoriesLoader(getContext(), args.getInt("page"), args.getString("login"));
+        }
+
+        @Override
+        public void onLoadFinished(Loader<List<ReposDataEntry>> loader, List<ReposDataEntry> reposDataEntryList) {
+            loading = false;
+            if (reposDataEntryList != null && reposDataEntryList.isEmpty()) {
+                reposExhausted = true;
+                getLoaderManager().destroyLoader(loader.getId());
+                return;
+            }
+            Log.v(TAG, " reposDataEntry = " + reposDataEntryList.get(1).getTitle());
+            userProfileDetailAdapter.addAll(reposDataEntryList);
+            getLoaderManager().destroyLoader(loader.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<List<ReposDataEntry>> loader) {
+            loading = false;
         }
     }
 }

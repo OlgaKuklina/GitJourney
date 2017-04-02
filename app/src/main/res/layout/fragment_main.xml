@@ -20,9 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:visibility="visible" />
-
     </LinearLayout>
-
 
     <GridLayout
         android:layout_width="match_parent"
@@ -99,8 +97,6 @@
             android:layout_row="0"
             android:gravity="center"
             android:text="Sat" />
-
-
     </GridLayout>
 
     <GridView

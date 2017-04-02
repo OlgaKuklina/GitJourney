@@ -1,90 +1,91 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scroll_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:elevation="5dp"
+    android:orientation="vertical"
     tools:context="com.oklab.githubjourney.fragments.UserProfileFragment">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/profile_poster"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="5dp"
-        android:orientation="vertical">
+        android:layout_height="200dp"
+        android:gravity="center_horizontal" />
 
-        <ImageView
-            android:id="@+id/profile_poster"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:gravity="center_horizontal" />
+    <LinearLayout
+        android:id="@+id/details"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/details"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:background="@color/colorPrimary"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                style="@style/DetailViewTitle"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical|center_horizontal"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:text="Repositories" />
 
-                <TextView
-                    style="@style/DetailViewTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Repositories" />
-
-                <TextView
-                    android:id="@+id/repositories"
-                    style="@style/DetailViewTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/repositories"
+                style="@style/DetailViewTitle"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="35dp"
-                android:elevation="5dp"
-                android:gravity="center_vertical|center_horizontal"
-                android:orientation="vertical">
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-                <TextView
-                    style="@style/DetailViewTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Following" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="35dp"
+            android:elevation="5dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/following"
-                    style="@style/DetailViewTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                style="@style/DetailViewTitle"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="35dp"
-                android:elevation="5dp"
-                android:gravity="center_vertical|center_horizontal"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:text="Following" />
 
-                <TextView
-                    style="@style/DetailViewTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Followers" />
+            <TextView
+                android:id="@+id/following"
+                style="@style/DetailViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/followers"
-                    style="@style/DetailViewTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="35dp"
+            android:elevation="5dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/DetailViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Followers" />
+
+            <TextView
+                android:id="@+id/followers"
+                style="@style/DetailViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical" />
+
+</LinearLayout>

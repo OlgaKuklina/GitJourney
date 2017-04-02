@@ -18,4 +18,6 @@
     <color name="empty">#ccd8de</color>
 
     <color name="color">#ffffff</color>
+    <color name="color_back">#d4cfcf</color>
+    <color name="colorred">#ed0707</color>
 </resources>

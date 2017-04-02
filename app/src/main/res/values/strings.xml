@@ -16,6 +16,7 @@
     <string name="url_disconnect" translatable="false">https://api.github.com/authorizations/%1$s</string>
     <string name="url_feeds" translatable="false">https://api.github.com/feeds?page=%1$d</string>
     <string name="url_repos" translatable="false">https://api.github.com/user/repos?page=%1$d</string>
+    <string name="url_user_repos" translatable="false">https://api.github.com/users/%2$s/repos?page=%1$d</string>
     <string name="url_followers" translatable="false">https://api.github.com/user/followers?page=%1$d</string>
     <string name="url_following" translatable="false">https://api.github.com/user/following?page=%1$d</string>
     <string name="url_starred" translatable="false">https://api.github.com/user/starred?page=%1$d</string>
