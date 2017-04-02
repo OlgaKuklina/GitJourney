@@ -90,7 +90,6 @@ public class UserProfileFragment extends Fragment implements SwipeRefreshLayout.
     @Override
     public void onRefresh() {
         if (loading) {
-//            swipeRefreshLayout.setRefreshing(false);
             return;
         }
         userProfileDetailAdapter.resetAllData();

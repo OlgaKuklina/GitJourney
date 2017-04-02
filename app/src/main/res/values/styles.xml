@@ -22,7 +22,7 @@
 
     <style name="RepoDetail">
         <item name="android:fontFamily">Roboto</item>
-        <item name="android:textColor">@color/colorred</item>
+        <item name="android:textColor">@color/color_text_primary</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">12dp</item>
     </style>

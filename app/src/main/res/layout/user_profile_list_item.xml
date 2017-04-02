@@ -45,27 +45,42 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_alignParentBottom="true">
-
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/lang_circle" />
             <TextView
                 android:id="@+id/repo_detail_language"
                 style="@style/RepoDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp" />
-
+                android:layout_marginLeft="5dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/star" />
             <TextView
                 android:id="@+id/repo_detail_stars"
                 style="@style/RepoDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp" />
-
+                android:layout_marginLeft="5dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/fork" />
             <TextView
                 android:id="@+id/repo_detail_forks"
                 style="@style/RepoDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp" />
+                android:layout_marginLeft="5dp" />
         </LinearLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

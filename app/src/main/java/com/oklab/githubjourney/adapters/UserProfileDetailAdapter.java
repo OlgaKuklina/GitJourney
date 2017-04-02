@@ -95,25 +95,31 @@ public class UserProfileDetailAdapter extends RecyclerView.Adapter<UserProfileDe
                 if(colorId!=0) {
                     language.setTextColor(context.getResources().getColor(colorId));
                 }
+                else {
+                    language.setTextColor(context.getResources().getColor(R.color.colorred));
+                }
 
                 language.setText(data.getLanguage());
             }
             else {
                 language.setText(R.string.empty_value);
             }
+            forks.setTextColor(context.getResources().getColor(R.color.color_text_primary));
             if(data.getForks() != 0) {
+                forks.setVisibility(View.VISIBLE);
                 forks.setText(Integer.toString(data.getForks()));
             }
             else {
-                forks.setText(R.string.empty_value);
+                forks.setVisibility(View.INVISIBLE);
             }
+            stars.setTextColor(context.getResources().getColor(R.color.color_text_primary));
             if(data.getStars() != 0) {
+                stars.setVisibility(View.VISIBLE);
                 stars.setText(Integer.toString(data.getStars()));
             }
             else {
-                stars.setText(R.string.empty_value);
+                stars.setVisibility(View.INVISIBLE);
             }
-
         }
     }
 }
