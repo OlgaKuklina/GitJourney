@@ -61,7 +61,8 @@ public class UserProfileFragment extends Fragment implements SwipeRefreshLayout.
         Log.v(TAG, "onCreateView");
         entry = getArguments().getParcelable("entry");
         View v = inflater.inflate(R.layout.github_user_profile, container, false);
-        recyclerView = (RecyclerView) v.findViewById(R.id.gridview);
+        recyclerView = (RecyclerView) v.findViewById(R.id.repo_details);
+        recyclerView.setNestedScrollingEnabled(false);
         profilePoster = (ImageView) v.findViewById(R.id.profile_poster);
         repositories = (TextView) v.findViewById(R.id.repositories);
         stars = (TextView) v.findViewById(R.id.stars);

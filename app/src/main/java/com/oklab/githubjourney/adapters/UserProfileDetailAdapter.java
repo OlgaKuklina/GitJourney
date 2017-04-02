@@ -35,7 +35,7 @@ public class UserProfileDetailAdapter extends RecyclerView.Adapter<UserProfileDe
     }
 
     @Override
-    public void onBindViewHolder(UserProfileDetailAdapter.UserProfileDetailViewHolder holder, int position) {
+        public void onBindViewHolder(UserProfileDetailAdapter.UserProfileDetailViewHolder holder, int position) {
         ReposDataEntry entry = reposDataEntries.get(position);
         holder.populateUserProfileDetailViewData(entry);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -79,11 +79,33 @@ public class UserProfileDetailAdapter extends RecyclerView.Adapter<UserProfileDe
         }
 
         private void populateUserProfileDetailViewData(ReposDataEntry data) {
-            repoSubTitle.setText(data.getDescription());
+            Log.v(TAG, "ReposDataEntry" + data.getLanguage());
+            if(data.getDescription() !=null && !data.getDescription().isEmpty() && !data.getDescription().equals("null")) {
+                repoSubTitle.setText(data.getDescription());
+            }
+            else {
+                repoSubTitle.setText(R.string.empty_text);
+            }
             repoTitle.setText(data.getTitle());
-            language.setText(data.getLanguage());
-            forks.setText(Integer.toString(data.getForks()));
-            stars.setText(Integer.toString(data.getStars()));
+            if(data.getLanguage() !=null && !data.getLanguage().isEmpty() && !data.getLanguage().equals("null")) {
+                language.setText(data.getLanguage());
+            }
+            else {
+                language.setText(R.string.empty_value);
+            }
+            if(data.getForks() != 0) {
+                forks.setText(Integer.toString(data.getForks()));
+            }
+            else {
+                forks.setText(R.string.empty_value);
+            }
+            if(data.getStars() != 0) {
+                stars.setText(Integer.toString(data.getStars()));
+            }
+            else {
+                stars.setText(R.string.empty_value);
+            }
+
         }
     }
 }
