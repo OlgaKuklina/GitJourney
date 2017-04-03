@@ -6,9 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.customui.CircleView;
 import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.utils.GithubLanguageColorsMatcher;
 
@@ -69,14 +71,17 @@ public class UserProfileDetailAdapter extends RecyclerView.Adapter<UserProfileDe
         private TextView language;
         private TextView stars;
         private TextView forks;
+        private CircleView languageCircle;
 
         public UserProfileDetailViewHolder(View view) {
             super(view);
             repoSubTitle = (TextView) view.findViewById(R.id.repo_subtitle);
             repoTitle = (TextView) view.findViewById(R.id.repo_title);
             language = (TextView) view.findViewById(R.id.repo_detail_language);
+            languageCircle = (CircleView) view.findViewById(R.id.language_circle);
             stars = (TextView) view.findViewById(R.id.repo_detail_stars);
             forks = (TextView) view.findViewById(R.id.repo_detail_forks);
+
         }
 
         private void populateUserProfileDetailViewData(ReposDataEntry data) {
@@ -92,9 +97,9 @@ public class UserProfileDetailAdapter extends RecyclerView.Adapter<UserProfileDe
                 int colorId = GithubLanguageColorsMatcher.findMatchedColor(context, data.getLanguage());
                 Log.v(TAG, " colorId = " + colorId);
                 if (colorId != 0) {
-                    language.setTextColor(context.getResources().getColor(colorId));
+                    languageCircle.setColor(context.getResources().getColor(colorId));
                 } else {
-                    language.setTextColor(context.getResources().getColor(R.color.colorred));
+                    languageCircle.setColor(context.getResources().getColor(R.color.colorred));
                 }
 
                 language.setText(data.getLanguage());
