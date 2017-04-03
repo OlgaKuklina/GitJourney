@@ -20,11 +20,6 @@
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="RepoDetail">
-        <item name="android:textColor">@color/color_text_primary</item>
-        <item name="android:textSize">12sp</item>
-    </style>
-
     <style name="WidgetTextPrimary">
         <item name="android:textColor">@color/temp3</item>
         <item name="android:textSize">20sp</item>

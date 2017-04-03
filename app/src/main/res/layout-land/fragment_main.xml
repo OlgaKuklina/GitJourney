@@ -102,7 +102,7 @@
                 android:layout_row="0"
                 android:gravity="center"
                 android:text="Sat" />
-            
+
         </GridLayout>
 
         <GridView

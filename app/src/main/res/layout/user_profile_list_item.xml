@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/repo_title"
-            style="@style/TextAppearance.AppCompat.Subhead"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -27,7 +27,6 @@
 
         <TextView
             android:id="@+id/repo_subtitle"
-            style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/repo_title"
@@ -53,7 +52,6 @@
 
             <TextView
                 android:id="@+id/repo_detail_language"
-                style="@style/RepoDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_profile_layout_margin_start_text" />
@@ -66,7 +64,6 @@
 
             <TextView
                 android:id="@+id/repo_detail_stars"
-                style="@style/RepoDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_profile_layout_margin_start_text" />
@@ -79,7 +76,6 @@
 
             <TextView
                 android:id="@+id/repo_detail_forks"
-                style="@style/RepoDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_profile_layout_margin_start_text" />
