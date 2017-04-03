@@ -12,29 +12,27 @@
 
         <ImageView
             android:id="@+id/w_github_user_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_width="@dimen/widget_profile_image_size"
+            android:layout_height="@dimen/widget_profile_image_size" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="@dimen/widget_title_padding">
 
             <TextView
                 android:id="@+id/w_author_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/temp10"
-                android:textStyle="bold" />
+                style="@style/WidgetTextSecondary"/>
 
             <TextView
                 android:id="@+id/w_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textColor="@color/temp10"
-                android:textStyle="italic" />
+                android:layout_margin="@dimen/widget_title_margin"
+                style="@style/WidgetText"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

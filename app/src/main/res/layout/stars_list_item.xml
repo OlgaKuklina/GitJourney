@@ -44,60 +44,60 @@
 
                 <com.oklab.githubjourney.customui.CircleView
                     android:id="@+id/language_circle_star"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
+                    android:layout_width="@dimen/customui_circle_size"
+                    android:layout_height="@dimen/customui_circle_size"
                     android:layout_gravity="center_vertical" />
 
                 <TextView
                     android:id="@+id/stars_repo_language"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/stars_layout_margin"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/stars_layout_margin"
                     android:src="@drawable/star" />
 
                 <TextView
                     android:id="@+id/stars_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp" />
+                    android:layout_marginStart="@dimen/stars_layout_margin" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/stars_layout_margin"
                     android:src="@drawable/source_fork" />
 
                 <TextView
                     android:id="@+id/stars_forks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp" />
+                    android:layout_marginStart="@dimen/stars_layout_margin" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/stars_layout_margin"
                     android:src="@drawable/eye" />
 
                 <TextView
                     android:id="@+id/stars_watchers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp" />
+                    android:layout_marginStart="@dimen/stars_layout_margin" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/stars_end_line_width"
                 android:background="@color/colorAccent" />
         </LinearLayout>
     </LinearLayout>

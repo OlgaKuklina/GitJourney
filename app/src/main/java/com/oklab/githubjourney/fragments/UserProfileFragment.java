@@ -107,7 +107,6 @@ public class UserProfileFragment extends Fragment implements SwipeRefreshLayout.
         followers.setText(Integer.toString(entry.getFollowers()));
         following.setText(Integer.toString(entry.getFollowing()));
 
-        Log.v(TAG, "entry.getImageUri() = " + entry.getImageUri());
         Picasso pic = Picasso.with(this.getContext());
         if (entry.getImageUri() == null || entry.getImageUri().isEmpty()) {
             pic.load(R.drawable.octocat)
@@ -142,7 +141,6 @@ public class UserProfileFragment extends Fragment implements SwipeRefreshLayout.
 
         @Override
         public Loader<List<ReposDataEntry>> onCreateLoader(int id, Bundle args) {
-            Log.v(TAG, "onCreateLoader " + args);
             return new GitHubUserRepositoriesLoader(getContext(), args.getInt("page"), args.getString("login"));
         }
 
@@ -154,7 +152,6 @@ public class UserProfileFragment extends Fragment implements SwipeRefreshLayout.
                 getLoaderManager().destroyLoader(loader.getId());
                 return;
             }
-            Log.v(TAG, " reposDataEntry = " + reposDataEntryList.get(1).getTitle());
             userProfileDetailAdapter.addAll(reposDataEntryList);
             getLoaderManager().destroyLoader(loader.getId());
         }

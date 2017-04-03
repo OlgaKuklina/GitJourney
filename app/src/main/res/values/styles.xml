@@ -27,6 +27,20 @@
         <item name="android:textSize">12dp</item>
     </style>
 
+    <style name="WidgetTextPrimary">
+        <item name="android:textColor">@color/temp3</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+    <style name="WidgetTextSecondary">
+        <item name="android:textColor">@color/temp10</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="WidgetText">
+        <item name="android:textColor">@color/temp10</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
