@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
@@ -32,11 +31,9 @@ import java.util.List;
 public class UserProfileFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = StarsListFragment.class.getSimpleName();
     UserProfileDetailAdapter userProfileDetailAdapter;
-    private ScrollView scrollView;
     private RecyclerView recyclerView;
     private ImageView profilePoster;
     private TextView repositories;
-    private TextView stars;
     private TextView following;
     private TextView followers;
     private int currentPage = 1;
@@ -65,7 +62,6 @@ public class UserProfileFragment extends Fragment implements SwipeRefreshLayout.
         recyclerView.setNestedScrollingEnabled(false);
         profilePoster = (ImageView) v.findViewById(R.id.profile_poster);
         repositories = (TextView) v.findViewById(R.id.repositories);
-        stars = (TextView) v.findViewById(R.id.stars);
         following = (TextView) v.findViewById(R.id.following);
         followers = (TextView) v.findViewById(R.id.followers);
         return v;

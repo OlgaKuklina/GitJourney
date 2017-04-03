@@ -8,7 +8,8 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="text_margin">16dp</dimen>
-
+    <dimen name="general_layout_margin">5dp</dimen>
+    <dimen name="generalend_line_width">1dp</dimen>
     <!--
 Refer to App Widget Documentation for margin information
 http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
@@ -26,14 +27,40 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="user_profile_layout_margin">5dp</dimen>
     <dimen name="user_profile_layout_margin_start_icon">5dp</dimen>
     <dimen name="user_profile_layout_margin_start_text">5dp</dimen>
+
     <!-- Repositories screen margin info, per the Android Design guidelines. -->
     <dimen name="repositories_layout_margin">5dp</dimen>
     <dimen name="repos_end_line_width">1dp</dimen>
+    <dimen name="repos_status_image_size">40dp</dimen>
+    <dimen name="repositories_layout_padding">5dp</dimen>
 
     <!-- Stars screen margin info, per the Android Design guidelines. -->
     <dimen name="stars_layout_margin">5dp</dimen>
     <dimen name="stars_end_line_width">1dp</dimen>
-    <!--Customui circle size info. -->
 
+    <!-- Grid list item margin info, per the Android Design guidelines. -->
+    <dimen name="contribution_button_size">50dp</dimen>
+
+    <!-- View pager layout size, per the Android Design guidelines. -->
+    <dimen name="view_pager_layout_size">320dp</dimen>
+    <!-- Login layout size, per the Android Design guidelines. -->
+    <dimen name="login_layout_size">200dp</dimen>
+    <!-- Followers.following list item margin info, per the Android Design guidelines. -->
+    <dimen name="avatar_image_size">70dp</dimen>
+
+    <!-- feed list item margin info, per the Android Design guidelines. -->
+    <dimen name="profile_image_size">40dp</dimen>
+    <dimen name="feed_list_layout_margin">5dp</dimen>
+    <dimen name="feed_end_line_width">1dp</dimen>
+
+
+    <!-- fragment main info, per the Android Design guidelines. -->
+    <dimen name="main_grid_text_view_layout_width">45sp</dimen>
+    <dimen name="main_layout_padding">10dp</dimen>
+    <dimen name="main_column_width">20dp</dimen>
+    <dimen name="horizontal_spacing">1dp</dimen>
+    <dimen name="main_grid_layout_h">30dp</dimen>
+    <dimen name="main_contributions_in_layout_size">40dp</dimen>
+    <!--Customui circle size info. -->
     <dimen name="customui_circle_size">10dp</dimen>
 </resources>

@@ -5,7 +5,7 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="250dp"
+        android:layout_width="@dimen/main_grid_lineral_layout"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
@@ -23,18 +23,18 @@
             <TextView
                 android:id="@+id/month_title"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/main_contributions_in_layout_size"
                 android:visibility="visible" />
         </LinearLayout>
 
         <GridLayout
-            android:layout_width="300dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/main_grid_layout_w"
+            android:layout_height="@dimen/main_grid_layout_h"
             android:columnCount="7"
             android:rowCount="1">
 
             <TextView
-                android:layout_width="45sp"
+                android:layout_width="@dimen/main_grid_text_view_layout_width"
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
@@ -44,7 +44,7 @@
                 android:text="Sun" />
 
             <TextView
-                android:layout_width="45sp"
+                android:layout_width="@dimen/main_grid_text_view_layout_width"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_columnWeight="1"
@@ -54,7 +54,7 @@
                 android:text="Mon" />
 
             <TextView
-                android:layout_width="45sp"
+                android:layout_width="@dimen/main_grid_text_view_layout_width"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
                 android:layout_columnWeight="1"
@@ -64,7 +64,7 @@
                 android:text="Tue" />
 
             <TextView
-                android:layout_width="45sp"
+                android:layout_width="@dimen/main_grid_text_view_layout_width"
                 android:layout_height="wrap_content"
                 android:layout_column="3"
                 android:layout_columnWeight="1"
@@ -74,7 +74,7 @@
                 android:text="Wed" />
 
             <TextView
-                android:layout_width="45sp"
+                android:layout_width="@dimen/main_grid_text_view_layout_width"
                 android:layout_height="wrap_content"
                 android:layout_column="4"
                 android:layout_columnWeight="1"
@@ -84,7 +84,7 @@
                 android:text="Thu" />
 
             <TextView
-                android:layout_width="45sp"
+                android:layout_width="@dimen/main_grid_text_view_layout_width"
                 android:layout_height="wrap_content"
                 android:layout_column="5"
                 android:layout_columnWeight="1"
@@ -94,7 +94,7 @@
                 android:text="Fri" />
 
             <TextView
-                android:layout_width="45sp"
+                android:layout_width="@dimen/main_grid_text_view_layout_width"
                 android:layout_height="wrap_content"
                 android:layout_column="6"
                 android:layout_columnWeight="1"
@@ -102,33 +102,27 @@
                 android:layout_row="0"
                 android:gravity="center"
                 android:text="Sat" />
-
-
+            
         </GridLayout>
 
         <GridView
             android:id="@+id/gridview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:columnWidth="20dp"
+            android:columnWidth="@dimen/main_column_width"
             android:gravity="center"
-            android:horizontalSpacing="1dp"
+            android:horizontalSpacing="@dimen/horizontal_spacing"
             android:numColumns="7"
             android:scrollbars="horizontal"
             android:verticalSpacing="1dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:paddingTop="10dp"
-            android:text="Contribution activity"
-            android:visibility="visible" />
     </LinearLayout>
 
     <ScrollView
         android:id="@+id/contributions_activity_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/general_layout_margin">
 
     </ScrollView>
 </LinearLayout>

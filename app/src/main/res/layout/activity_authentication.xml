@@ -17,7 +17,7 @@
 
     <EditText
         android:id="@+id/user_id"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/login_layout_size"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:inputType="text" />
@@ -29,7 +29,7 @@
 
     <EditText
         android:id="@+id/user_password"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/login_layout_size"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:inputType="textPassword"

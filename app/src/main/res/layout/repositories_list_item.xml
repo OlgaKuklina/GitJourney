@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="@dimen/repositories_layout_padding">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/status_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_width="@dimen/repos_status_image_size"
+            android:layout_height="@dimen/repos_status_image_size" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -132,7 +132,11 @@ public class ContributionsListAdapter extends BaseAdapter {
                     break;
 
                 default:
-                    button.setBackgroundColor(context.getResources().getColor(R.color.empty));
+                    if (colorIntRes > 10) {
+                        button.setBackground(context.getResources().getDrawable(R.drawable.contributions_grid_color_1));
+                    } else {
+                        button.setBackgroundColor(context.getResources().getColor(R.color.empty));
+                    }
                     break;
             }
 

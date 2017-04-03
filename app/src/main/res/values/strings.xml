@@ -61,8 +61,9 @@
     <string name="map">Map</string>
 
     <!-- Strings related to UserProfile Activity Tabs -->
-    <string name="empty_text"> *-------* </string>
-    <string name="empty_value"> * </string>
+    <string name="empty_text"> - </string>
+    <string name="unknown_text"> unknown </string>
+    <string name="empty_value"> 0 </string>
 
     <string name="repo_thumbnail">Repository thumbnail</string>
     <!-- Strings related to Location service -->

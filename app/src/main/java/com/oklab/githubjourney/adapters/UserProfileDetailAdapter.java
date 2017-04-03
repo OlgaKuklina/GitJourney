@@ -104,25 +104,16 @@ public class UserProfileDetailAdapter extends RecyclerView.Adapter<UserProfileDe
                 language.setVisibility(View.VISIBLE);
                 language.setText(data.getLanguage());
             } else {
-                language.setVisibility(View.INVISIBLE);
+                language.setText(R.string.unknown_text);
             }
             forks.setTextColor(context.getResources().getColor(R.color.color_text_primary));
-            if (data.getForks() != 0) {
-                forks.setVisibility(View.VISIBLE);
-                forks.setText(Integer.toString(data.getForks()));
-            } else {
-                forks.setVisibility(View.INVISIBLE);
-            }
+            forks.setText(Integer.toString(data.getForks()));
             stars.setTextColor(context.getResources().getColor(R.color.color_text_primary));
-            if (data.getStars() != 0) {
-                stars.setVisibility(View.VISIBLE);
-                stars.setText(Integer.toString(data.getStars()));
-            } else {
-                stars.setVisibility(View.INVISIBLE);
-            }
+            stars.setText(Integer.toString(data.getStars()));
         }
     }
 }
+
 
 
 

@@ -21,8 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_margin="@dimen/user_profile_layout_margin"
-            android:gravity="left"
             android:ellipsize="end"
+            android:gravity="left"
             android:maxLines="2" />
 
         <TextView
@@ -38,10 +38,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/user_profile_layout_margin"
-            android:gravity="bottom"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/repo_subtitle"
+            android:layout_margin="@dimen/user_profile_layout_margin"
+            android:gravity="bottom"
             android:orientation="horizontal">
 
             <com.oklab.githubjourney.customui.CircleView

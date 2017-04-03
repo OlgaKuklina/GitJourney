@@ -23,16 +23,16 @@
 
             <TextView
                 android:id="@+id/w_author_name"
+                style="@style/WidgetTextSecondary"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/WidgetTextSecondary"/>
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/w_title"
+                style="@style/WidgetText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/widget_title_margin"
-                style="@style/WidgetText"/>
+                android:layout_margin="@dimen/widget_title_margin" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

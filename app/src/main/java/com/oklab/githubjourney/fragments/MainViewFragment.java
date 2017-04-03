@@ -90,13 +90,13 @@ public class MainViewFragment extends Fragment implements LoaderManager.LoaderCa
         int numberOfDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         Calendar newCalendar = (Calendar) calendar.clone();
         newCalendar.set(Calendar.DAY_OF_MONTH, 1);
-        newCalendar.set(Calendar.HOUR, 0);
+        newCalendar.set(Calendar.HOUR_OF_DAY, 0);
         newCalendar.set(Calendar.MINUTE, 0);
         newCalendar.set(Calendar.SECOND, 0);
         Log.v(TAG, "numberOfDays = " + numberOfDays);
         long minDate = newCalendar.getTimeInMillis();
         newCalendar.set(Calendar.DAY_OF_MONTH, numberOfDays);
-        newCalendar.set(Calendar.HOUR, 23);
+        newCalendar.set(Calendar.HOUR_OF_DAY, 23);
         newCalendar.set(Calendar.MINUTE, 59);
         newCalendar.set(Calendar.SECOND, 59);
         long maxDate = newCalendar.getTimeInMillis();

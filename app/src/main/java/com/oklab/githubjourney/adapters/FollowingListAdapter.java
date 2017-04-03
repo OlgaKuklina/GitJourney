@@ -44,7 +44,6 @@ public class FollowingListAdapter extends RecyclerView.Adapter<FollowingListAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v(TAG, " entry = " + entry);
                 Intent intent = new Intent(context, UserProfileActivity.class);
                 intent.putExtra("profile", entry);
                 context.startActivity(intent);
@@ -89,8 +88,16 @@ public class FollowingListAdapter extends RecyclerView.Adapter<FollowingListAdap
         private void populateFollowingViewData(GitHubUserProfileDataEntry followingDataEntry) {
             name.setText(followingDataEntry.getName());
             login.setText(followingDataEntry.getLogin());
-            email.setText(followingDataEntry.getEmail());
-            location.setText(followingDataEntry.getLocation());
+            if (followingDataEntry.getEmail() != null && !followingDataEntry.getEmail().isEmpty() && followingDataEntry.getEmail() != "null") {
+                email.setText(followingDataEntry.getEmail());
+            } else {
+                email.setText(R.string.empty_text);
+            }
+            if (followingDataEntry.getLocation() != null && !followingDataEntry.getLocation().isEmpty() && followingDataEntry.getLocation() != "null") {
+                location.setText(followingDataEntry.getLocation());
+            } else {
+                location.setText(R.string.empty_text);
+            }
             Picasso pic = Picasso.with(context);
             Log.v(TAG, "path" + followingDataEntry.getImageUri());
             pic.load(followingDataEntry.getImageUri())

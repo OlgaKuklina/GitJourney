@@ -55,7 +55,6 @@ public class StackWidgetService extends RemoteViewsService {
 
         @Override
         public void onCreate() {
-            //   widgetDatas = getData();
             Log.v(TAG, "onCreate");
         }
 

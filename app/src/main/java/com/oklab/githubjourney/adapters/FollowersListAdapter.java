@@ -86,13 +86,20 @@ public class FollowersListAdapter extends RecyclerView.Adapter<FollowersListAdap
         }
 
         private void populateFollowersViewData(GitHubUserProfileDataEntry followersDataEntry) {
-            Log.v(TAG, "followersDataEntry.getLogin() - " + followersDataEntry.getLogin());
             name.setText(followersDataEntry.getName());
             login.setText(followersDataEntry.getLogin());
-            email.setText(followersDataEntry.getEmail());
-            location.setText(followersDataEntry.getLocation());
+
+            if (followersDataEntry.getEmail() != null && !followersDataEntry.getEmail().isEmpty() && followersDataEntry.getEmail() != "null") {
+                email.setText(followersDataEntry.getEmail());
+            } else {
+                email.setText(R.string.empty_text);
+            }
+            if (followersDataEntry.getLocation() != null && !followersDataEntry.getLocation().isEmpty() && followersDataEntry.getLocation() != "null") {
+                location.setText(followersDataEntry.getLocation());
+            } else {
+                location.setText(R.string.empty_text);
+            }
             Picasso pic = Picasso.with(context);
-            Log.v(TAG, "path" + followersDataEntry.getImageUri());
             pic.load(followersDataEntry.getImageUri())
                     .fit().centerCrop()
                     .error(R.drawable.octocat)

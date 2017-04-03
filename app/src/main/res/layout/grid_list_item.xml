@@ -6,8 +6,8 @@
 
     <ImageButton
         android:id="@+id/contribution_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/contribution_button_size"
+        android:layout_height="@dimen/contribution_button_size"
         android:background="@drawable/touch_effect"
         android:clickable="true" />
 </LinearLayout>

@@ -88,7 +88,6 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
             }
 
             if (reposDataEntry.getLanguage() != null && !reposDataEntry.getLanguage().isEmpty() && !reposDataEntry.getLanguage().equals("null")) {
-                Log.v(TAG, " data.getLanguage() = " + reposDataEntry.getLanguage());
                 int colorId = GithubLanguageColorsMatcher.findMatchedColor(context, reposDataEntry.getLanguage());
                 Log.v(TAG, " colorId = " + colorId);
                 if (colorId != 0) {
