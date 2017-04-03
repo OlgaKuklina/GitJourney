@@ -4,7 +4,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/github_events"
-            android:icon="@drawable/book_multiple"
+            android:icon="@drawable/calendar_nav"
             android:title="Contribution activity" />
         <item
             android:id="@+id/profile"

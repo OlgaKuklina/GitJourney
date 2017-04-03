@@ -2,7 +2,6 @@ package com.oklab.githubjourney.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,25 +92,11 @@ public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.Star
             repoShortUri.setText(starsDataEntry.getFullName());
 
             Picasso pic = Picasso.with(context);
-            Log.v(TAG, "path" + starsDataEntry.isPrivate());
-            if (starsDataEntry.getForks() != 0) {
-                pic.load(R.drawable.octocat)
-                        .fit().centerCrop()
-                        .into(type);
-            } else if (starsDataEntry.isPrivate()) {
-                pic.load(R.drawable.octocat)
-                        .fit().centerCrop()
-                        .error(R.drawable.octocat)
-                        .into(type);
-            } else {
-                pic.load(R.drawable.octocat)
-                        .fit().centerCrop()
-                        .error(R.drawable.octocat)
-                        .into(type);
-            }
-
-
+            pic.load(R.drawable.repository)
+                    .fit().centerCrop()
+                    .error(R.drawable.octocat)
+                    .into(type);
         }
-    }
 
+    }
 }

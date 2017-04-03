@@ -36,7 +36,7 @@ public class UserProfileDetailAdapter extends RecyclerView.Adapter<UserProfileDe
     }
 
     @Override
-        public void onBindViewHolder(UserProfileDetailAdapter.UserProfileDetailViewHolder holder, int position) {
+    public void onBindViewHolder(UserProfileDetailAdapter.UserProfileDetailViewHolder holder, int position) {
         ReposDataEntry entry = reposDataEntries.get(position);
         holder.populateUserProfileDetailViewData(entry);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -81,43 +81,38 @@ public class UserProfileDetailAdapter extends RecyclerView.Adapter<UserProfileDe
 
         private void populateUserProfileDetailViewData(ReposDataEntry data) {
             Log.v(TAG, "ReposDataEntry" + data.getLanguage());
-            if(data.getDescription() !=null && !data.getDescription().isEmpty() && !data.getDescription().equals("null")) {
+            if (data.getDescription() != null && !data.getDescription().isEmpty() && !data.getDescription().equals("null")) {
                 repoSubTitle.setText(data.getDescription());
-            }
-            else {
+            } else {
                 repoSubTitle.setText(R.string.empty_text);
             }
             repoTitle.setText(data.getTitle());
-            if(data.getLanguage() !=null && !data.getLanguage().isEmpty() && !data.getLanguage().equals("null")) {
+            if (data.getLanguage() != null && !data.getLanguage().isEmpty() && !data.getLanguage().equals("null")) {
                 Log.v(TAG, " data.getLanguage() = " + data.getLanguage());
                 int colorId = GithubLanguageColorsMatcher.findMatchedColor(context, data.getLanguage());
                 Log.v(TAG, " colorId = " + colorId);
-                if(colorId!=0) {
+                if (colorId != 0) {
                     language.setTextColor(context.getResources().getColor(colorId));
-                }
-                else {
+                } else {
                     language.setTextColor(context.getResources().getColor(R.color.colorred));
                 }
 
                 language.setText(data.getLanguage());
-            }
-            else {
+            } else {
                 language.setText(R.string.empty_value);
             }
             forks.setTextColor(context.getResources().getColor(R.color.color_text_primary));
-            if(data.getForks() != 0) {
+            if (data.getForks() != 0) {
                 forks.setVisibility(View.VISIBLE);
                 forks.setText(Integer.toString(data.getForks()));
-            }
-            else {
+            } else {
                 forks.setVisibility(View.INVISIBLE);
             }
             stars.setTextColor(context.getResources().getColor(R.color.color_text_primary));
-            if(data.getStars() != 0) {
+            if (data.getStars() != 0) {
                 stars.setVisibility(View.VISIBLE);
                 stars.setText(Integer.toString(data.getStars()));
-            }
-            else {
+            } else {
                 stars.setVisibility(View.INVISIBLE);
             }
         }

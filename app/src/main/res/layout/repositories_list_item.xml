@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
-                    android:background="@drawable/star" />
+                    android:src="@drawable/star" />
 
                 <TextView
                     android:id="@+id/stars"
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
-                    android:background="@drawable/fork" />
+                    android:src="@drawable/source_fork" />
 
                 <TextView
                     android:id="@+id/forks"

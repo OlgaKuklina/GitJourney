@@ -1,4 +1,5 @@
 package com.oklab.githubjourney.utils;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -12,7 +13,7 @@ public class GithubLanguageColorsMatcher {
     private static final String TAG = GithubLanguageColorsMatcher.class.getSimpleName();
     private static final HashMap<Character, String> MAP = new HashMap<>();
 
-    static{
+    static {
         MAP.put(' ', "");
         MAP.put('\'', "Diez");
         MAP.put('+', "Plus");
@@ -20,19 +21,18 @@ public class GithubLanguageColorsMatcher {
         MAP.put('_', "");
     }
 
-    public static int findMatchedColor(Context context, String language)  {
+    public static int findMatchedColor(Context context, String language) {
         int id = context.getResources().getIdentifier(language, "color", "com.oklab.githubjourney");
-        if(id != 0) {
+        if (id != 0) {
             return id;
         }
         StringBuilder builder = new StringBuilder();
 
-        for(int i = 0; i < language.length(); i++) {
+        for (int i = 0; i < language.length(); i++) {
             char a = language.charAt(i);
-            if(MAP.containsKey(a)) {
+            if (MAP.containsKey(a)) {
                 builder.append(MAP.get(a));
-            }
-            else {
+            } else {
                 builder.append(a);
             }
         }
