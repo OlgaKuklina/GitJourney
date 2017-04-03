@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
@@ -87,9 +86,10 @@ public class UserProfileDetailAdapter extends RecyclerView.Adapter<UserProfileDe
         private void populateUserProfileDetailViewData(ReposDataEntry data) {
             Log.v(TAG, "ReposDataEntry" + data.getLanguage());
             if (data.getDescription() != null && !data.getDescription().isEmpty() && !data.getDescription().equals("null")) {
+                repoSubTitle.setVisibility(View.VISIBLE);
                 repoSubTitle.setText(data.getDescription());
             } else {
-                repoSubTitle.setText(R.string.empty_text);
+                repoSubTitle.setVisibility(View.INVISIBLE);
             }
             repoTitle.setText(data.getTitle());
             if (data.getLanguage() != null && !data.getLanguage().isEmpty() && !data.getLanguage().equals("null")) {
@@ -101,10 +101,10 @@ public class UserProfileDetailAdapter extends RecyclerView.Adapter<UserProfileDe
                 } else {
                     languageCircle.setColor(context.getResources().getColor(R.color.colorred));
                 }
-
+                language.setVisibility(View.VISIBLE);
                 language.setText(data.getLanguage());
             } else {
-                language.setText(R.string.empty_value);
+                language.setVisibility(View.INVISIBLE);
             }
             forks.setTextColor(context.getResources().getColor(R.color.color_text_primary));
             if (data.getForks() != 0) {

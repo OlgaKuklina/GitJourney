@@ -2,6 +2,7 @@ package com.oklab.githubjourney.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.customui.CircleView;
 import com.oklab.githubjourney.data.ReposDataEntry;
+import com.oklab.githubjourney.utils.GithubLanguageColorsMatcher;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -64,6 +67,7 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
         private TextView language;
         private TextView stars;
         private TextView forks;
+        private CircleView languageCircle;
 
 
         public ReposListViewHolder(View v) {
@@ -74,6 +78,7 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
             language = (TextView) v.findViewById(R.id.language);
             stars = (TextView) v.findViewById(R.id.stars);
             forks = (TextView) v.findViewById(R.id.forks);
+            languageCircle = (CircleView) v.findViewById(R.id.language_circle_repo);
         }
 
         private void populateReposViewData(ReposDataEntry reposDataEntry) {
@@ -82,7 +87,20 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
                 description.setText(reposDataEntry.getDescription());
             }
 
-            language.setText(reposDataEntry.getLanguage());
+            if (reposDataEntry.getLanguage() != null && !reposDataEntry.getLanguage().isEmpty() && !reposDataEntry.getLanguage().equals("null")) {
+                Log.v(TAG, " data.getLanguage() = " + reposDataEntry.getLanguage());
+                int colorId = GithubLanguageColorsMatcher.findMatchedColor(context, reposDataEntry.getLanguage());
+                Log.v(TAG, " colorId = " + colorId);
+                if (colorId != 0) {
+                    languageCircle.setColor(context.getResources().getColor(colorId));
+                } else {
+                    languageCircle.setColor(context.getResources().getColor(R.color.colorred));
+                }
+                language.setVisibility(View.VISIBLE);
+                language.setText(reposDataEntry.getLanguage());
+            } else {
+                language.setVisibility(View.INVISIBLE);
+            }
             stars.setText(Integer.toString(reposDataEntry.getStars()));
             forks.setText(Integer.toString(reposDataEntry.getForks()));
 

@@ -2,6 +2,7 @@ package com.oklab.githubjourney.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.customui.CircleView;
 import com.oklab.githubjourney.data.StarsDataEntry;
+import com.oklab.githubjourney.utils.GithubLanguageColorsMatcher;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -68,6 +71,7 @@ public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.Star
         private TextView stars;
         private TextView forks;
         private TextView watchers;
+        private CircleView languageCircle;
 
         public StarsListViewHolder(View v) {
             super(v);
@@ -79,12 +83,28 @@ public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.Star
             forks = (TextView) v.findViewById(R.id.stars_forks);
             watchers = (TextView) v.findViewById(R.id.stars_watchers);
             repoShortUri = (TextView) v.findViewById(R.id.stars_repo_short_uri);
+            languageCircle = (CircleView) v.findViewById(R.id.language_circle_star);
+
 
         }
 
         private void populateStarsViewData(StarsDataEntry starsDataEntry) {
             title.setText(starsDataEntry.getTitle());
             description.setText(starsDataEntry.getDescription());
+            if (starsDataEntry.getLanguage() != null && !starsDataEntry.getLanguage().isEmpty() && !starsDataEntry.getLanguage().equals("null")) {
+                Log.v(TAG, " data.getLanguage() = " + starsDataEntry.getLanguage());
+                int colorId = GithubLanguageColorsMatcher.findMatchedColor(context, starsDataEntry.getLanguage());
+                Log.v(TAG, " colorId = " + colorId);
+                if (colorId != 0) {
+                    languageCircle.setColor(context.getResources().getColor(colorId));
+                } else {
+                    languageCircle.setColor(context.getResources().getColor(R.color.colorred));
+                }
+                language.setVisibility(View.VISIBLE);
+                language.setText(starsDataEntry.getLanguage());
+            } else {
+                language.setVisibility(View.INVISIBLE);
+            }
             language.setText(starsDataEntry.getLanguage());
             stars.setText(Integer.toString(starsDataEntry.getStars()));
             forks.setText(Integer.toString(starsDataEntry.getForks()));
