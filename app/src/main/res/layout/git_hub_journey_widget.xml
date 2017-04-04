@@ -18,16 +18,13 @@
             <ImageView
                 android:layout_width="55dp"
                 android:layout_height="50dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/octocat" />
+                android:src="@drawable/octocat"
+                android:contentDescription="@string/widget_github_logo_icon"/>
 
             <TextView
                 android:id="@+id/widget_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:layout_margin="@dimen/appbar_padding_top"
                 android:text="@string/appwidget_title"
                 android:textColor="@color/temp9"
@@ -38,8 +35,6 @@
                 android:id="@+id/widget_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="@dimen/appbar_padding_top"
                 android:padding="15dp"
                 android:text="@string/appwidget_time"

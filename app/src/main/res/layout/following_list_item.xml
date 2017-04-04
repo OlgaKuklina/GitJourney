@@ -28,7 +28,8 @@
             <ImageView
                 android:id="@+id/following_avatar_image"
                 android:layout_width="@dimen/avatar_image_size"
-                android:layout_height="@dimen/avatar_image_size" />
+                android:layout_height="@dimen/avatar_image_size"
+                android:contentDescription="@string/following_avatar_image" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,54 +37,27 @@
                 android:layout_margin="@dimen/general_layout_margin"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/following_login"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:contentDescription="@string/following_login_icon"
+                    android:drawableStart="@drawable/login"
+                    android:textStyle="bold" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/login" />
-
-                    <TextView
-                        android:id="@+id/following_login"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/following_email"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:contentDescription="@string/following_email_icon"
+                    android:drawableStart="@drawable/email" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/email" />
-
-                    <TextView
-                        android:id="@+id/following_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/following_location"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/home" />
-
-                    <TextView
-                        android:id="@+id/following_location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                    android:contentDescription="@string/following_home_icon"
+                    android:drawableStart="@drawable/home" />
 
                 <TextView
                     android:layout_width="match_parent"

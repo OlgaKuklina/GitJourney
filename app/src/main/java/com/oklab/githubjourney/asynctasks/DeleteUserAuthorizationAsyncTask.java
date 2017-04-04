@@ -62,7 +62,7 @@ public class DeleteUserAuthorizationAsyncTask extends AsyncTask<String, Integer,
         SharedPreferences prefs = activity.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
         SharedPreferences.Editor e = prefs.edit();
         e.remove("userSessionData");
-        e.commit();
+        e.apply();
         Intent intent = new Intent(activity, AuthenticationActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

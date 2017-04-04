@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/main_contributions_in_layout_size"
-            android:text="Contributions in "
+            android:text="@string/contributions_in"
             android:visibility="visible" />
 
         <TextView
@@ -36,7 +36,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:gravity="center"
-            android:text="Sun" />
+            android:text="@string/sun" />
 
         <TextView
             android:layout_width="@dimen/main_grid_text_view_layout_width"
@@ -46,7 +46,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:gravity="center"
-            android:text="Mon" />
+            android:text="@string/mon" />
 
         <TextView
             android:layout_width="@dimen/main_grid_text_view_layout_width"
@@ -56,7 +56,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:gravity="center"
-            android:text="Tue" />
+            android:text="@string/tue" />
 
         <TextView
             android:layout_width="@dimen/main_grid_text_view_layout_width"
@@ -66,7 +66,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:gravity="center"
-            android:text="Wed" />
+            android:text="@string/wed" />
 
         <TextView
             android:layout_width="@dimen/main_grid_text_view_layout_width"
@@ -76,7 +76,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:gravity="center"
-            android:text="Thu" />
+            android:text="@string/thu" />
 
         <TextView
             android:layout_width="@dimen/main_grid_text_view_layout_width"
@@ -86,7 +86,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:gravity="center"
-            android:text="Fri" />
+            android:text="@string/fri" />
 
         <TextView
             android:layout_width="@dimen/main_grid_text_view_layout_width"
@@ -96,7 +96,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:gravity="center"
-            android:text="Sat" />
+            android:text="@string/sat" />
     </GridLayout>
 
     <GridView

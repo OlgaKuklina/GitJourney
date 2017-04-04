@@ -13,7 +13,8 @@
         <ImageView
             android:id="@+id/status_image"
             android:layout_width="@dimen/repos_status_image_size"
-            android:layout_height="@dimen/repos_status_image_size" />
+            android:layout_height="@dimen/repos_status_image_size"
+            android:contentDescription="@string/repositories_icon"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,7 +55,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/repositories_layout_margin"
-                    android:src="@drawable/star" />
+                    android:src="@drawable/star"
+                    android:contentDescription="@string/star_icon"/>
 
                 <TextView
                     android:id="@+id/stars"
@@ -67,7 +69,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/repositories_layout_margin"
-                    android:src="@drawable/source_fork" />
+                    android:src="@drawable/source_fork"
+                    android:contentDescription="@string/fork_icon"/>
 
                 <TextView
                     android:id="@+id/forks"

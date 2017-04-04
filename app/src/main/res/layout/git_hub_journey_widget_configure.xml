@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="@string/configure" />
+        android:text="@string/configure"
+        android:labelFor="@+id/appwidget_text"/>
 
     <EditText
         android:id="@+id/appwidget_text"

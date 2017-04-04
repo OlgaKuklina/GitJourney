@@ -102,7 +102,7 @@ public class AuthenticationAsyncTask extends AsyncTask<String, Integer, UserSess
             SharedPreferences prefs = context.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
             SharedPreferences.Editor e = prefs.edit();
             e.putString("userSessionData", userSessionData.toString()); // save "value" to the SharedPreferences
-            e.commit();
+            e.apply();
             Intent intent = new Intent(context, MainActivity.class);
             context.startActivity(intent);
         } else {

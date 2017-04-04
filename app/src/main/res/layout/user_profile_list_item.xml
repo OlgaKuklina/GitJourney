@@ -22,7 +22,7 @@
             android:layout_alignParentTop="true"
             android:layout_margin="@dimen/user_profile_layout_margin"
             android:ellipsize="end"
-            android:gravity="left"
+            android:gravity="start"
             android:maxLines="2" />
 
         <TextView
@@ -47,7 +47,7 @@
                 android:id="@+id/language_circle"
                 android:layout_width="@dimen/customui_circle_size"
                 android:layout_height="@dimen/customui_circle_size"
-                android:layout_marginBottom="12px"
+                android:layout_marginBottom="@dimen/user_profile_layout_margin_b"
                 android:layout_marginStart="@dimen/user_profile_layout_margin_start_icon" />
 
             <TextView
@@ -60,7 +60,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_profile_layout_margin_start_text"
-                android:src="@drawable/star" />
+                android:src="@drawable/star"
+                android:contentDescription="@string/star_icon"/>
 
             <TextView
                 android:id="@+id/repo_detail_stars"
@@ -72,7 +73,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_profile_layout_margin_start_text"
-                android:src="@drawable/source_fork" />
+                android:src="@drawable/source_fork"
+                android:contentDescription="@string/fork_icon"/>
 
             <TextView
                 android:id="@+id/repo_detail_forks"

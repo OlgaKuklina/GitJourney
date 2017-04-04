@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -94,7 +95,7 @@ public class ContributionsParser {
         Calendar contributionDate = null;
         if (!object.getString("created_at").isEmpty()) {
             String date = object.getString("created_at");
-            SimpleDateFormat format = new SimpleDateFormat(PATTERN);
+            SimpleDateFormat format = new SimpleDateFormat(PATTERN, Locale.getDefault());
             format.setTimeZone(TimeZone.getTimeZone("UTC"));
             Date entryDate = format.parse(date);
             contributionDate = Calendar.getInstance();

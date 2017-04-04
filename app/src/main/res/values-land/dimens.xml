@@ -7,7 +7,6 @@
     <!-- fragment main info, per the Android Design guidelines. -->
     <dimen name="main_grid_text_view_layout_width">45sp</dimen>
     <dimen name="main_grid_lineral_layout">250dp</dimen>
-    <dimen name="main_layout_padding">10dp</dimen>
     <dimen name="main_column_width">20dp</dimen>
     <dimen name="horizontal_spacing">1dp</dimen>
     <dimen name="main_grid_layout_h">30dp</dimen>

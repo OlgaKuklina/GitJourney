@@ -8,12 +8,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign in to GitHub" />
+        android:text="@string/sing_in" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Username or email address" />
+        android:text="@string/user_name_or_email"
+        android:labelFor="@+id/user_id"/>
 
     <EditText
         android:id="@+id/user_id"
@@ -25,7 +26,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Password" />
+        android:text="@string/password"
+        android:labelFor="@+id/user_password"/>
 
     <EditText
         android:id="@+id/user_password"
@@ -39,6 +41,6 @@
         android:id="@id/buttonSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign in" />
+        android:text="@string/sing_in" />
 
 </LinearLayout>

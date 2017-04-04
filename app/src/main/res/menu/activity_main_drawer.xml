@@ -5,24 +5,24 @@
         <item
             android:id="@+id/github_events"
             android:icon="@drawable/calendar_nav"
-            android:title="Contribution activity" />
+            android:title="@string/contribution_activity" />
         <item
             android:id="@+id/profile"
             android:icon="@drawable/account"
-            android:title="Profile page" />
+            android:title="@string/profile_page" />
 
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/communicate">
         <menu>
             <item
                 android:id="@+id/settings"
                 android:icon="@drawable/settings"
-                android:title="Settings" />
+                android:title="@string/settings" />
             <item
                 android:id="@+id/sing_out"
                 android:icon="@drawable/logout"
-                android:title="Sign out" />
+                android:title="@string/sign_out" />
         </menu>
     </item>
 

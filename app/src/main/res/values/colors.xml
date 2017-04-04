@@ -9,7 +9,6 @@
     <color name="temp3">#093a53</color>
     <color name="temp4">#064463</color>
     <color name="temp5">#0e648b</color>
-    <color name="temp">#0b6fa1</color>
     <color name="temp6">#0d90d1</color>
     <color name="temp7">#23b0e9</color>
     <color name="temp8">#68cdf5</color>
@@ -23,5 +22,4 @@
     <color name="colorred">#ed0707</color>
 
     <color name="color_text_primary">#000000</color>
-    <color name="color_text_secondary">#064463</color>
 </resources>

@@ -7,7 +7,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
     <dimen name="general_layout_margin">5dp</dimen>
     <dimen name="generalend_line_width">1dp</dimen>
     <!--
@@ -27,7 +26,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="user_profile_layout_margin">5dp</dimen>
     <dimen name="user_profile_layout_margin_start_icon">5dp</dimen>
     <dimen name="user_profile_layout_margin_start_text">5dp</dimen>
-
+    <dimen name="user_profile_layout_margin_b">6dp</dimen>
     <!-- Repositories screen margin info, per the Android Design guidelines. -->
     <dimen name="repositories_layout_margin">5dp</dimen>
     <dimen name="repos_end_line_width">1dp</dimen>
@@ -56,7 +55,6 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
 
     <!-- fragment main info, per the Android Design guidelines. -->
     <dimen name="main_grid_text_view_layout_width">45sp</dimen>
-    <dimen name="main_layout_padding">10dp</dimen>
     <dimen name="main_column_width">20dp</dimen>
     <dimen name="horizontal_spacing">1dp</dimen>
     <dimen name="main_grid_layout_h">30dp</dimen>

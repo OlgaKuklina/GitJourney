@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by olgakuklina on 2017-02-05.
@@ -106,9 +107,9 @@ public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.Star
                 language.setVisibility(View.INVISIBLE);
             }
             language.setText(starsDataEntry.getLanguage());
-            stars.setText(Integer.toString(starsDataEntry.getStars()));
-            forks.setText(Integer.toString(starsDataEntry.getForks()));
-            watchers.setText(Integer.toString(starsDataEntry.getWatchers()));
+            stars.setText(String.format(Locale.getDefault(),"%d",starsDataEntry.getStars()));
+            forks.setText(String.format(Locale.getDefault(),"%d",starsDataEntry.getForks()));
+            watchers.setText(String.format(Locale.getDefault(),"%d",starsDataEntry.getWatchers()));
             repoShortUri.setText(starsDataEntry.getFullName());
 
             Picasso pic = Picasso.with(context);

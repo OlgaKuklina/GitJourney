@@ -10,7 +10,8 @@
         android:id="@+id/profile_poster"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:contentDescription="@string/profile_poster"/>
 
     <LinearLayout
         android:id="@+id/details"
@@ -30,7 +31,7 @@
                 style="@style/DetailViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Repositories" />
+                android:text="@string/repositories" />
 
             <TextView
                 android:id="@+id/repositories"
@@ -42,7 +43,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="35dp"
+            android:layout_marginStart="35dp"
             android:elevation="5dp"
             android:gravity="center_vertical|center_horizontal"
             android:orientation="vertical">
@@ -51,7 +52,7 @@
                 style="@style/DetailViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Following" />
+                android:text="@string/following" />
 
             <TextView
                 android:id="@+id/following"
@@ -63,7 +64,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="35dp"
+            android:layout_marginStart="35dp"
             android:elevation="5dp"
             android:gravity="center_vertical|center_horizontal"
             android:orientation="vertical">
@@ -72,7 +73,7 @@
                 style="@style/DetailViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Followers" />
+                android:text="@string/followers" />
 
             <TextView
                 android:id="@+id/followers"

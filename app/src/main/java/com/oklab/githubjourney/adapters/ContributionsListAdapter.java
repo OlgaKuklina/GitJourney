@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class ContributionsListAdapter extends BaseAdapter {
     private final Context context;
     private final int numberOfDays;
     private final int numberOfEmptyDaysInMonth;
-    private final HashMap<Integer, Integer> contributionsMap;
+    private final SparseIntArray contributionsMap;
     private final int colorIntensivity;
     private Calendar calendar = (Calendar) Calendar.getInstance().clone();
 
@@ -39,7 +40,7 @@ public class ContributionsListAdapter extends BaseAdapter {
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         numberOfEmptyDaysInMonth = calendar.get(Calendar.DAY_OF_WEEK) - Calendar.SUNDAY;
 
-        contributionsMap = new HashMap<Integer, Integer>();
+        contributionsMap = new SparseIntArray();
         cursor.moveToPosition(-1);
         Calendar calendar = Calendar.getInstance();
         int colorIntensivity = 0;
@@ -55,7 +56,7 @@ public class ContributionsListAdapter extends BaseAdapter {
                 calendar.setTimeZone(TimeZone.getTimeZone(customTimeZone));
             }
             int day = calendar.get(Calendar.DAY_OF_MONTH);
-            if (contributionsMap.containsKey(day)) {
+            if (contributionsMap.indexOfKey(day)!=-1) {
                 contributionsMap.put(day, contributionsMap.get(day) + 1);
             } else {
                 contributionsMap.put(day, 1);

@@ -15,6 +15,7 @@ import com.oklab.githubjourney.utils.GithubLanguageColorsMatcher;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by olgakuklina on 2017-04-01.
@@ -107,9 +108,9 @@ public class UserProfileDetailAdapter extends RecyclerView.Adapter<UserProfileDe
                 language.setText(R.string.unknown_text);
             }
             forks.setTextColor(context.getResources().getColor(R.color.color_text_primary));
-            forks.setText(Integer.toString(data.getForks()));
+            forks.setText(String.format(Locale.getDefault(),"%d",data.getForks()));
             stars.setTextColor(context.getResources().getColor(R.color.color_text_primary));
-            stars.setText(Integer.toString(data.getStars()));
+            stars.setText(String.format(Locale.getDefault(),"%d",data.getStars()));
         }
     }
 }

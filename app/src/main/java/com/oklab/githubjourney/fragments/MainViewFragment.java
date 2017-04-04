@@ -21,6 +21,7 @@ import com.oklab.githubjourney.data.ContributionsDataLoader;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by olgakuklina on 2017-01-24.
@@ -81,7 +82,7 @@ public class MainViewFragment extends Fragment implements LoaderManager.LoaderCa
     private void adjustCalendar() {
         int offset = getArguments().getInt(ARG_SECTION_NUMBER);
         calendar.add(Calendar.MONTH, -offset);
-        SimpleDateFormat month_date = new SimpleDateFormat("MMMM, yyyy");
+        SimpleDateFormat month_date = new SimpleDateFormat("MMMM, yyyy", Locale.getDefault());
         monthName = month_date.format(calendar.getTime());
     }
 

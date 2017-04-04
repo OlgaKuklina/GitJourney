@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by olgakuklina on 2017-01-20.
@@ -100,8 +101,8 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
             } else {
                 language.setVisibility(View.INVISIBLE);
             }
-            stars.setText(Integer.toString(reposDataEntry.getStars()));
-            forks.setText(Integer.toString(reposDataEntry.getForks()));
+            stars.setText(String.format(Locale.getDefault(),"%d", reposDataEntry.getStars()));
+            forks.setText(String.format(Locale.getDefault(),"%d",reposDataEntry.getForks()));
 
             Picasso pic = Picasso.with(context);
             pic.load(R.drawable.repository)

@@ -11,6 +11,7 @@ import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -47,7 +48,7 @@ public final class Utils {
     public static DateFormat createDateFormatterWithTimeZone(Context context, String pattern) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         boolean timeZone = sharedPref.getBoolean("timezone_switch", true);
-        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.getDefault());
         if (timeZone) {
             formatter.setTimeZone(TimeZone.getDefault());
         } else {

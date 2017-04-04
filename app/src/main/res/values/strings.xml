@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">GitHub Journey</string>
+    <string name="customer_support">"ok.lab@gmail.com"</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -9,7 +10,25 @@
     <!-- Strings related to Authentication Activity  -->
     <string name="empty_login_password">Empty login or/and password</string>
     <string name="login_failed">Login failed</string>
-
+    <string name="sing_in_to_github">Sign in to GitHub</string>
+    <string name="user_name_or_email">Please enter your username or email address</string>
+    <string name="password">Please enter your password</string>
+    <string name="sing_in">Sign in</string>
+    <!-- Strings related to nav drawer  -->
+    <string name="contribution_activity">Contribution activity</string>
+    <string name="profile_page">Profile page</string>
+    <string name="communicate">Communicate</string>
+    <string name="settings">Settings</string>
+    <string name="sign_out">Sign out</string>
+    <!-- Strings related to contributions activity  -->
+    <string name="contributions_in">"Contributions in "</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="sun">San</string>
 
     <!-- URL strings-->
     <string name="url_connect" translatable="false">https://api.github.com/authorizations</string>
@@ -74,7 +93,7 @@
     <string name="address_found">Address found</string>
     <!-- Strings related to Settings -->
 
-    <!-- Example General settings -->
+    <!--  General settings -->
     <string name="pref_header_general">General</string>
 
     <string name="pref_system_timezone">Enable system timezone</string>
@@ -85,6 +104,30 @@
     <string name="pref_description_display_map">Display following/followers contacts on Google Map</string>
 
     <string name="pref_title_add_timezone">Change TimeZone</string>
+
+    <!-- Content description settings -->
+    <string name="calendar">calendar</string>
+    <string name="github_user_image">GitHub user image</string>
+    <string name="followers_avatar_image">Followers avatar image</string>
+    <string name="followers_login_icon">Followers login icon</string>
+    <string name="followers_email_icon">Followers email icon</string>
+    <string name="followers_home_icon">Followers home icon</string>
+
+    <string name="following_avatar_image">Following avatar image</string>
+    <string name="following_login_icon">Following login icon</string>
+    <string name="following_email_icon">Following email icon</string>
+    <string name="following_home_icon">Following home icon</string>
+
+    <string name="widget_github_logo_icon">Widget github logo icon</string>
+    <string name="profile_poster">GitHub user profile picture</string>
+    <string name="contributions_per_calendar_day">Calendar representation grid item. Implements a number of contributions per calendar day</string>
+    <string name="nav_header_github_logo">GitHub logo in navigation header</string>
+
+    <string name="repositories_icon">Repositories icon</string>
+    <string name="star_icon">Star icon to represent number of stars</string>
+    <string name="fork_icon">Star icon to represent number of forks</string>
+    <string name="watch_icon">Star icon to represent number of watches</string>
+
     <string-array name="pref_timezone_list_titles">
         <item>Etc/GMT+12</item>
         <item>Etc/GMT+11</item>
@@ -571,7 +614,7 @@
 
     <!-- widget -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="appwidget_title">Todays feed list</string>
+    <string name="appwidget_title">"Today's feed list"</string>
     <string name="appwidget_time">Date</string>
     <string name="appwidget_title_empty">Your feed list is empty</string>
     <string name="configure">Configure</string>

@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -91,7 +92,7 @@ public class GitHubUserProfileDataParser implements Parser<GitHubUserProfileData
         Calendar createdAt = null;
         if (!object.getString("created_at").isEmpty()) {
             String date = object.getString("created_at");
-            SimpleDateFormat format = new SimpleDateFormat(PATTERN);
+            SimpleDateFormat format = new SimpleDateFormat(PATTERN, Locale.getDefault());
             format.setTimeZone(TimeZone.getTimeZone("UTC"));
             Date entryDate = null;
             try {
