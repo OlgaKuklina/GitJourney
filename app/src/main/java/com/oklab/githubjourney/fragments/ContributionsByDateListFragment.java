@@ -30,7 +30,6 @@ public class ContributionsByDateListFragment extends Fragment implements LoaderM
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ContributionsByDateAdapter contributionsListAdapter;
-    private LinearLayoutManager linearLayoutManager;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -67,7 +66,7 @@ public class ContributionsByDateListFragment extends Fragment implements LoaderM
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log.v(TAG, "onActivityCreated");
-        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         swipeRefreshLayout.setOnRefreshListener(this);
         getLoaderManager().initLoader(0, null, this);
