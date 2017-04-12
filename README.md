@@ -6,7 +6,8 @@
 ![GHJ.png](https://cloud.githubusercontent.com/assets/6971421/23296713/310a11fa-fa2b-11e6-9267-1ce620d962a4.png)
 
 
-##Overview
+Overview
+======
 
 A non-official GitHub mobile app helps users work with their github content, monitor
 github activity, check for news and updates.
@@ -19,7 +20,8 @@ followers/followings list, and starring / watching activity.
 The app widget provides a list of today’s feeds and invitations to start journey: by clicking on a
 list item, the app opens on the feed list tab.
 
-###Explore and search
+Explore and search
+======
 
  - Explore your daily contributions activity.
  - See number stars and clones of your repositories.
@@ -28,19 +30,22 @@ list item, the app opens on the feed list tab.
  - Monitor feed list with different types of user activity.
  - See number of starred repositories with number of stars, clones and watchers.
 
-###Getting Started
+Getting Started
+======
 - The app uses GitHub API. Get your API keys in order to run the app.
 - Create a new resource file using the following path: app/src/main/res/values/client_credentials.xml.
 - Put "client_id" and "client_secret" key values in it.
 
 Application min API Level: 22, Android 5.1 ( LOLLIPOP_MR1 ).
 
-###Used libraries
+Used libraries
+======
 - Picasso for loading and rendering images.
 - CommonsIO/CommonsHttpClient for accessing GitHub REST api.
 - A number of standard Android libraries.
 
-###License
+License
+======
 
 Copyright 2017 Olga Kuklina
 
