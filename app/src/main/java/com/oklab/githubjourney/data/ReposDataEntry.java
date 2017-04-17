@@ -1,31 +1,47 @@
 package com.oklab.githubjourney.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by olgakuklina on 2017-01-16.
  */
 
-public class ReposDataEntry {
+public class ReposDataEntry implements Parcelable {
 
+    public static final Creator<ReposDataEntry> CREATOR = new Creator<ReposDataEntry>() {
+        @Override
+        public ReposDataEntry createFromParcel(Parcel in) {
+            return new ReposDataEntry(in);
+        }
+        @Override
+        public ReposDataEntry[] newArray(int size) {
+            return new ReposDataEntry[size];
+        }
+    };
     private final String title;
     private final boolean privacy;
-    private final boolean forked;
     private final String description;
     private final String language;
     private final int stars;
     private final int forks;
 
-    public ReposDataEntry(String title, boolean privacy, boolean forked, String description, String language, int stars, int forks) {
+    public ReposDataEntry(String title, boolean privacy, String description, String language, int stars, int forks) {
         this.title = title;
         this.privacy = privacy;
-        this.forked = forked;
         this.description = description;
         this.language = language;
         this.stars = stars;
         this.forks = forks;
     }
 
-    public boolean isForked() {
-        return forked;
+    protected ReposDataEntry(Parcel in) {
+        title = in.readString();
+        privacy = in.readByte() != 0;
+        description = in.readString();
+        language = in.readString();
+        stars = in.readInt();
+        forks = in.readInt();
     }
 
     public boolean isPrivate() {
@@ -35,7 +51,6 @@ public class ReposDataEntry {
     public String getTitle() {
         return title;
     }
-
 
     public String getDescription() {
         return description;
@@ -51,5 +66,20 @@ public class ReposDataEntry {
 
     public int getForks() {
         return forks;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeString(title);
+        parcel.writeInt((byte)(privacy?1:0));
+        parcel.writeString(description);
+        parcel.writeString(language);
+        parcel.writeInt(stars);
+        parcel.writeInt(forks);
     }
 }

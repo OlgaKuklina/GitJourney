@@ -1,6 +1,7 @@
 package com.oklab.githubjourney.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.activities.RepositoryActivity;
+import com.oklab.githubjourney.activities.UserProfileActivity;
 import com.oklab.githubjourney.customui.CircleView;
 import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.utils.GithubLanguageColorsMatcher;
@@ -43,6 +46,15 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
     public void onBindViewHolder(ReposListViewHolder holder, int position) {
         ReposDataEntry entry = reposDataEntrylist.get(position);
         holder.populateReposViewData(entry);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.v(TAG, " entry = " + entry);
+                Intent intent = new Intent(context, RepositoryActivity.class);
+                intent.putExtra("repo", entry);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

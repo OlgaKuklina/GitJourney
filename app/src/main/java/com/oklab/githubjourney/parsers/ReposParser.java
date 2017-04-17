@@ -48,6 +48,6 @@ public class ReposParser {
         int forksCount = object.getInt("forks_count");
         int stars = object.getInt("stargazers_count");
 
-        return new ReposDataEntry(name, privacy, forked, description, language, stars, forksCount);
+        return new ReposDataEntry(name, privacy, description, language, stars, forksCount);
     }
 }

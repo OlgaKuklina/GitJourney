@@ -8,6 +8,7 @@ import android.os.Parcelable;
  */
 
 public class GitHubUsersDataEntry implements Parcelable {
+
     public static final Creator<GitHubUsersDataEntry> CREATOR = new Creator<GitHubUsersDataEntry>() {
         @Override
         public GitHubUsersDataEntry createFromParcel(Parcel in) {

@@ -53,7 +53,6 @@ public class FeedListLoader<T> extends AsyncTaskLoader<List<T>> {
             HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_feeds, page)).openConnection();
             connect.setRequestMethod("GET");
 
-
             String authentication = "basic " + currentSessionData.getCredentials();
             connect.setRequestProperty("Authorization", authentication);
 
