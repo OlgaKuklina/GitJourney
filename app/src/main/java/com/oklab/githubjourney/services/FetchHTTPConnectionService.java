@@ -49,6 +49,7 @@ public class FetchHTTPConnectionService {
 
             Log.v(TAG, "responseCode = " + responseCode);
             InputStream inputStream = connect.getInputStream();
+            Log.v(TAG, "inputStream " + inputStream);
             String response = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
             Log.v(TAG, "response = " + response);
             return new HTTPConnectionResult(response, responseCode);
