@@ -43,6 +43,7 @@ Used libraries
 - Picasso for loading and rendering images.
 - CommonsIO/CommonsHttpClient for accessing GitHub REST api.
 - A number of standard Android libraries.
+- A text-to-html conversion tool MarkdownJ
 
 License
 ======
