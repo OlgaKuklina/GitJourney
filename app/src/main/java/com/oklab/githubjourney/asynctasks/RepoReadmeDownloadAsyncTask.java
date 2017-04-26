@@ -75,7 +75,7 @@ public class RepoReadmeDownloadAsyncTask extends AsyncTask<String, Void, String>
             }
             return null;
         }
-        
+
         @Override
         protected void onPostExecute(String content) {
             super.onPostExecute(content);
