@@ -48,12 +48,14 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
         Log.v(TAG, "onRepoContentLoaded");
         Log.v(TAG, "content" + content);
         if(content !=null) {
+            Log.v(TAG, "if content " + content);
             MarkdownProcessor processor = new MarkdownProcessor();
             String html = processor.markdown(content);
             mv.loadData(html, "text/html; charset=UTF-8", null);
         }
         else {
-            mv.loadData("<h1>no README.md file</h1>", "text/html; charset=UTF-8", null);
+            Log.v(TAG, "else content " + content);
+            mv.loadData("no README.md file", "text/html; charset=UTF-8", null);
         }
 
     }
