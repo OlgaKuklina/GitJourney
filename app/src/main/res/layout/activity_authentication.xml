@@ -13,8 +13,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/user_name_or_email"
-        android:labelFor="@+id/user_id"/>
+        android:labelFor="@+id/user_id"
+        android:text="@string/user_name_or_email" />
 
     <EditText
         android:id="@+id/user_id"
@@ -26,8 +26,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/password"
-        android:labelFor="@+id/user_password"/>
+        android:labelFor="@+id/user_password"
+        android:text="@string/password" />
 
     <EditText
         android:id="@+id/user_password"

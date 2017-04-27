@@ -15,7 +15,7 @@
             android:id="@+id/github_user_image"
             android:layout_width="@dimen/profile_image_size"
             android:layout_height="@dimen/profile_image_size"
-            android:contentDescription="@string/github_user_image"/>
+            android:contentDescription="@string/github_user_image" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,8 +39,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/feed_list_layout_margin"
-                    android:src="@drawable/calendar"
-                    android:contentDescription="@string/calendar"/>
+                    android:contentDescription="@string/calendar"
+                    android:src="@drawable/calendar" />
 
                 <TextView
                     android:id="@+id/action_date"

@@ -1,4 +1,5 @@
 package com.oklab.githubjourney.asynctasks;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -28,7 +29,7 @@ import java.util.List;
  * Created by olgakuklina on 2017-04-17.
  */
 
-public class RepoReadmeAsyncTask <T> extends AsyncTask<String, Void, List<RepositoryContentDataEntry>> {
+public class RepoReadmeAsyncTask<T> extends AsyncTask<String, Void, List<RepositoryContentDataEntry>> {
     private static final String TAG = RepoReadmeAsyncTask.class.getSimpleName();
     private final Context context;
     private final onRepoReadmeLoadedListener listener;

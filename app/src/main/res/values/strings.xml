@@ -126,6 +126,7 @@
     <string name="nav_header_github_logo">GitHub logo in navigation header</string>
 
     <string name="repositories_icon">Repositories icon</string>
+    <string name="repository_content__icon">Repository content icon</string>
     <string name="star_icon">Star icon to represent number of stars</string>
     <string name="fork_icon">Star icon to represent number of forks</string>
     <string name="watch_icon">Star icon to represent number of watches</string>

@@ -13,7 +13,7 @@
             android:id="@+id/stars_repo_status_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:contentDescription="@string/repositories_icon"/>
+            android:contentDescription="@string/repositories_icon" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,8 +61,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/stars_layout_margin"
-                    android:src="@drawable/star"
-                    android:contentDescription="@string/star_icon"/>
+                    android:contentDescription="@string/star_icon"
+                    android:src="@drawable/star" />
 
                 <TextView
                     android:id="@+id/stars_count"
@@ -75,8 +75,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/stars_layout_margin"
-                    android:src="@drawable/source_fork"
-                    android:contentDescription="@string/fork_icon"/>
+                    android:contentDescription="@string/fork_icon"
+                    android:src="@drawable/source_fork" />
 
                 <TextView
                     android:id="@+id/stars_forks"
@@ -89,8 +89,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/stars_layout_margin"
-                    android:src="@drawable/eye"
-                    android:contentDescription="@string/watch_icon"/>
+                    android:contentDescription="@string/watch_icon"
+                    android:src="@drawable/eye" />
 
                 <TextView
                     android:id="@+id/stars_watchers"

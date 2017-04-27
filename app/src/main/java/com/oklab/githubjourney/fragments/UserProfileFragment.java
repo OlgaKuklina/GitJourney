@@ -100,9 +100,9 @@ public class UserProfileFragment extends Fragment implements SwipeRefreshLayout.
     }
 
     private void populateUserProfileData() {
-        repositories.setText(String.format(Locale.getDefault(),"%d",entry.getPublicRepos()));
-        followers.setText(String.format(Locale.getDefault(),"%d",entry.getFollowers()));
-        following.setText(String.format(Locale.getDefault(),"%d",entry.getFollowing()));
+        repositories.setText(String.format(Locale.getDefault(), "%d", entry.getPublicRepos()));
+        followers.setText(String.format(Locale.getDefault(), "%d", entry.getFollowers()));
+        following.setText(String.format(Locale.getDefault(), "%d", entry.getFollowing()));
 
         Picasso pic = Picasso.with(this.getContext());
         if (entry.getImageUri() == null || entry.getImageUri().isEmpty()) {

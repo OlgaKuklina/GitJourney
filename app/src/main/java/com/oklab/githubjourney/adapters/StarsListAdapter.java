@@ -107,9 +107,9 @@ public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.Star
                 language.setVisibility(View.INVISIBLE);
             }
             language.setText(starsDataEntry.getLanguage());
-            stars.setText(String.format(Locale.getDefault(),"%d",starsDataEntry.getStars()));
-            forks.setText(String.format(Locale.getDefault(),"%d",starsDataEntry.getForks()));
-            watchers.setText(String.format(Locale.getDefault(),"%d",starsDataEntry.getWatchers()));
+            stars.setText(String.format(Locale.getDefault(), "%d", starsDataEntry.getStars()));
+            forks.setText(String.format(Locale.getDefault(), "%d", starsDataEntry.getForks()));
+            watchers.setText(String.format(Locale.getDefault(), "%d", starsDataEntry.getWatchers()));
             repoShortUri.setText(starsDataEntry.getFullName());
 
             Picasso pic = Picasso.with(context);

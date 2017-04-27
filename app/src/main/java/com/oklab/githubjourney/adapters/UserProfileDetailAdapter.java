@@ -108,9 +108,9 @@ public class UserProfileDetailAdapter extends RecyclerView.Adapter<UserProfileDe
                 language.setText(R.string.unknown_text);
             }
             forks.setTextColor(context.getResources().getColor(R.color.color_text_primary));
-            forks.setText(String.format(Locale.getDefault(),"%d",data.getForks()));
+            forks.setText(String.format(Locale.getDefault(), "%d", data.getForks()));
             stars.setTextColor(context.getResources().getColor(R.color.color_text_primary));
-            stars.setText(String.format(Locale.getDefault(),"%d",data.getStars()));
+            stars.setText(String.format(Locale.getDefault(), "%d", data.getStars()));
         }
     }
 }

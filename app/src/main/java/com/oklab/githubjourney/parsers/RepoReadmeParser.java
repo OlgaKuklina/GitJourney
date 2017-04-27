@@ -2,8 +2,10 @@ package com.oklab.githubjourney.parsers;
 
 import com.oklab.githubjourney.data.GitHubRepoContentType;
 import com.oklab.githubjourney.data.RepositoryContentDataEntry;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 

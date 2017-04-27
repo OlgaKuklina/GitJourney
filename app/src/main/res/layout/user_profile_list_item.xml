@@ -16,14 +16,14 @@
 
         <TextView
             android:id="@+id/repo_title"
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_margin="@dimen/user_profile_layout_margin"
             android:ellipsize="end"
             android:gravity="start"
-            android:maxLines="2" />
+            android:maxLines="2"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/repo_subtitle"
@@ -60,8 +60,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_profile_layout_margin_start_text"
-                android:src="@drawable/star"
-                android:contentDescription="@string/star_icon"/>
+                android:contentDescription="@string/star_icon"
+                android:src="@drawable/star" />
 
             <TextView
                 android:id="@+id/repo_detail_stars"
@@ -73,8 +73,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_profile_layout_margin_start_text"
-                android:src="@drawable/source_fork"
-                android:contentDescription="@string/fork_icon"/>
+                android:contentDescription="@string/fork_icon"
+                android:src="@drawable/source_fork" />
 
             <TextView
                 android:id="@+id/repo_detail_forks"

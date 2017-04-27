@@ -10,5 +10,5 @@
         android:layout_height="@dimen/contribution_button_size"
         android:background="@drawable/touch_effect"
         android:clickable="true"
-        android:contentDescription="@string/contributions_per_calendar_day"/>
+        android:contentDescription="@string/contributions_per_calendar_day" />
 </LinearLayout>

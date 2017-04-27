@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.activities.RepositoryActivity;
-import com.oklab.githubjourney.activities.UserProfileActivity;
 import com.oklab.githubjourney.customui.CircleView;
 import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.utils.GithubLanguageColorsMatcher;
@@ -98,6 +97,8 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
             title.setText(reposDataEntry.getTitle());
             if (reposDataEntry.getDescription() != null && !reposDataEntry.getDescription().equals("null")) {
                 description.setText(reposDataEntry.getDescription());
+            } else {
+                description.setText("");
             }
 
             if (reposDataEntry.getLanguage() != null && !reposDataEntry.getLanguage().isEmpty() && !reposDataEntry.getLanguage().equals("null")) {
@@ -111,10 +112,11 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
                 language.setVisibility(View.VISIBLE);
                 language.setText(reposDataEntry.getLanguage());
             } else {
+                languageCircle.setVisibility(View.INVISIBLE);
                 language.setVisibility(View.INVISIBLE);
             }
-            stars.setText(String.format(Locale.getDefault(),"%d", reposDataEntry.getStars()));
-            forks.setText(String.format(Locale.getDefault(),"%d",reposDataEntry.getForks()));
+            stars.setText(String.format(Locale.getDefault(), "%d", reposDataEntry.getStars()));
+            forks.setText(String.format(Locale.getDefault(), "%d", reposDataEntry.getForks()));
 
             Picasso pic = Picasso.with(context);
             pic.load(R.drawable.repository)

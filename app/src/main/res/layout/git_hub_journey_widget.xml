@@ -18,8 +18,8 @@
             <ImageView
                 android:layout_width="55dp"
                 android:layout_height="50dp"
-                android:src="@drawable/octocat"
-                android:contentDescription="@string/widget_github_logo_icon"/>
+                android:contentDescription="@string/widget_github_logo_icon"
+                android:src="@drawable/octocat" />
 
             <TextView
                 android:id="@+id/widget_title"

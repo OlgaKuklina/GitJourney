@@ -10,8 +10,8 @@
         android:id="@+id/profile_poster"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:gravity="center_horizontal"
-        android:contentDescription="@string/profile_poster"/>
+        android:contentDescription="@string/profile_poster"
+        android:gravity="center_horizontal" />
 
     <LinearLayout
         android:id="@+id/details"

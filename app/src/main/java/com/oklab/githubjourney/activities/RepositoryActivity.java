@@ -11,18 +11,15 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.oklab.githubjourney.R;
-import com.oklab.githubjourney.asynctasks.RepoReadmeAsyncTask;
 import com.oklab.githubjourney.asynctasks.RepoReadmeDownloadAsyncTask;
-import com.oklab.githubjourney.data.RepositoryContentDataEntry;
 import com.oklab.githubjourney.data.ReposDataEntry;
 
 import org.markdownj.MarkdownProcessor;
 
-import java.util.List;
-
-public class RepositoryActivity extends AppCompatActivity implements RepoReadmeDownloadAsyncTask.OnRepoReadmeContentLoadedListener{
+public class RepositoryActivity extends AppCompatActivity implements RepoReadmeDownloadAsyncTask.OnRepoReadmeContentLoadedListener {
     private static final String TAG = RepositoryActivity.class.getSimpleName();
     private WebView mv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,17 +40,17 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
         });
         new RepoReadmeDownloadAsyncTask(this, this).execute(entry.getTitle());
     }
+
     @Override
     public void onRepoContentLoaded(String content) {
         Log.v(TAG, "onRepoContentLoaded");
         Log.v(TAG, "content" + content);
-        if(content !=null) {
+        if (content != null) {
             Log.v(TAG, "if content " + content);
             MarkdownProcessor processor = new MarkdownProcessor();
             String html = processor.markdown(content);
             mv.loadData(html, "text/html; charset=UTF-8", null);
-        }
-        else {
+        } else {
             Log.v(TAG, "else content " + content);
             mv.loadData("no README.md file", "text/html; charset=UTF-8", null);
         }

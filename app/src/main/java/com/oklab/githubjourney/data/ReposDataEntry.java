@@ -76,7 +76,7 @@ public class ReposDataEntry implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(title);
-        parcel.writeInt((byte)(privacy?1:0));
+        parcel.writeInt((byte) (privacy ? 1 : 0));
         parcel.writeString(description);
         parcel.writeString(language);
         parcel.writeInt(stars);

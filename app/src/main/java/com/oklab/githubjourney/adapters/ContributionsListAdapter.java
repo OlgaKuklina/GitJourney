@@ -17,7 +17,6 @@ import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.data.ContributionsDataLoader;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.TimeZone;
 
 /**
@@ -56,7 +55,7 @@ public class ContributionsListAdapter extends BaseAdapter {
                 calendar.setTimeZone(TimeZone.getTimeZone(customTimeZone));
             }
             int day = calendar.get(Calendar.DAY_OF_MONTH);
-            if (contributionsMap.indexOfKey(day)!=-1) {
+            if (contributionsMap.indexOfKey(day) != -1) {
                 contributionsMap.put(day, contributionsMap.get(day) + 1);
             } else {
                 contributionsMap.put(day, 1);

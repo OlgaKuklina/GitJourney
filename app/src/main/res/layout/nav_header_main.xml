@@ -16,9 +16,9 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/nav_header_github_logo"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/octocat"
-        android:contentDescription="@string/nav_header_github_logo"/>
+        app:srcCompat="@drawable/octocat" />
 
     <TextView
         android:layout_width="match_parent"

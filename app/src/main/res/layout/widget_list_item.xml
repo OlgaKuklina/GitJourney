@@ -14,7 +14,7 @@
             android:id="@+id/w_github_user_image"
             android:layout_width="@dimen/widget_profile_image_size"
             android:layout_height="@dimen/widget_profile_image_size"
-            android:contentDescription="@string/github_user_image"/>
+            android:contentDescription="@string/github_user_image" />
 
         <LinearLayout
             android:layout_width="match_parent"
