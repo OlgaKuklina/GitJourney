@@ -7,9 +7,15 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.oklab.githubjourney.activities.RepositoryActivity"
     tools:showIn="@layout/activity_repository">
-
-    <WebView
-        android:id="@+id/webView"
+    <RelativeLayout
+        android:id="@+id/content_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content">
+    </RelativeLayout>
+    <WebView
+        android:id="@+id/web_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
 </RelativeLayout>

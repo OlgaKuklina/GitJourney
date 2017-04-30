@@ -8,7 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.data.RepositoryContentDataEntry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by olgakuklina on 2017-04-26.
@@ -17,7 +21,7 @@ import com.oklab.githubjourney.data.RepositoryContentDataEntry;
 public class RepoContentListAdapter extends RecyclerView.Adapter<RepoContentListAdapter.RepoContentListViewHolder> {
     private static final String TAG = RepoContentListAdapter.class.getSimpleName();
     private final Context context;
-
+    private final ArrayList<RepositoryContentDataEntry> repoContentDataEntrylist = new ArrayList<>(1000);
     public RepoContentListAdapter(Context context) {
         this.context = context;
     }
@@ -34,9 +38,18 @@ public class RepoContentListAdapter extends RecyclerView.Adapter<RepoContentList
 
     @Override
     public int getItemCount() {
-        return 0;
+        return repoContentDataEntrylist.size();
     }
 
+    public void add(List<RepositoryContentDataEntry> entryList) {
+        repoContentDataEntrylist.addAll(entryList);
+        notifyDataSetChanged();
+    }
+
+    public void resetAllData() {
+        repoContentDataEntrylist.clear();
+        notifyDataSetChanged();
+    }
     public class RepoContentListViewHolder extends RecyclerView.ViewHolder {
 
         private TextView name;

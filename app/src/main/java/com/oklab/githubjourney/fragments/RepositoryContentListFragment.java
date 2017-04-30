@@ -3,6 +3,8 @@ package com.oklab.githubjourney.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,10 @@ import android.view.ViewGroup;
 
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.RepoContentListAdapter;
+import com.oklab.githubjourney.asynctasks.RepoContentLoader;
+import com.oklab.githubjourney.data.RepositoryContentDataEntry;
+
+import java.util.List;
 
 /**
  * Created by olgakuklina on 2017-04-26.
@@ -25,16 +31,18 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
     private RepoContentListAdapter repoContentListAdapter;
     private LinearLayoutManager linearLayoutManager;
     private int currentPage = 1;
-    private boolean reposContentExhausted = false;
+    private boolean repoContentExhausted = false;
     private boolean loading = false;
+    private RepoContentFragmentInteractionListener repoContentChangedlistner;
 
     public RepositoryContentListFragment() {
     }
 
-    public static RepositoryContentListFragment newInstance() {
+    public static RepositoryContentListFragment newInstance(RepoContentFragmentInteractionListener repoContentChangedlistner) {
         RepositoryContentListFragment fragment = new RepositoryContentListFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
+        fragment.repoContentChangedlistner = repoContentChangedlistner;
         return fragment;
     }
 
@@ -47,7 +55,7 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.v(TAG, "onCreateView");
-        View v = inflater.inflate(R.layout.fragment_general_list, container, false);
+        View v = inflater.inflate(R.layout.fragment_repository_content, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.repo_content_recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.repo_content_swipe_refresh_layout);
         return v;
@@ -82,11 +90,38 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
             int itemsCount = repoContentListAdapter.getItemCount();
             Log.v(TAG, "onScrolled - imetsCount = " + itemsCount);
             Log.v(TAG, "onScrolled - lastScrollPosition = " + lastScrollPosition);
-            if (lastScrollPosition == itemsCount - 1 && !reposContentExhausted && !loading) {
+            if (lastScrollPosition == itemsCount - 1 && !repoContentExhausted && !loading) {
                 loading = true;
                 Bundle bundle = new Bundle();
                 bundle.putInt("page", currentPage++);
             }
         }
+    }
+    private class RepoContentLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<RepositoryContentDataEntry>> {
+
+        @Override
+        public Loader<List<RepositoryContentDataEntry>> onCreateLoader(int id, Bundle args) {
+            return new RepoContentLoader(getContext(), args.getString("path"), args.getString("repoName"), args.getString("login"));
+        }
+
+        @Override
+        public void onLoadFinished(Loader<List<RepositoryContentDataEntry>> loader, List<RepositoryContentDataEntry> repoContentDataEntryList) {
+            loading = false;
+            if (repoContentDataEntryList != null && repoContentDataEntryList.isEmpty()) {
+                repoContentExhausted = true;
+                getLoaderManager().destroyLoader(loader.getId());
+                return;
+            }
+            repoContentListAdapter.add(repoContentDataEntryList);
+            getLoaderManager().destroyLoader(loader.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<List<RepositoryContentDataEntry>> loader) {
+            loading = false;
+        }
+    }
+    public interface RepoContentFragmentInteractionListener {
+        void onPathChanged(String newPath);
     }
 }
