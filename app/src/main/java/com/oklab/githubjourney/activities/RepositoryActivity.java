@@ -35,13 +35,12 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
         ReposDataEntry entry = getIntent().getParcelableExtra("repo");
         toolbar.setTitle(entry.getTitle());
         setSupportActionBar(toolbar);
-        if(entry.getOwner() == null || entry.getOwner().isEmpty()) {
+        if (entry.getOwner() == null || entry.getOwner().isEmpty()) {
             SharedPreferences prefs = this.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
             String sessionDataStr = prefs.getString("userSessionData", null);
             currentSessionData = UserSessionData.createUserSessionDataFromString(sessionDataStr);
             owner = currentSessionData.getLogin();
-        }
-        else {
+        } else {
             owner = entry.getOwner();
         }
         RepositoryContentListFragment repoContentListFragment = RepositoryContentListFragment.newInstance(this, path, entry.getTitle(), owner);
@@ -78,7 +77,7 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
     @Override
     public void onPathChanged(String newPath) {
         this.path = newPath;
-        if(!newPath.isEmpty()) {
+        if (!newPath.isEmpty()) {
             mv.setVisibility(View.GONE);
         }
     }

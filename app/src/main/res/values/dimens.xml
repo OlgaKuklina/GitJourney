@@ -32,7 +32,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="repos_end_line_width">1dp</dimen>
     <dimen name="repos_status_image_size">40dp</dimen>
     <dimen name="repositories_layout_padding">5dp</dimen>
-
+    <dimen name="repos_content_image_size">20dp</dimen>
     <!-- Stars screen margin info, per the Android Design guidelines. -->
     <dimen name="stars_layout_margin">5dp</dimen>
     <dimen name="stars_end_line_width">1dp</dimen>

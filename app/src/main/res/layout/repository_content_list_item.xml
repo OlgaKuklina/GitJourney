@@ -2,17 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_margin="15dp"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/content_icon_image"
-        android:layout_width="@dimen/repos_status_image_size"
-        android:layout_height="@dimen/repos_status_image_size"
+        android:layout_width="@dimen/repos_content_image_size"
+        android:layout_height="@dimen/repos_content_image_size"
         android:contentDescription="@string/repository_content__icon" />
 
-    <TextView
-        android:id="@+id/content_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold" />
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/content_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/content_path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="italic" />
+    </LinearLayout>
 </LinearLayout>

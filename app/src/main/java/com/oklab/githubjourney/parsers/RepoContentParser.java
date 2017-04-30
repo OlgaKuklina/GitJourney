@@ -3,7 +3,6 @@ package com.oklab.githubjourney.parsers;
 import android.util.Log;
 
 import com.oklab.githubjourney.data.GitHubRepoContentType;
-import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.data.RepositoryContentDataEntry;
 
 import org.json.JSONArray;
@@ -30,6 +29,7 @@ public class RepoContentParser {
         }
         return dataEntriesList;
     }
+
     private RepositoryContentDataEntry parseItem(JSONObject object) throws JSONException {
         if (object == null) {
             return null;

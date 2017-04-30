@@ -1,7 +1,6 @@
 package com.oklab.githubjourney.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,10 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
-import com.oklab.githubjourney.activities.RepositoryActivity;
-import com.oklab.githubjourney.activities.UserProfileActivity;
-import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
-import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.data.RepositoryContentDataEntry;
 
 import java.util.ArrayList;
@@ -61,29 +56,33 @@ public class RepoContentListAdapter extends RecyclerView.Adapter<RepoContentList
         repoContentDataEntrylist.clear();
         notifyDataSetChanged();
     }
+
     public class RepoContentListViewHolder extends RecyclerView.ViewHolder {
 
         private TextView name;
+        private TextView path;
         private ImageView contentIcon;
 
 
         public RepoContentListViewHolder(View v) {
             super(v);
             name = (TextView) v.findViewById(R.id.content_name);
+            path = (TextView) v.findViewById(R.id.content_path);
             contentIcon = (ImageView) v.findViewById(R.id.content_icon_image);
         }
 
         private void populateRepoContentViewData(RepositoryContentDataEntry dataEntry) {
             Log.v(TAG, "dataEntry" + dataEntry);
             name.setText(dataEntry.getName());
+            path.setText(dataEntry.getUri());
             switch (dataEntry.getType()) {
                 case DIR:
                     contentIcon.setVisibility(View.VISIBLE);
-                    contentIcon.setBackground(context.getDrawable(R.drawable.repository));
+                    contentIcon.setBackground(context.getDrawable(R.drawable.dir));
                     break;
                 case FILE:
                     contentIcon.setVisibility(View.VISIBLE);
-                    contentIcon.setBackground(context.getDrawable(R.drawable.octocat));
+                    contentIcon.setBackground(context.getDrawable(R.drawable.doc));
                     break;
                 case SYMLINK:
                     contentIcon.setVisibility(View.VISIBLE);

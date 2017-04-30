@@ -77,6 +77,10 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
     public void onRefresh() {
     }
 
+    public interface RepoContentFragmentInteractionListener {
+        void onPathChanged(String newPath);
+    }
+
     private class RepoContentLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<RepositoryContentDataEntry>> {
 
         @Override
@@ -96,8 +100,5 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
         @Override
         public void onLoaderReset(Loader<List<RepositoryContentDataEntry>> loader) {
         }
-    }
-    public interface RepoContentFragmentInteractionListener {
-        void onPathChanged(String newPath);
     }
 }
