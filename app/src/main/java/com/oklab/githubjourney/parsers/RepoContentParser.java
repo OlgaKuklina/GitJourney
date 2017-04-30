@@ -21,9 +21,11 @@ public class RepoContentParser {
     private static final String TAG = RepoContentParser.class.getSimpleName();
 
     public List<RepositoryContentDataEntry> parse(JSONArray jsonArray) throws JSONException {
+        Log.v(TAG, "jsonArray " + jsonArray.length());
         List<RepositoryContentDataEntry> dataEntriesList = new ArrayList<>(jsonArray.length());
         for (int i = 0; i < jsonArray.length(); i++) {
             RepositoryContentDataEntry entry = parseItem(jsonArray.getJSONObject(i));
+            Log.v(TAG, "entry " + entry);
             dataEntriesList.add(entry);
         }
         return dataEntriesList;
@@ -32,9 +34,9 @@ public class RepoContentParser {
         if (object == null) {
             return null;
         }
-        String type = " ";
+        GitHubRepoContentType type = GitHubRepoContentType.DIR;
         if (!object.getString("type").isEmpty()) {
-            type = object.getString("type");
+            type = GitHubRepoContentType.getRepoContentType(object.getString("type"));
         }
         String uri = " ";
         if (!object.getString("download_url").isEmpty()) {
