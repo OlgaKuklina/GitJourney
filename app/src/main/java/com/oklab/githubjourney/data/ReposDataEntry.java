@@ -21,14 +21,16 @@ public class ReposDataEntry implements Parcelable {
         }
     };
     private final String title;
+    private final String owner;
     private final boolean privacy;
     private final String description;
     private final String language;
     private final int stars;
     private final int forks;
 
-    public ReposDataEntry(String title, boolean privacy, String description, String language, int stars, int forks) {
+    public ReposDataEntry(String title, String ownerName, boolean privacy, String description, String language, int stars, int forks) {
         this.title = title;
+        this.owner = ownerName;
         this.privacy = privacy;
         this.description = description;
         this.language = language;
@@ -38,6 +40,7 @@ public class ReposDataEntry implements Parcelable {
 
     protected ReposDataEntry(Parcel in) {
         title = in.readString();
+        owner = in.readString();
         privacy = in.readByte() != 0;
         description = in.readString();
         language = in.readString();
@@ -51,6 +54,10 @@ public class ReposDataEntry implements Parcelable {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getOwner() {
+        return owner;
     }
 
     public String getDescription() {
@@ -77,6 +84,7 @@ public class ReposDataEntry implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(title);
+        parcel.writeString(owner);
         parcel.writeInt((byte) (privacy ? 1 : 0));
         parcel.writeString(description);
         parcel.writeString(language);

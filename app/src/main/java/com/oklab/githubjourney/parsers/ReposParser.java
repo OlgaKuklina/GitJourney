@@ -1,5 +1,7 @@
 package com.oklab.githubjourney.parsers;
 
+import android.util.Log;
+
 import com.oklab.githubjourney.data.ReposDataEntry;
 
 import org.json.JSONArray;
@@ -30,6 +32,9 @@ public class ReposParser {
         if (object == null) {
             return null;
         }
+        String owner = object.getJSONObject("owner").getString("login");
+
+        Log.v(TAG, "owner " + owner);
         String name = " ";
         if (!object.getString("name").isEmpty()) {
             name = object.getString("name");
@@ -48,6 +53,6 @@ public class ReposParser {
         int forksCount = object.getInt("forks_count");
         int stars = object.getInt("stargazers_count");
 
-        return new ReposDataEntry(name, privacy, description, language, stars, forksCount);
+        return new ReposDataEntry(name, owner, privacy, description, language, stars, forksCount);
     }
 }

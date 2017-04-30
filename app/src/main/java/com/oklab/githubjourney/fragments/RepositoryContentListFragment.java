@@ -30,19 +30,19 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
     private SwipeRefreshLayout swipeRefreshLayout;
     private RepoContentListAdapter repoContentListAdapter;
     private LinearLayoutManager linearLayoutManager;
-    private int currentPage = 1;
-    private boolean repoContentExhausted = false;
-    private boolean loading = false;
     private RepoContentFragmentInteractionListener repoContentChangedlistner;
 
     public RepositoryContentListFragment() {
     }
 
-    public static RepositoryContentListFragment newInstance(RepoContentFragmentInteractionListener repoContentChangedlistner) {
+    public static RepositoryContentListFragment newInstance(RepoContentFragmentInteractionListener repoContentChangedListener, String path, String repoName, String loginName) {
         RepositoryContentListFragment fragment = new RepositoryContentListFragment();
         Bundle args = new Bundle();
+        args.putString("path", path);
+        args.putString("repoName", repoName);
+        args.putString("login", loginName);
         fragment.setArguments(args);
-        fragment.repoContentChangedlistner = repoContentChangedlistner;
+        fragment.repoContentChangedlistner = repoContentChangedListener;
         return fragment;
     }
 
@@ -69,34 +69,14 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
         recyclerView.setLayoutManager(linearLayoutManager);
         repoContentListAdapter = new RepoContentListAdapter(this.getContext());
         recyclerView.setAdapter(repoContentListAdapter);
-        recyclerView.addOnScrollListener(new RepositoryContentListFragment.RepoContentItemsListOnScrollListner());
         swipeRefreshLayout.setOnRefreshListener(this);
-        loading = true;
-        Bundle bundle = new Bundle();
-        bundle.putInt("page", currentPage++);
+        getLoaderManager().initLoader(0, getArguments(), new RepositoryContentListFragment.RepoContentLoaderCallbacks());
     }
 
     @Override
     public void onRefresh() {
-
     }
 
-    private class RepoContentItemsListOnScrollListner extends RecyclerView.OnScrollListener {
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            int lastScrollPosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
-            int itemsCount = repoContentListAdapter.getItemCount();
-            Log.v(TAG, "onScrolled - imetsCount = " + itemsCount);
-            Log.v(TAG, "onScrolled - lastScrollPosition = " + lastScrollPosition);
-            if (lastScrollPosition == itemsCount - 1 && !repoContentExhausted && !loading) {
-                loading = true;
-                Bundle bundle = new Bundle();
-                bundle.putInt("page", currentPage++);
-            }
-        }
-    }
     private class RepoContentLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<RepositoryContentDataEntry>> {
 
         @Override
@@ -106,19 +86,15 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
 
         @Override
         public void onLoadFinished(Loader<List<RepositoryContentDataEntry>> loader, List<RepositoryContentDataEntry> repoContentDataEntryList) {
-            loading = false;
-            if (repoContentDataEntryList != null && repoContentDataEntryList.isEmpty()) {
-                repoContentExhausted = true;
-                getLoaderManager().destroyLoader(loader.getId());
-                return;
+            Log.v(TAG, "onLoadFinished " + repoContentDataEntryList);
+            if (repoContentDataEntryList != null && !repoContentDataEntryList.isEmpty()) {
+                repoContentListAdapter.add(repoContentDataEntryList);
             }
-            repoContentListAdapter.add(repoContentDataEntryList);
             getLoaderManager().destroyLoader(loader.getId());
         }
 
         @Override
         public void onLoaderReset(Loader<List<RepositoryContentDataEntry>> loader) {
-            loading = false;
         }
     }
     public interface RepoContentFragmentInteractionListener {

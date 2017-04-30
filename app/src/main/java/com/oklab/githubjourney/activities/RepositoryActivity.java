@@ -1,5 +1,6 @@
 package com.oklab.githubjourney.activities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,13 +14,18 @@ import android.webkit.WebViewClient;
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.asynctasks.RepoReadmeDownloadAsyncTask;
 import com.oklab.githubjourney.data.ReposDataEntry;
+import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.fragments.RepositoryContentListFragment;
+import com.oklab.githubjourney.utils.Utils;
 
 import org.markdownj.MarkdownProcessor;
 
 public class RepositoryActivity extends AppCompatActivity implements RepoReadmeDownloadAsyncTask.OnRepoReadmeContentLoadedListener, RepositoryContentListFragment.RepoContentFragmentInteractionListener {
     private static final String TAG = RepositoryActivity.class.getSimpleName();
     private WebView mv;
+    private String path = "";
+    private String owner = "";
+    private UserSessionData currentSessionData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +35,16 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
         ReposDataEntry entry = getIntent().getParcelableExtra("repo");
         toolbar.setTitle(entry.getTitle());
         setSupportActionBar(toolbar);
-        RepositoryContentListFragment repoContentListFragment = RepositoryContentListFragment.newInstance(null);
+        if(entry.getOwner() == null || entry.getOwner().isEmpty()) {
+            SharedPreferences prefs = this.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
+            String sessionDataStr = prefs.getString("userSessionData", null);
+            currentSessionData = UserSessionData.createUserSessionDataFromString(sessionDataStr);
+            owner = currentSessionData.getLogin();
+        }
+        else {
+            owner = entry.getOwner();
+        }
+        RepositoryContentListFragment repoContentListFragment = RepositoryContentListFragment.newInstance(this, path, entry.getTitle(), owner);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment, repoContentListFragment).commit();
         mv = (WebView) findViewById(R.id.web_view);
         mv.setWebViewClient(new WebViewClient());
@@ -62,6 +77,7 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
 
     @Override
     public void onPathChanged(String newPath) {
+        this.path = newPath;
         if(!newPath.isEmpty()) {
             mv.setVisibility(View.GONE);
         }

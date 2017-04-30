@@ -1,5 +1,6 @@
 package com.oklab.githubjourney.parsers;
 
+import com.oklab.githubjourney.data.GitHubRepoContentType;
 import com.oklab.githubjourney.data.RepositoryContentDataEntry;
 
 import org.json.JSONArray;
@@ -17,6 +18,8 @@ public class RepoContentParser {
 
     public List<RepositoryContentDataEntry> parse(JSONArray jsonArray) throws JSONException {
         List<RepositoryContentDataEntry> list = new ArrayList<RepositoryContentDataEntry>(1);
+        RepositoryContentDataEntry entry = new RepositoryContentDataEntry("sad", "asd", GitHubRepoContentType.DIR, "asd");
+        list.add(entry);
         return list;
     }
 }
