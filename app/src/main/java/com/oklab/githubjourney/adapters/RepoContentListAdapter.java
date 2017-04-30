@@ -2,17 +2,13 @@ package com.oklab.githubjourney.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
-import com.oklab.githubjourney.data.GitHubRepoContentType;
-import com.oklab.githubjourney.data.GitHubUserProfileDataEntry;
 import com.oklab.githubjourney.data.RepositoryContentDataEntry;
-import com.squareup.picasso.Picasso;
 
 /**
  * Created by olgakuklina on 2017-04-26.

@@ -18,7 +18,7 @@ public class RepoReadmeParser {
     public List<RepositoryContentDataEntry> parse(JSONObject jsonObj) throws JSONException {
         String uri = jsonObj.getString("download_url");
         GitHubRepoContentType type = GitHubRepoContentType.getRepoContentType(jsonObj.getString("type"));
-        RepositoryContentDataEntry entry = new RepositoryContentDataEntry("title", uri, type);
+        RepositoryContentDataEntry entry = new RepositoryContentDataEntry("title", uri, type, path);
         List<RepositoryContentDataEntry> list = new ArrayList<RepositoryContentDataEntry>(1);
         list.add(entry);
         return list;

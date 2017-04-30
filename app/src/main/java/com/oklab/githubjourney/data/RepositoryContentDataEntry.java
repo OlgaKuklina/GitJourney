@@ -8,11 +8,13 @@ public class RepositoryContentDataEntry {
     private final String name;
     private final String uri;
     private final GitHubRepoContentType type;
+    private final String path;
 
-    public RepositoryContentDataEntry(String name, String uri, GitHubRepoContentType type) {
+    public RepositoryContentDataEntry(String name, String uri, GitHubRepoContentType type, String path) {
         this.name = name;
         this.uri = uri;
         this.type = type;
+        this.path = path;
     }
 
     public String getName() {
@@ -25,5 +27,9 @@ public class RepositoryContentDataEntry {
 
     public String getUri() {
         return uri;
+    }
+
+    public String getPath() {
+        return path;
     }
 }

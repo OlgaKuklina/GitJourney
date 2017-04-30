@@ -14,6 +14,7 @@ public class ReposDataEntry implements Parcelable {
         public ReposDataEntry createFromParcel(Parcel in) {
             return new ReposDataEntry(in);
         }
+
         @Override
         public ReposDataEntry[] newArray(int size) {
             return new ReposDataEntry[size];
