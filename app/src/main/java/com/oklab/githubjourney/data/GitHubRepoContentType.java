@@ -5,15 +5,22 @@ package com.oklab.githubjourney.data;
  */
 
 public enum GitHubRepoContentType {
-    FILE("file"),
-    DIR("dir"),
-    SYMLINK("symlink"),
-    SUBMODULE("submodule");
+    SUBMODULE("submodule", 0),
+    DIR("dir", 1),
+    FILE("file", 2),
+    SYMLINK("symlink", 3);
+
 
     private final String matchingRepoContentType;
+    private final int priority;
 
-    GitHubRepoContentType(String matchingRepoContentType) {
+    GitHubRepoContentType(String matchingRepoContentType, int priority) {
         this.matchingRepoContentType = matchingRepoContentType;
+        this.priority = priority;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 
     public static GitHubRepoContentType getRepoContentType(String repoContentType) {
