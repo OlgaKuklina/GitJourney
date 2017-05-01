@@ -75,7 +75,7 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
 
     @Override
     public void onPathChanged(String newPath) {
-        if (!newPath.isEmpty()) {
+        if (newPath!= null && !newPath.isEmpty()) {
             mv.setVisibility(View.GONE);
         }
     }

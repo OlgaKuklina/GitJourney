@@ -20,6 +20,7 @@ import com.oklab.githubjourney.data.GitHubRepoContentType;
 import com.oklab.githubjourney.data.RepositoryContentDataEntry;
 
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by olgakuklina on 2017-04-26.
@@ -32,6 +33,7 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
     private RepoContentListAdapter repoContentListAdapter;
     private LinearLayoutManager linearLayoutManager;
     private RepoContentFragmentInteractionListener repoContentChangedlistner;
+    private static Stack<String> pathStack = new Stack<>();
 
     public RepositoryContentListFragment() {
     }
@@ -40,6 +42,7 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
         RepositoryContentListFragment fragment = new RepositoryContentListFragment();
         Bundle args = new Bundle();
         args.putString("path", "");
+        pathStack.push(args.getString("path"));
         args.putString("repoName", repoName);
         args.putString("login", loginName);
         fragment.setArguments(args);
@@ -84,10 +87,14 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
         if (entry.getType() == GitHubRepoContentType.DIR) {
             repoContentListAdapter.resetAllData();
             Bundle args = getArguments();
+            pathStack.push(args.getString("path"));
             args.putString("path", entry.getPath());
             getLoaderManager().initLoader(0, args, callbacks);
-        } else if (entry.getType() == GitHubRepoContentType.FILE) {
-
+        } else if (entry.getType() == GitHubRepoContentType.EMPTY) {
+            repoContentListAdapter.resetAllData();
+            Bundle args = getArguments();
+            args.putString("path", pathStack.pop());
+            getLoaderManager().initLoader(0, args, callbacks);
         }
     }
 

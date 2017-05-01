@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.data.GitHubRepoContentType;
 import com.oklab.githubjourney.data.RepositoryContentDataEntry;
 
 import java.util.ArrayList;
@@ -59,8 +60,13 @@ public class RepoContentListAdapter extends RecyclerView.Adapter<RepoContentList
     }
 
     public void add(List<RepositoryContentDataEntry> entryList) {
+
         Log.v(TAG, "entryList " + entryList.size());
         Collections.sort(entryList, COMPARATOR);
+        Log.v(TAG, "entryList.get(0).getPath() " + entryList.get(0).getPath());
+        if(entryList.get(0).getPath().contains("/")) {
+            entryList.add(0, new RepositoryContentDataEntry("..", null, GitHubRepoContentType.EMPTY, null));
+        }
         repoContentDataEntrylist.addAll(entryList);
         notifyDataSetChanged();
     }
@@ -102,6 +108,7 @@ public class RepoContentListAdapter extends RecyclerView.Adapter<RepoContentList
             Log.v(TAG, "dataEntry" + dataEntry);
             name.setText(dataEntry.getName());
             path.setText(dataEntry.getUri());
+
             switch (dataEntry.getType()) {
                 case DIR:
                     contentIcon.setVisibility(View.VISIBLE);
@@ -119,7 +126,13 @@ public class RepoContentListAdapter extends RecyclerView.Adapter<RepoContentList
                     contentIcon.setVisibility(View.VISIBLE);
                     contentIcon.setBackground(context.getDrawable(R.drawable.octocat));
                     break;
+                case EMPTY:
+                    contentIcon.setVisibility(View.GONE);
+                    break;
+                default:
+                    contentIcon.setVisibility(View.GONE);
             }
+
         }
     }
 }

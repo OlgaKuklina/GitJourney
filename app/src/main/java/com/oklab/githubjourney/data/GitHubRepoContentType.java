@@ -5,10 +5,11 @@ package com.oklab.githubjourney.data;
  */
 
 public enum GitHubRepoContentType {
-    SUBMODULE("submodule", 0),
-    DIR("dir", 1),
-    FILE("file", 2),
-    SYMLINK("symlink", 3);
+    EMPTY("empty", 0),
+    SUBMODULE("submodule", 1),
+    DIR("dir", 2),
+    FILE("file", 3),
+    SYMLINK("symlink", 4);
 
 
     private final String matchingRepoContentType;
