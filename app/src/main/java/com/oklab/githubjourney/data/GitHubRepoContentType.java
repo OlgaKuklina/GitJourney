@@ -20,10 +20,6 @@ public enum GitHubRepoContentType {
         this.priority = priority;
     }
 
-    public int getPriority() {
-        return priority;
-    }
-
     public static GitHubRepoContentType getRepoContentType(String repoContentType) {
         for (GitHubRepoContentType type : values()) {
             if (type.matchingRepoContentType.equals(repoContentType)) {
@@ -31,5 +27,9 @@ public enum GitHubRepoContentType {
             }
         }
         throw new IllegalArgumentException("Unknown repo content type: " + repoContentType);
+    }
+
+    public int getPriority() {
+        return priority;
     }
 }

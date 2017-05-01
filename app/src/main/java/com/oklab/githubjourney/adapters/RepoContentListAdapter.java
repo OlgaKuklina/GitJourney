@@ -63,9 +63,8 @@ public class RepoContentListAdapter extends RecyclerView.Adapter<RepoContentList
 
         Log.v(TAG, "entryList " + entryList.size());
         Collections.sort(entryList, COMPARATOR);
-        Log.v(TAG, "entryList.get(0).getPath() " + entryList.get(0).getPath());
-        if(entryList.get(0).getPath().contains("/")) {
-            entryList.add(0, new RepositoryContentDataEntry("..", null, GitHubRepoContentType.EMPTY, null));
+        if (entryList.get(0).getPath().contains("/")) {
+            entryList.add(0, new RepositoryContentDataEntry(context.getString(R.string.empty_content_type), null, GitHubRepoContentType.EMPTY, null));
         }
         repoContentDataEntrylist.addAll(entryList);
         notifyDataSetChanged();
@@ -79,17 +78,17 @@ public class RepoContentListAdapter extends RecyclerView.Adapter<RepoContentList
     public interface RepoContentOnClickListener {
         void onRepoItemClicked(RepositoryContentDataEntry entry);
     }
-    private static class ContentTypeComparator implements Comparator<RepositoryContentDataEntry>
-    {
+
+    private static class ContentTypeComparator implements Comparator<RepositoryContentDataEntry> {
         @Override
-        public int compare (RepositoryContentDataEntry e1,  RepositoryContentDataEntry e2)
-        {
-            if(e1.getType() != e2.getType()) {
+        public int compare(RepositoryContentDataEntry e1, RepositoryContentDataEntry e2) {
+            if (e1.getType() != e2.getType()) {
                 return Integer.compare(e1.getType().getPriority(), e2.getType().getPriority());
             }
             return e1.getName().compareTo(e2.getName());
         }
     }
+
     public class RepoContentListViewHolder extends RecyclerView.ViewHolder {
 
         private TextView name;

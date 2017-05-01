@@ -86,6 +86,10 @@
     <string name="unknown_text"> unknown </string>
     <string name="empty_value"> 0 </string>
 
+    <!-- Strings related to repo content Activity  -->
+    <string name="empty_content_type"> .. </string>
+
+
     <string name="repo_thumbnail">Repository thumbnail</string>
     <!-- Strings related to Location service -->
 

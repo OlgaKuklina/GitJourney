@@ -27,13 +27,13 @@ import java.util.Stack;
  */
 public class RepositoryContentListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, RepoContentListAdapter.RepoContentOnClickListener {
     private static final String TAG = RepositoryContentListFragment.class.getSimpleName();
+    private static Stack<String> pathStack = new Stack<>();
     private final RepoContentLoaderCallbacks callbacks = new RepoContentLoaderCallbacks();
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RepoContentListAdapter repoContentListAdapter;
     private LinearLayoutManager linearLayoutManager;
     private RepoContentFragmentInteractionListener repoContentChangedlistner;
-    private static Stack<String> pathStack = new Stack<>();
 
     public RepositoryContentListFragment() {
     }
