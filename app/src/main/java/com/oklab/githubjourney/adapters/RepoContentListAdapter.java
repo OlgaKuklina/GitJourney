@@ -22,11 +22,13 @@ import java.util.List;
 public class RepoContentListAdapter extends RecyclerView.Adapter<RepoContentListAdapter.RepoContentListViewHolder> {
     private static final String TAG = RepoContentListAdapter.class.getSimpleName();
     private final Context context;
+    private final RepoContentOnClickListener repoContentOnClickListener;
     private final ArrayList<RepositoryContentDataEntry> repoContentDataEntrylist = new ArrayList<>(1000);
 
-    public RepoContentListAdapter(Context context) {
+    public RepoContentListAdapter(Context context, RepoContentOnClickListener repoContentOnClickListener) {
         Log.v(TAG, "RepoContentListAdapter");
         this.context = context;
+        this.repoContentOnClickListener = repoContentOnClickListener;
     }
 
     @Override
@@ -39,6 +41,13 @@ public class RepoContentListAdapter extends RecyclerView.Adapter<RepoContentList
     public void onBindViewHolder(RepoContentListAdapter.RepoContentListViewHolder holder, int position) {
         RepositoryContentDataEntry entry = repoContentDataEntrylist.get(position);
         holder.populateRepoContentViewData(entry);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.v(TAG, " entry = " + entry);
+                repoContentOnClickListener.onRepoItemClicked(entry);
+            }
+        });
     }
 
     @Override
@@ -55,6 +64,10 @@ public class RepoContentListAdapter extends RecyclerView.Adapter<RepoContentList
     public void resetAllData() {
         repoContentDataEntrylist.clear();
         notifyDataSetChanged();
+    }
+
+    public interface RepoContentOnClickListener {
+        void onRepoItemClicked(RepositoryContentDataEntry entry);
     }
 
     public class RepoContentListViewHolder extends RecyclerView.ViewHolder {

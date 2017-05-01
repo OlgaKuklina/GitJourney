@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp"
+    android:layout_marginStart="15dp"
+    android:clickable="true"
     android:orientation="horizontal">
 
     <ImageView
@@ -21,12 +22,14 @@
             android:id="@+id/content_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="18dp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/content_path"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="10dp"
             android:textStyle="italic" />
     </LinearLayout>
 </LinearLayout>

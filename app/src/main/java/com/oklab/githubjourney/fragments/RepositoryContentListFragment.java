@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.RepoContentListAdapter;
 import com.oklab.githubjourney.asynctasks.RepoContentLoader;
+import com.oklab.githubjourney.data.GitHubRepoContentType;
 import com.oklab.githubjourney.data.RepositoryContentDataEntry;
 
 import java.util.List;
@@ -23,9 +24,9 @@ import java.util.List;
 /**
  * Created by olgakuklina on 2017-04-26.
  */
-public class RepositoryContentListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class RepositoryContentListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, RepoContentListAdapter.RepoContentOnClickListener {
     private static final String TAG = RepositoryContentListFragment.class.getSimpleName();
-
+    private final RepoContentLoaderCallbacks callbacks = new RepoContentLoaderCallbacks();
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RepoContentListAdapter repoContentListAdapter;
@@ -35,10 +36,10 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
     public RepositoryContentListFragment() {
     }
 
-    public static RepositoryContentListFragment newInstance(RepoContentFragmentInteractionListener repoContentChangedListener, String path, String repoName, String loginName) {
+    public static RepositoryContentListFragment newInstance(RepoContentFragmentInteractionListener repoContentChangedListener, String repoName, String loginName) {
         RepositoryContentListFragment fragment = new RepositoryContentListFragment();
         Bundle args = new Bundle();
-        args.putString("path", path);
+        args.putString("path", "");
         args.putString("repoName", repoName);
         args.putString("login", loginName);
         fragment.setArguments(args);
@@ -67,14 +68,27 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
         Log.v(TAG, "onActivityCreated");
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        repoContentListAdapter = new RepoContentListAdapter(this.getContext());
+        repoContentListAdapter = new RepoContentListAdapter(this.getContext(), this);
         recyclerView.setAdapter(repoContentListAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
-        getLoaderManager().initLoader(0, getArguments(), new RepositoryContentListFragment.RepoContentLoaderCallbacks());
+        getLoaderManager().initLoader(0, getArguments(), callbacks);
     }
 
     @Override
     public void onRefresh() {
+    }
+
+    @Override
+    public void onRepoItemClicked(RepositoryContentDataEntry entry) {
+        repoContentChangedlistner.onPathChanged(entry.getPath());
+        if (entry.getType() == GitHubRepoContentType.DIR) {
+            repoContentListAdapter.resetAllData();
+            Bundle args = getArguments();
+            args.putString("path", entry.getPath());
+            getLoaderManager().initLoader(0, args, callbacks);
+        } else if (entry.getType() == GitHubRepoContentType.FILE) {
+
+        }
     }
 
     public interface RepoContentFragmentInteractionListener {

@@ -23,7 +23,6 @@ import org.markdownj.MarkdownProcessor;
 public class RepositoryActivity extends AppCompatActivity implements RepoReadmeDownloadAsyncTask.OnRepoReadmeContentLoadedListener, RepositoryContentListFragment.RepoContentFragmentInteractionListener {
     private static final String TAG = RepositoryActivity.class.getSimpleName();
     private WebView mv;
-    private String path = "";
     private String owner = "";
     private UserSessionData currentSessionData;
 
@@ -43,7 +42,7 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
         } else {
             owner = entry.getOwner();
         }
-        RepositoryContentListFragment repoContentListFragment = RepositoryContentListFragment.newInstance(this, path, entry.getTitle(), owner);
+        RepositoryContentListFragment repoContentListFragment = RepositoryContentListFragment.newInstance(this, entry.getTitle(), owner);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment, repoContentListFragment).commit();
         mv = (WebView) findViewById(R.id.web_view);
         mv.setWebViewClient(new WebViewClient());
@@ -76,7 +75,6 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
 
     @Override
     public void onPathChanged(String newPath) {
-        this.path = newPath;
         if (!newPath.isEmpty()) {
             mv.setVisibility(View.GONE);
         }
