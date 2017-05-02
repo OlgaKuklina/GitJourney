@@ -42,7 +42,7 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
                 toolbar.setBackgroundColor(this.getResources().getColor(colorId));
             }
         }
-            setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
         if (entry.getOwner() == null || entry.getOwner().isEmpty()) {
             SharedPreferences prefs = this.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
             String sessionDataStr = prefs.getString("userSessionData", null);

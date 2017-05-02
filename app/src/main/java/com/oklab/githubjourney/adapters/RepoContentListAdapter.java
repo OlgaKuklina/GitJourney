@@ -92,22 +92,18 @@ public class RepoContentListAdapter extends RecyclerView.Adapter<RepoContentList
     public class RepoContentListViewHolder extends RecyclerView.ViewHolder {
 
         private TextView name;
-        private TextView path;
         private ImageView contentIcon;
 
 
         public RepoContentListViewHolder(View v) {
             super(v);
             name = (TextView) v.findViewById(R.id.content_name);
-            path = (TextView) v.findViewById(R.id.content_path);
             contentIcon = (ImageView) v.findViewById(R.id.content_icon_image);
         }
 
         private void populateRepoContentViewData(RepositoryContentDataEntry dataEntry) {
             Log.v(TAG, "dataEntry" + dataEntry);
             name.setText(dataEntry.getName());
-            path.setText(dataEntry.getUri());
-
             switch (dataEntry.getType()) {
                 case DIR:
                     contentIcon.setVisibility(View.VISIBLE);

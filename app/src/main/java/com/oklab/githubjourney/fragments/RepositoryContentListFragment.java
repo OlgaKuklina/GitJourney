@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,7 +15,6 @@ import android.view.ViewGroup;
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.RepoContentListAdapter;
 import com.oklab.githubjourney.asynctasks.RepoContentLoader;
-import com.oklab.githubjourney.data.GitHubRepoContentType;
 import com.oklab.githubjourney.data.RepositoryContentDataEntry;
 
 import java.util.List;
@@ -25,12 +23,11 @@ import java.util.Stack;
 /**
  * Created by olgakuklina on 2017-04-26.
  */
-public class RepositoryContentListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, RepoContentListAdapter.RepoContentOnClickListener {
+public class RepositoryContentListFragment extends Fragment implements RepoContentListAdapter.RepoContentOnClickListener {
     private static final String TAG = RepositoryContentListFragment.class.getSimpleName();
     private static Stack<String> pathStack = new Stack<>();
     private final RepoContentLoaderCallbacks callbacks = new RepoContentLoaderCallbacks();
     private RecyclerView recyclerView;
-    private SwipeRefreshLayout swipeRefreshLayout;
     private RepoContentListAdapter repoContentListAdapter;
     private LinearLayoutManager linearLayoutManager;
     private RepoContentFragmentInteractionListener repoContentChangedlistner;
@@ -61,7 +58,6 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
         Log.v(TAG, "onCreateView");
         View v = inflater.inflate(R.layout.fragment_repository_content, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.repo_content_recycler_view);
-        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.repo_content_swipe_refresh_layout);
         return v;
     }
 
@@ -73,12 +69,7 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
         recyclerView.setLayoutManager(linearLayoutManager);
         repoContentListAdapter = new RepoContentListAdapter(this.getContext(), this);
         recyclerView.setAdapter(repoContentListAdapter);
-        swipeRefreshLayout.setOnRefreshListener(this);
         getLoaderManager().initLoader(0, getArguments(), callbacks);
-    }
-
-    @Override
-    public void onRefresh() {
     }
 
     @Override
