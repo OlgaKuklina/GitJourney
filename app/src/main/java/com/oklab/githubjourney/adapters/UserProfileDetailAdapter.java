@@ -1,6 +1,7 @@
 package com.oklab.githubjourney.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.activities.RepositoryActivity;
 import com.oklab.githubjourney.customui.CircleView;
 import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.utils.GithubLanguageColorsMatcher;
@@ -45,6 +47,9 @@ public class UserProfileDetailAdapter extends RecyclerView.Adapter<UserProfileDe
             @Override
             public void onClick(View view) {
                 Log.v(TAG, " onClick");
+                Intent intent = new Intent(context, RepositoryActivity.class);
+                intent.putExtra("repo", entry);
+                context.startActivity(intent);
             }
         });
     }
