@@ -84,17 +84,24 @@ public class RepositoryContentListFragment extends Fragment implements SwipeRefr
     @Override
     public void onRepoItemClicked(RepositoryContentDataEntry entry) {
         repoContentChangedlistner.onPathChanged(entry.getPath());
-        if (entry.getType() == GitHubRepoContentType.DIR) {
-            repoContentListAdapter.resetAllData();
-            Bundle args = getArguments();
-            pathStack.push(args.getString("path"));
-            args.putString("path", entry.getPath());
-            getLoaderManager().initLoader(0, args, callbacks);
-        } else if (entry.getType() == GitHubRepoContentType.EMPTY) {
-            repoContentListAdapter.resetAllData();
-            Bundle args = getArguments();
-            args.putString("path", pathStack.pop());
-            getLoaderManager().initLoader(0, args, callbacks);
+        Bundle args = getArguments();
+        switch (entry.getType()) {
+            case DIR:
+            case SUBMODULE:
+                repoContentListAdapter.resetAllData();
+                pathStack.push(args.getString("path"));
+                args.putString("path", entry.getPath());
+                getLoaderManager().initLoader(0, args, callbacks);
+                break;
+            case EMPTY:
+                repoContentListAdapter.resetAllData();
+                args.putString("path", pathStack.pop());
+                getLoaderManager().initLoader(0, args, callbacks);
+                break;
+            case FILE:
+                break;
+            default:
+                break;
         }
     }
 

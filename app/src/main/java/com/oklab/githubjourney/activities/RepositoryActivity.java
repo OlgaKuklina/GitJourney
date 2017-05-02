@@ -16,6 +16,7 @@ import com.oklab.githubjourney.asynctasks.RepoReadmeDownloadAsyncTask;
 import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.fragments.RepositoryContentListFragment;
+import com.oklab.githubjourney.utils.GithubLanguageColorsMatcher;
 import com.oklab.githubjourney.utils.Utils;
 
 import org.markdownj.MarkdownProcessor;
@@ -33,7 +34,15 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         ReposDataEntry entry = getIntent().getParcelableExtra("repo");
         toolbar.setTitle(entry.getTitle());
-        setSupportActionBar(toolbar);
+        if (entry.getLanguage() != null && !entry.getLanguage().isEmpty() && !entry.getLanguage().equals("null")) {
+            Log.v(TAG, " data.getLanguage() = " + entry.getLanguage());
+            int colorId = GithubLanguageColorsMatcher.findMatchedColor(this, entry.getLanguage());
+            Log.v(TAG, " colorId = " + colorId);
+            if (colorId != 0) {
+                toolbar.setBackgroundColor(this.getResources().getColor(colorId));
+            }
+        }
+            setSupportActionBar(toolbar);
         if (entry.getOwner() == null || entry.getOwner().isEmpty()) {
             SharedPreferences prefs = this.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
             String sessionDataStr = prefs.getString("userSessionData", null);
