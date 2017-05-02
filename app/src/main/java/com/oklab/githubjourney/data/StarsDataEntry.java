@@ -7,6 +7,7 @@ package com.oklab.githubjourney.data;
 public class StarsDataEntry {
 
     private final String title;
+    private final String login;
     private final String fullName;
     private final String description;
     private final String language;
@@ -15,8 +16,9 @@ public class StarsDataEntry {
     private final int stars;
     private final int forks;
 
-    public StarsDataEntry(String title, String fullName, String language, String description, boolean privacy, int watchers, int forks, int stars) {
+    public StarsDataEntry(String title, String login, String fullName, String language, String description, boolean privacy, int watchers, int forks, int stars) {
         this.title = title;
+        this.login = login;
         this.description = description;
         this.language = language;
         this.fullName = fullName;
@@ -25,6 +27,8 @@ public class StarsDataEntry {
         this.stars = stars;
         this.forks = forks;
     }
+
+    public String getLogin() { return login; }
 
     public String getFullName() {
         return fullName;

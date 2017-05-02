@@ -1,6 +1,7 @@
 package com.oklab.githubjourney.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.activities.RepositoryActivity;
 import com.oklab.githubjourney.customui.CircleView;
+import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.data.StarsDataEntry;
 import com.oklab.githubjourney.utils.GithubLanguageColorsMatcher;
 import com.squareup.picasso.Picasso;
@@ -33,7 +36,6 @@ public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.Star
         this.context = context;
     }
 
-
     @Override
     public StarsListAdapter.StarsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.stars_list_item, parent, false);
@@ -43,9 +45,18 @@ public class StarsListAdapter extends RecyclerView.Adapter<StarsListAdapter.Star
     @Override
     public void onBindViewHolder(StarsListViewHolder holder, int position) {
         StarsDataEntry entry = starsDataEntrylist.get(position);
+        ReposDataEntry repo = new ReposDataEntry(entry.getTitle(), entry.getLogin(), true, entry.getDescription(), entry.getLanguage(), entry.getStars(), entry.getForks());
         holder.populateStarsViewData(entry);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.v(TAG, " entry = " + entry);
+                Intent intent = new Intent(context, RepositoryActivity.class);
+                intent.putExtra("repo", repo);
+                context.startActivity(intent);
+            }
+        });
     }
-
 
     @Override
     public int getItemCount() {

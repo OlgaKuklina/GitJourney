@@ -34,20 +34,24 @@ public class StarsParser {
             return null;
         }
         Log.v(TAG, "object = " + object);
-        String name = " ";
+        String login = "";
+        JSONObject ownerObject = object.getJSONObject("owner");
+        if (ownerObject != null) {
+            login = ownerObject.getString("login");
+        }
+        String name = "";
         if (!object.getString("name").isEmpty()) {
             name = object.getString("name");
         }
-
-        String fullName = " ";
+        String fullName = "";
         if (!object.getString("full_name").isEmpty()) {
             fullName = object.getString("full_name");
         }
-        String language = " ";
+        String language = "";
         if (!object.getString("language").isEmpty()) {
             language = object.getString("language");
         }
-        String description = " ";
+        String description = "";
         if (!object.getString("description").isEmpty()) {
             description = object.getString("description");
         }
@@ -56,6 +60,6 @@ public class StarsParser {
         int forksCount = object.getInt("forks_count");
         int stars = object.getInt("stargazers_count");
 
-        return new StarsDataEntry(name, fullName, language, description, privacy, watchersCount, forksCount, stars);
+        return new StarsDataEntry(name, login, fullName, language, description, privacy, watchersCount, forksCount, stars);
     }
 }
