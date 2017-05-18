@@ -44,6 +44,7 @@ Used libraries
 - CommonsIO/CommonsHttpClient for accessing GitHub REST api.
 - A number of standard Android libraries.
 - A text-to-html conversion tool MarkdownJ
+- Softwee:codeview-android:1.2.0 for syntax highlighting
 
 License
 ======
