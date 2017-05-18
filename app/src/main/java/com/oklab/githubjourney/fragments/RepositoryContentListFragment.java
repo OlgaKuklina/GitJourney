@@ -15,10 +15,13 @@ import android.view.ViewGroup;
 import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.RepoContentListAdapter;
 import com.oklab.githubjourney.asynctasks.RepoContentLoader;
+import com.oklab.githubjourney.asynctasks.RepositoryFileContentLoader;
 import com.oklab.githubjourney.data.RepositoryContentDataEntry;
 
 import java.util.List;
 import java.util.Stack;
+
+import io.github.kbiakov.codeview.CodeView;
 
 /**
  * Created by olgakuklina on 2017-04-26.
@@ -27,10 +30,13 @@ public class RepositoryContentListFragment extends Fragment implements RepoConte
     private static final String TAG = RepositoryContentListFragment.class.getSimpleName();
     private static Stack<String> pathStack = new Stack<>();
     private final RepoContentLoaderCallbacks callbacks = new RepoContentLoaderCallbacks();
+    private final RepoFileContentLoaderCallbacks fileContentLoadedCallbacks = new RepoFileContentLoaderCallbacks();
     private RecyclerView recyclerView;
+    private CodeView codeView;
     private RepoContentListAdapter repoContentListAdapter;
     private LinearLayoutManager linearLayoutManager;
     private RepoContentFragmentInteractionListener repoContentChangedlistner;
+
 
     public RepositoryContentListFragment() {
     }
@@ -58,6 +64,7 @@ public class RepositoryContentListFragment extends Fragment implements RepoConte
         Log.v(TAG, "onCreateView");
         View v = inflater.inflate(R.layout.fragment_repository_content, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.repo_content_recycler_view);
+        codeView = (CodeView)  v.findViewById(R.id.code_view);
         return v;
     }
 
@@ -89,7 +96,16 @@ public class RepositoryContentListFragment extends Fragment implements RepoConte
                 args.putString("path", pathStack.pop());
                 getLoaderManager().initLoader(0, args, callbacks);
                 break;
+            case README:
+                repoContentListAdapter.resetAllData();
+                pathStack.push(args.getString("path"));
             case FILE:
+                Log.v(TAG,"download_uri = " + entry.getUri());
+                repoContentListAdapter.resetAllData();
+                pathStack.push(args.getString("path"));
+                Bundle argsFileContent = new Bundle();
+                argsFileContent.putString("download_uri", entry.getUri() );
+                getLoaderManager().initLoader(1, argsFileContent, fileContentLoadedCallbacks);
                 break;
             default:
                 break;
@@ -112,12 +128,37 @@ public class RepositoryContentListFragment extends Fragment implements RepoConte
             Log.v(TAG, "onLoadFinished " + repoContentDataEntryList);
             if (repoContentDataEntryList != null && !repoContentDataEntryList.isEmpty()) {
                 repoContentListAdapter.add(repoContentDataEntryList);
+                recyclerView.setVisibility(View.VISIBLE);
+                codeView.setVisibility(View.GONE);
             }
             getLoaderManager().destroyLoader(loader.getId());
         }
 
         @Override
         public void onLoaderReset(Loader<List<RepositoryContentDataEntry>> loader) {
+        }
+    }
+
+    private class RepoFileContentLoaderCallbacks implements LoaderManager.LoaderCallbacks<String> {
+
+        @Override
+        public Loader<String> onCreateLoader(int id, Bundle argsFileContent) {
+            return new RepositoryFileContentLoader(getContext(), argsFileContent.getString("download_uri"));
+        }
+
+        @Override
+        public void onLoadFinished(Loader<String> loader, String fileContent) {
+            Log.v(TAG, "onLoadFinished " + fileContent);
+            if (fileContent != null && !fileContent.isEmpty()) {
+                codeView.setCode(fileContent);
+                codeView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+            }
+            getLoaderManager().destroyLoader(loader.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<String> loader) {
         }
     }
 }

@@ -9,7 +9,8 @@ public enum GitHubRepoContentType {
     SUBMODULE("submodule", 1),
     DIR("dir", 2),
     FILE("file", 3),
-    SYMLINK("symlink", 4);
+    SYMLINK("symlink", 4),
+    README("readme", 5);
 
 
     private final String matchingRepoContentType;
