@@ -3,7 +3,6 @@ package com.oklab.githubjourney.activities;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,6 +15,7 @@ import com.oklab.githubjourney.asynctasks.RepoReadmeDownloadAsyncTask;
 import com.oklab.githubjourney.data.ReposDataEntry;
 import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.fragments.RepositoryContentListFragment;
+import com.oklab.githubjourney.services.TakeScreenshotService;
 import com.oklab.githubjourney.utils.GithubLanguageColorsMatcher;
 import com.oklab.githubjourney.utils.Utils;
 
@@ -26,6 +26,7 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
     private WebView mv;
     private String owner = "";
     private UserSessionData currentSessionData;
+    private TakeScreenshotService takeScreenshotService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +56,12 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
         getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment, repoContentListFragment).commit();
         mv = (WebView) findViewById(R.id.web_view);
         mv.setWebViewClient(new WebViewClient());
+        takeScreenshotService = new TakeScreenshotService(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                takeScreenshotService.takeScreenShot();
             }
         });
         new RepoReadmeDownloadAsyncTask(this, this).execute(entry.getTitle());

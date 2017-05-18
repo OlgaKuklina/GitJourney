@@ -37,7 +37,6 @@ public class RepositoryContentListFragment extends Fragment implements RepoConte
     private LinearLayoutManager linearLayoutManager;
     private RepoContentFragmentInteractionListener repoContentChangedlistner;
 
-
     public RepositoryContentListFragment() {
     }
 
@@ -64,7 +63,7 @@ public class RepositoryContentListFragment extends Fragment implements RepoConte
         Log.v(TAG, "onCreateView");
         View v = inflater.inflate(R.layout.fragment_repository_content, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.repo_content_recycler_view);
-        codeView = (CodeView)  v.findViewById(R.id.code_view);
+        codeView = (CodeView) v.findViewById(R.id.code_view);
         return v;
     }
 
@@ -100,11 +99,11 @@ public class RepositoryContentListFragment extends Fragment implements RepoConte
                 repoContentListAdapter.resetAllData();
                 pathStack.push(args.getString("path"));
             case FILE:
-                Log.v(TAG,"download_uri = " + entry.getUri());
+                Log.v(TAG, "download_uri = " + entry.getUri());
                 repoContentListAdapter.resetAllData();
                 pathStack.push(args.getString("path"));
                 Bundle argsFileContent = new Bundle();
-                argsFileContent.putString("download_uri", entry.getUri() );
+                argsFileContent.putString("download_uri", entry.getUri());
                 getLoaderManager().initLoader(1, argsFileContent, fileContentLoadedCallbacks);
                 break;
             default:

@@ -28,7 +28,9 @@ public class StarsDataEntry {
         this.forks = forks;
     }
 
-    public String getLogin() { return login; }
+    public String getLogin() {
+        return login;
+    }
 
     public String getFullName() {
         return fullName;
