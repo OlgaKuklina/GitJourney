@@ -44,7 +44,6 @@ public class RepositoryContentListFragment extends Fragment implements RepoConte
         RepositoryContentListFragment fragment = new RepositoryContentListFragment();
         Bundle args = new Bundle();
         args.putString("path", "");
-        pathStack.push(args.getString("path"));
         args.putString("repoName", repoName);
         args.putString("login", loginName);
         fragment.setArguments(args);
@@ -97,7 +96,7 @@ public class RepositoryContentListFragment extends Fragment implements RepoConte
                 break;
             case README:
                 repoContentListAdapter.resetAllData();
-                pathStack.push(args.getString("path"));
+
             case FILE:
                 Log.v(TAG, "download_uri = " + entry.getUri());
                 repoContentListAdapter.resetAllData();
@@ -109,6 +108,20 @@ public class RepositoryContentListFragment extends Fragment implements RepoConte
             default:
                 break;
         }
+    }
+    public boolean repoContentOnBackPressed() {
+
+        if(pathStack.isEmpty()) {
+            return false;
+        }
+        Log.v(TAG, "repoContentOnBackPressed [" + pathStack.peek() + "]");
+        String newPath = pathStack.pop();
+        repoContentChangedlistner.onPathChanged(newPath);
+        repoContentListAdapter.resetAllData();
+        Bundle args = getArguments();
+        args.putString("path", newPath);
+        getLoaderManager().initLoader(0, args, callbacks);
+        return true;
     }
 
     public interface RepoContentFragmentInteractionListener {

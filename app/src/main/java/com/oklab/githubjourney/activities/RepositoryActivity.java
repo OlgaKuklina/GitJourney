@@ -3,6 +3,9 @@ package com.oklab.githubjourney.activities;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -27,7 +30,7 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
     private String owner = "";
     private UserSessionData currentSessionData;
     private TakeScreenshotService takeScreenshotService;
-
+    private RepositoryContentListFragment repoContentListFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +55,7 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
         } else {
             owner = entry.getOwner();
         }
-        RepositoryContentListFragment repoContentListFragment = RepositoryContentListFragment.newInstance(this, entry.getTitle(), owner);
+        repoContentListFragment = RepositoryContentListFragment.newInstance(this, entry.getTitle(), owner);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment, repoContentListFragment).commit();
         mv = (WebView) findViewById(R.id.web_view);
         mv.setWebViewClient(new WebViewClient());
@@ -87,6 +90,17 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
     public void onPathChanged(String newPath) {
         if (newPath != null && !newPath.isEmpty()) {
             mv.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(repoContentListFragment.isVisible()) {
+            if(!repoContentListFragment.repoContentOnBackPressed()){
+                super.onBackPressed();
+            }
+        } else {
+            super.onBackPressed();
         }
     }
 }
