@@ -3,9 +3,6 @@ package com.oklab.githubjourney.activities;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -28,16 +25,19 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
     private static final String TAG = RepositoryActivity.class.getSimpleName();
     private WebView mv;
     private String owner = "";
+    private String title = "";
     private UserSessionData currentSessionData;
     private TakeScreenshotService takeScreenshotService;
     private RepositoryContentListFragment repoContentListFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repository);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         ReposDataEntry entry = getIntent().getParcelableExtra("repo");
-        toolbar.setTitle(entry.getTitle());
+        title = entry.getTitle();
+        toolbar.setTitle(title);
         if (entry.getLanguage() != null && !entry.getLanguage().isEmpty() && !entry.getLanguage().equals("null")) {
             Log.v(TAG, " data.getLanguage() = " + entry.getLanguage());
             int colorId = GithubLanguageColorsMatcher.findMatchedColor(this, entry.getLanguage());
@@ -88,15 +88,19 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
 
     @Override
     public void onPathChanged(String newPath) {
+        Log.v(TAG, "newPath onPathChanged = " + newPath);
         if (newPath != null && !newPath.isEmpty()) {
             mv.setVisibility(View.GONE);
+        }
+        if (newPath.isEmpty()) {
+            mv.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void onBackPressed() {
-        if(repoContentListFragment.isVisible()) {
-            if(!repoContentListFragment.repoContentOnBackPressed()){
+        if (repoContentListFragment.isVisible()) {
+            if (!repoContentListFragment.repoContentOnBackPressed()) {
                 super.onBackPressed();
             }
         } else {

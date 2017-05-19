@@ -79,25 +79,28 @@ public class RepositoryContentListFragment extends Fragment implements RepoConte
 
     @Override
     public void onRepoItemClicked(RepositoryContentDataEntry entry) {
-        repoContentChangedlistner.onPathChanged(entry.getPath());
+        Log.v(TAG, "entry.getPath() = " + entry.getPath());
         Bundle args = getArguments();
         switch (entry.getType()) {
             case DIR:
             case SUBMODULE:
+                repoContentChangedlistner.onPathChanged(entry.getPath());
                 repoContentListAdapter.resetAllData();
                 pathStack.push(args.getString("path"));
                 args.putString("path", entry.getPath());
                 getLoaderManager().initLoader(0, args, callbacks);
                 break;
             case EMPTY:
+                Log.v(TAG, "EMPTY");
+                String newPath = pathStack.pop();
+                repoContentChangedlistner.onPathChanged(newPath);
                 repoContentListAdapter.resetAllData();
-                args.putString("path", pathStack.pop());
+                args.putString("path", newPath);
                 getLoaderManager().initLoader(0, args, callbacks);
                 break;
             case README:
-                repoContentListAdapter.resetAllData();
-
             case FILE:
+                repoContentChangedlistner.onPathChanged(entry.getPath());
                 Log.v(TAG, "download_uri = " + entry.getUri());
                 repoContentListAdapter.resetAllData();
                 pathStack.push(args.getString("path"));
@@ -109,9 +112,9 @@ public class RepositoryContentListFragment extends Fragment implements RepoConte
                 break;
         }
     }
-    public boolean repoContentOnBackPressed() {
 
-        if(pathStack.isEmpty()) {
+    public boolean repoContentOnBackPressed() {
+        if (pathStack.isEmpty()) {
             return false;
         }
         Log.v(TAG, "repoContentOnBackPressed [" + pathStack.peek() + "]");
