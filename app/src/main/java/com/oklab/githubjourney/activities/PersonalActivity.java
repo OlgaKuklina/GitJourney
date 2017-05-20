@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.oklab.githubjourney.R;
+import com.oklab.githubjourney.data.UserSessionData;
 
 public class PersonalActivity extends AppCompatActivity {
     private static final String TAG = PersonalActivity.class.getSimpleName();
@@ -15,8 +16,11 @@ public class PersonalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String userLogin = getIntent().getStringExtra("userSessionData");
+
         setContentView(R.layout.activity_personal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(userLogin);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

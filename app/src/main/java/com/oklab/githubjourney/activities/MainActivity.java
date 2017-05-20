@@ -23,6 +23,7 @@ import com.oklab.githubjourney.R;
 import com.oklab.githubjourney.adapters.FirebaseAnalyticsWrapper;
 import com.oklab.githubjourney.asynctasks.DeleteUserAuthorizationAsyncTask;
 import com.oklab.githubjourney.data.UpdaterService;
+import com.oklab.githubjourney.data.UserSessionData;
 import com.oklab.githubjourney.fragments.ContributionsByDateListFragment;
 import com.oklab.githubjourney.fragments.MainViewFragment;
 import com.oklab.githubjourney.services.TakeScreenshotService;
@@ -135,16 +136,19 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
             return true;
         } else if (id == R.id.profile) {
-            String currentSessionDataGeneral = prefs.getString("userSessionData", null);
-            if (currentSessionDataGeneral != null) {
+            String currentSessionData = prefs.getString("userSessionData", null);
+            if (currentSessionData != null) {
                 Intent intent = new Intent(this, GeneralActivity.class);
                 startActivity(intent);
                 return true;
             }
         } else if (id == R.id.personal) {
-            String currentSessionDataPersonal = prefs.getString("userSessionData", null);
-            if (currentSessionDataPersonal != null) {
+            String currentSessionData = prefs.getString("userSessionData", null);
+
+            if (currentSessionData != null) {
+                UserSessionData userSessionData = UserSessionData.createUserSessionDataFromString(currentSessionData);
                 Intent intent = new Intent(this, PersonalActivity.class);
+                intent.putExtra("userSessionData", userSessionData.getLogin());
                 startActivity(intent);
                 return true;
             }

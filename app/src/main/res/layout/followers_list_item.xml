@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/followers_home_icon"
-                    android:drawableStart="@drawable/home" />
+                    android:drawableStart="@drawable/location" />
 
                 <TextView
                     android:layout_width="match_parent"
