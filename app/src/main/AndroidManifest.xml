@@ -106,7 +106,15 @@
         <activity
             android:name=".activities.RepositoryActivity"
             android:label="@string/title_activity_repository"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.PersonalActivity"
+            android:label="@string/title_activity_personal"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.oklab.githubjourney.activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

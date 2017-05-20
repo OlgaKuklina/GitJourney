@@ -135,9 +135,16 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
             return true;
         } else if (id == R.id.profile) {
-            String currentSessionData = prefs.getString("userSessionData", null);
-            if (currentSessionData != null) {
+            String currentSessionDataGeneral = prefs.getString("userSessionData", null);
+            if (currentSessionDataGeneral != null) {
                 Intent intent = new Intent(this, GeneralActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        } else if (id == R.id.personal) {
+            String currentSessionDataPersonal = prefs.getString("userSessionData", null);
+            if (currentSessionDataPersonal != null) {
+                Intent intent = new Intent(this, PersonalActivity.class);
                 startActivity(intent);
                 return true;
             }

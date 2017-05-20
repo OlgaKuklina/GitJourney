@@ -17,6 +17,8 @@
     <!-- Strings related to nav drawer  -->
     <string name="contribution_activity">Contribution activity</string>
     <string name="profile_page">Profile page</string>
+    <string name="personal_data">Personal data</string>
+    <string name="feeds">Feeds</string>
     <string name="communicate">Communicate</string>
     <string name="settings">Settings</string>
     <string name="sign_out">Sign out</string>
@@ -718,5 +720,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_repository">RepositoryActivity</string>
+    <string name="title_activity_personal">PersonalActivity</string>
 
 </resources>

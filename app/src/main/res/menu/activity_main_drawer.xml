@@ -10,7 +10,10 @@
             android:id="@+id/profile"
             android:icon="@drawable/account"
             android:title="@string/profile_page" />
-
+        <item
+            android:id="@+id/personal"
+            android:icon="@drawable/account"
+            android:title="@string/personal_data" />
     </group>
 
     <item android:title="@string/communicate">
