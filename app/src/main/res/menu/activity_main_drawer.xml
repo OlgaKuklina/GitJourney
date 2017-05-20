@@ -8,11 +8,11 @@
             android:title="@string/contribution_activity" />
         <item
             android:id="@+id/profile"
-            android:icon="@drawable/account"
+            android:icon="@drawable/home"
             android:title="@string/profile_page" />
         <item
             android:id="@+id/personal"
-            android:icon="@drawable/account"
+            android:icon="@drawable/login"
             android:title="@string/personal_data" />
     </group>
 

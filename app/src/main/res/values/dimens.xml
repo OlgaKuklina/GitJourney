@@ -21,7 +21,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
 
 
     <!-- User Profile screen margin info, per the Android Design guidelines. -->
-    <dimen name="user_profile_cardview_layout_margin">2dp</dimen>
+    <dimen name="user_profile_cardview_layout_margin">5dp</dimen>
     <dimen name="user_profile_cardview_elevation">5dp</dimen>
     <dimen name="user_profile_layout_margin">5dp</dimen>
     <dimen name="user_profile_layout_margin_start_icon">5dp</dimen>

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/user_profile_cardview_layout_margin"
-    android:background="@color/color_back"
+    android:background="@color/color"
     android:clickable="true"
     android:elevation="@dimen/user_profile_cardview_elevation"
     android:focusable="true"

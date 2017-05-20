@@ -16,7 +16,7 @@
     <string name="sing_in">Sign in</string>
     <!-- Strings related to nav drawer  -->
     <string name="contribution_activity">Contribution activity</string>
-    <string name="profile_page">Profile page</string>
+    <string name="profile_page">Home Profile</string>
     <string name="personal_data">Personal data</string>
     <string name="feeds">Feeds</string>
     <string name="communicate">Communicate</string>
