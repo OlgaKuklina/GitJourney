@@ -68,7 +68,6 @@ public class DeleteUserAuthorizationAsyncTask extends AsyncTask<String, Integer,
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
-
         activity.finish();
     }
 }
