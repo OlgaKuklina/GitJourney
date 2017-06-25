@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="com.oklab.githubjourney.activities.GitHubJourneyWidgetConfigureActivity"
+    android:configure="com.oklab.gitjourney.activities.GitHubJourneyWidgetConfigureActivity"
     android:initialKeyguardLayout="@layout/git_hub_journey_widget"
     android:initialLayout="@layout/git_hub_journey_widget"
     android:minHeight="180dp"

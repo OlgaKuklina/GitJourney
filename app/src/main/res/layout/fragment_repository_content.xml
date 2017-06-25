@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.oklab.githubjourney.fragments.RepositoryContentListFragment">
+    tools:context="com.oklab.gitjourney.fragments.RepositoryContentListFragment">
 
     <!-- A RecyclerView with some commonly used attributes -->
     <android.support.v7.widget.RecyclerView

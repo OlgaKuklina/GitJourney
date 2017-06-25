@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.oklab.githubjourney">
+    package="com.oklab.gitjourney">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".GHJApplication"
+        android:name="com.oklab.gitjourney.GJApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -24,7 +24,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.oklab.gitjourney.activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.AuthenticationActivity"
+            android:name="com.oklab.gitjourney.activities.AuthenticationActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -42,24 +42,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.SettingsActivity"
+            android:name="com.oklab.gitjourney.activities.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName="com.oklab.gitjourney.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.oklab.githubjourney.activities.MainActivity" />
+                android:value="com.oklab.gitjourney.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.GeneralActivity"
+            android:name="com.oklab.gitjourney.activities.GeneralActivity"
             android:label="@string/title_activity_general"
-            android:parentActivityName=".activities.MainActivity"
+            android:parentActivityName="com.oklab.gitjourney.activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.oklab.githubjourney.activities.MainActivity" />
+                android:value="com.oklab.gitjourney.activities.MainActivity" />
         </activity>
 
-        <receiver android:name=".activities.GitHubJourneyWidgetProvider">
+        <receiver android:name="com.oklab.gitjourney.activities.GitHubJourneyWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.appwidget.action.REDRAW_WIDGET" />
@@ -70,50 +70,50 @@
                 android:resource="@xml/git_hub_journey_widget_info" />
         </receiver>
 
-        <activity android:name=".activities.GitHubJourneyWidgetConfigureActivity">
+        <activity android:name="com.oklab.gitjourney.activities.GitHubJourneyWidgetConfigureActivity">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
 
         <service
-            android:name=".adapters.StackWidgetService"
+            android:name="com.oklab.gitjourney.adapters.StackWidgetService"
             android:enabled="true"
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
-            android:name=".data.UpdaterService"
+            android:name="com.oklab.gitjourney.data.UpdaterService"
             android:exported="false" />
 
         <provider
-            android:name=".data.ActivityItemsProvider"
-            android:authorities="com.oklab.githubjourney"
+            android:name="com.oklab.gitjourney.data.ActivityItemsProvider"
+            android:authorities="com.oklab.gitjourney"
             android:exported="false" />
 
         <service
-            android:name=".services.FetchAddressIntentService"
+            android:name="com.oklab.gitjourney.services.FetchAddressIntentService"
             android:exported="false" />
 
         <activity
-            android:name=".activities.UserProfileActivity"
+            android:name="com.oklab.gitjourney.activities.UserProfileActivity"
             android:label="@string/title_activity_user_profile"
-            android:parentActivityName=".activities.GeneralActivity"
+            android:parentActivityName="com.oklab.gitjourney.activities.GeneralActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.oklab.githubjourney.activities.GeneralActivity" />
+                android:value="com.oklab.gitjourney.activities.GeneralActivity" />
         </activity>
         <activity
-            android:name=".activities.RepositoryActivity"
+            android:name="com.oklab.gitjourney.activities.RepositoryActivity"
             android:label="@string/title_activity_repository"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.PersonalActivity"
+            android:name="com.oklab.gitjourney.activities.PersonalActivity"
             android:label="@string/title_activity_personal"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.oklab.githubjourney.activities.MainActivity" />
+                android:value="com.oklab.gitjourney.activities.MainActivity" />
         </activity>
     </application>
 

@@ -40,10 +40,10 @@
                     android:id="@+id/following_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/following_login_icon"
-                    android:layout_marginStart="@dimen/general_layout_margin"
-                    android:layout_marginEnd="@dimen/general_layout_margin"
                     android:layout_marginBottom="@dimen/general_layout_margin"
+                    android:layout_marginEnd="@dimen/general_layout_margin"
+                    android:layout_marginStart="@dimen/general_layout_margin"
+                    android:contentDescription="@string/following_login_icon"
                     android:drawableStart="@drawable/login"
                     android:textStyle="bold" />
 
@@ -51,20 +51,20 @@
                     android:id="@+id/following_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/following_email_icon"
-                    android:layout_marginStart="@dimen/general_layout_margin"
-                    android:layout_marginEnd="@dimen/general_layout_margin"
                     android:layout_marginBottom="@dimen/general_layout_margin"
+                    android:layout_marginEnd="@dimen/general_layout_margin"
+                    android:layout_marginStart="@dimen/general_layout_margin"
+                    android:contentDescription="@string/following_email_icon"
                     android:drawableStart="@drawable/email" />
 
                 <TextView
                     android:id="@+id/following_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/following_home_icon"
-                    android:layout_marginStart="@dimen/general_layout_margin"
-                    android:layout_marginEnd="@dimen/general_layout_margin"
                     android:layout_marginBottom="@dimen/general_layout_margin"
+                    android:layout_marginEnd="@dimen/general_layout_margin"
+                    android:layout_marginStart="@dimen/general_layout_margin"
+                    android:contentDescription="@string/following_home_icon"
                     android:drawableStart="@drawable/location" />
 
                 <TextView

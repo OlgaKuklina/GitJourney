@@ -69,7 +69,7 @@
 
     <!-- Strings related to take screenshot service  -->
     <string name="screenshot_msg_title">User contributions activity screenshot</string>
-    <string name="screenshot_msg_extra_text">This is a contributions activity screenshot mail from GitHubJourney app</string>
+    <string name="screenshot_msg_extra_text">This is a contributions activity screenshot mail from GitJourney app</string>
     <string name="screenshot_msg_desc">Send mail...</string>
 
     <string name="local_path" translatable="false">Pictures/screenshot.png</string>

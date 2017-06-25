@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:elevation="5dp"
     android:orientation="vertical"
-    tools:context="com.oklab.githubjourney.fragments.UserProfileFragment">
+    tools:context="com.oklab.gitjourney.fragments.UserProfileFragment">
 
     <ImageView
         android:id="@+id/profile_poster"

@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.oklab.githubjourney.customui.CircleView
+                <com.oklab.gitjourney.customui.CircleView
                     android:id="@+id/language_circle_repo"
                     android:layout_width="@dimen/customui_circle_size"
                     android:layout_height="@dimen/customui_circle_size"

@@ -40,20 +40,20 @@
                     android:id="@+id/followers_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/general_layout_margin"
+                    android:layout_marginEnd="@dimen/general_layout_margin"
+                    android:layout_marginStart="@dimen/general_layout_margin"
                     android:contentDescription="@string/followers_login_icon"
                     android:drawableStart="@drawable/login"
-                    android:layout_marginStart="@dimen/general_layout_margin"
-                    android:layout_marginEnd="@dimen/general_layout_margin"
-                    android:layout_marginBottom="@dimen/general_layout_margin"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/followers_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/general_layout_margin"
-                    android:layout_marginEnd="@dimen/general_layout_margin"
                     android:layout_marginBottom="@dimen/general_layout_margin"
+                    android:layout_marginEnd="@dimen/general_layout_margin"
+                    android:layout_marginStart="@dimen/general_layout_margin"
                     android:contentDescription="@string/followers_email_icon"
                     android:drawableStart="@drawable/email" />
 
@@ -62,9 +62,9 @@
                     android:id="@+id/followers_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/general_layout_margin"
-                    android:layout_marginEnd="@dimen/general_layout_margin"
                     android:layout_marginBottom="@dimen/general_layout_margin"
+                    android:layout_marginEnd="@dimen/general_layout_margin"
+                    android:layout_marginStart="@dimen/general_layout_margin"
                     android:contentDescription="@string/followers_home_icon"
                     android:drawableStart="@drawable/location" />
 

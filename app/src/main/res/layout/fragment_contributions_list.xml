@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.oklab.githubjourney.fragments.ContributionsByDateListFragment">
+    tools:context="com.oklab.gitjourney.fragments.ContributionsByDateListFragment">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/c_swipe_refresh_layout"
