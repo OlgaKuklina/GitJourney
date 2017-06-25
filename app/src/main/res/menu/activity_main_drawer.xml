@@ -20,11 +20,11 @@
         <menu>
             <item
                 android:id="@+id/settings"
-                android:icon="@drawable/settings"
+                android:icon="@drawable/new_settings"
                 android:title="@string/settings" />
             <item
                 android:id="@+id/sing_out"
-                android:icon="@drawable/logout"
+                android:icon="@drawable/new_exit"
                 android:title="@string/sign_out" />
         </menu>
     </item>

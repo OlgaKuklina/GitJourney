@@ -43,9 +43,14 @@ public class UserProfileAsyncTask<T> extends AsyncTask<String, Void, T> {
 
     @Override
     protected T doInBackground(String... args) {
-        String login = args[0];
-        String Uri = context.getString(R.string.url_users, login);
-        FetchHTTPConnectionService connectionFetcher = new FetchHTTPConnectionService(Uri, currentSessionData);
+        String uri;
+        if (args.length > 0) {
+            String login = args[0];
+            uri = context.getString(R.string.url_users, login);
+        } else {
+            uri = context.getString(R.string.url_user);
+        }
+        FetchHTTPConnectionService connectionFetcher = new FetchHTTPConnectionService(uri, currentSessionData);
         HTTPConnectionResult result = connectionFetcher.establishConnection();
         Log.v(TAG, "responseCode = " + result.getResponceCode());
         Log.v(TAG, "response = " + result.getResult());

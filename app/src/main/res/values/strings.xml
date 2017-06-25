@@ -44,6 +44,7 @@
     <string name="url_events" translatable="false">https://api.github.com/users/%2$s/events?page=%1$d</string>
     <string name="url_login_data" translatable="false">https://api.github.com/user</string>
     <string name="url_users" translatable="false">https://api.github.com/users/%1$s</string>
+    <string name="url_user" translatable="false">https://api.github.com/user</string>
     <string name="url_repo_readme" translatable="false">https://api.github.com/repos/%1$s/%2$s/readme</string>
     <string name="url_repo_content" translatable="false">https://api.github.com/repos/%1$s/%2$s/contents/%3$s</string>
     <!-- Strings related to Main Activity Tabs -->
@@ -63,7 +64,7 @@
     <!-- Strings related to Main Activity  -->
     <string name="contribution_description">%1$s, full path: %2$s</string>
     <string name="user_session_data" translatable="false">userSessionData</string>
-    <string name="contributions_at" translatable="false">contributions at </string>
+    <string name="contributions_at">contributions at</string>
 
 
     <!-- Strings related to take screenshot service  -->
