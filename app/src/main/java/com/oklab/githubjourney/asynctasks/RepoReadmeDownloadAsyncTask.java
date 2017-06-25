@@ -49,8 +49,9 @@ public class RepoReadmeDownloadAsyncTask extends AsyncTask<String, Void, String>
     @Override
     protected String doInBackground(String... args) {
         String repo = args[0];
+        String login = args[1];
         try {
-            HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_repo_readme, currentSessionData.getLogin(), repo)).openConnection();
+            HttpURLConnection connect = (HttpURLConnection) new URL(context.getString(R.string.url_repo_readme, login, repo)).openConnection();
             connect.setRequestMethod("GET");
 
             String authentication = "basic " + currentSessionData.getCredentials();

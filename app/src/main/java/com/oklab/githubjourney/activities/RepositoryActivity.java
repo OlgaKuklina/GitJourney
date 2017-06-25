@@ -67,22 +67,19 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
                 takeScreenshotService.takeScreenShot();
             }
         });
-        new RepoReadmeDownloadAsyncTask(this, this).execute(entry.getTitle());
+        new RepoReadmeDownloadAsyncTask(this, this).execute(entry.getTitle(), owner);
     }
 
     @Override
     public void onRepoContentLoaded(String content) {
         Log.v(TAG, "onRepoContentLoaded");
-        Log.v(TAG, "content" + content);
+        Log.v(TAG, "content " + content);
         if (content != null) {
             Log.v(TAG, "if content " + content);
             MarkdownProcessor processor = new MarkdownProcessor();
             String html = processor.markdown(content);
             mv.setVisibility(View.VISIBLE);
             mv.loadData(html, "text/html; charset=UTF-8", null);
-        } else {
-            Log.v(TAG, "else content " + content);
-            mv.loadData("no README.md file", "text/html; charset=UTF-8", null);
         }
     }
 
