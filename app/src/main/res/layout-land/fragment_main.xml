@@ -34,7 +34,7 @@
             android:rowCount="1">
 
             <TextView
-                android:layout_width="@dimen/main_grid_text_view_layout_width"
+                android:layout_width="@dimen/main_grid_text_view_layout_width_land"
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
@@ -44,7 +44,7 @@
                 android:text="@string/sun" />
 
             <TextView
-                android:layout_width="@dimen/main_grid_text_view_layout_width"
+                android:layout_width="@dimen/main_grid_text_view_layout_width_land"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_columnWeight="1"
@@ -54,7 +54,7 @@
                 android:text="@string/mon" />
 
             <TextView
-                android:layout_width="@dimen/main_grid_text_view_layout_width"
+                android:layout_width="@dimen/main_grid_text_view_layout_width_land"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
                 android:layout_columnWeight="1"
@@ -64,7 +64,7 @@
                 android:text="@string/tue" />
 
             <TextView
-                android:layout_width="@dimen/main_grid_text_view_layout_width"
+                android:layout_width="@dimen/main_grid_text_view_layout_width_land"
                 android:layout_height="wrap_content"
                 android:layout_column="3"
                 android:layout_columnWeight="1"
@@ -74,7 +74,7 @@
                 android:text="@string/wed" />
 
             <TextView
-                android:layout_width="@dimen/main_grid_text_view_layout_width"
+                android:layout_width="@dimen/main_grid_text_view_layout_width_land"
                 android:layout_height="wrap_content"
                 android:layout_column="4"
                 android:layout_columnWeight="1"
@@ -84,7 +84,7 @@
                 android:text="@string/thu" />
 
             <TextView
-                android:layout_width="@dimen/main_grid_text_view_layout_width"
+                android:layout_width="@dimen/main_grid_text_view_layout_width_land"
                 android:layout_height="wrap_content"
                 android:layout_column="5"
                 android:layout_columnWeight="1"
@@ -94,7 +94,7 @@
                 android:text="@string/fri" />
 
             <TextView
-                android:layout_width="@dimen/main_grid_text_view_layout_width"
+                android:layout_width="@dimen/main_grid_text_view_layout_width_land"
                 android:layout_height="wrap_content"
                 android:layout_column="6"
                 android:layout_columnWeight="1"

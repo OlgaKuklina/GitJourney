@@ -5,12 +5,12 @@
     <dimen name="view_pager_layout_size">280dp</dimen>
 
     <!-- fragment main info, per the Android Design guidelines. -->
-    <dimen name="main_grid_text_view_layout_width">25sp</dimen>
+    <dimen name="main_grid_text_view_layout_width_land">25sp</dimen>
     <dimen name="main_grid_lineral_layout">250dp</dimen>
     <dimen name="main_column_width">35dp</dimen>
     <dimen name="horizontal_spacing">1dp</dimen>
     <dimen name="main_grid_layout_h">30dp</dimen>
-    <dimen name="main_grid_layout_w">300dp</dimen>
+    <dimen name="main_grid_layout_w">250dp</dimen>
     <dimen name="main_contributions_in_layout_size">40dp</dimen>
 
     <!-- Grid list item margin info, per the Android Design guidelines. -->
