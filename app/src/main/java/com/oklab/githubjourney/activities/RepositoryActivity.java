@@ -37,6 +37,7 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         ReposDataEntry entry = getIntent().getParcelableExtra("repo");
         title = entry.getTitle();
+        toolbar.setTitleMarginBottom(3);
         toolbar.setTitle(title);
         if (entry.getLanguage() != null && !entry.getLanguage().isEmpty() && !entry.getLanguage().equals("null")) {
             Log.v(TAG, " data.getLanguage() = " + entry.getLanguage());
@@ -61,6 +62,7 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
         mv.setWebViewClient(new WebViewClient());
         takeScreenshotService = new TakeScreenshotService(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

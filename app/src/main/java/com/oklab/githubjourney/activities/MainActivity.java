@@ -2,6 +2,7 @@ package com.oklab.githubjourney.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.oklab.githubjourney.R;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         firebaseAnalytics = new FirebaseAnalyticsWrapper(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         calendarYearPagerAdapter = new CalendarYearPagerAdapter(getSupportFragmentManager());
         // Set up the ViewPager with the sections adapter.
@@ -70,7 +73,14 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        ImageView octoView = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.octo_imageView);
+        octoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.github.com"));
+                startActivity(browserIntent);
+            }
+        });
         takeScreenshotService = new TakeScreenshotService(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

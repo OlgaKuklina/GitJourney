@@ -96,6 +96,7 @@ public class GeneralActivity extends AppCompatActivity implements FeedListFragme
         tabLayout.setupWithViewPager(mViewPager);
         takeScreenshotService = new TakeScreenshotService(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

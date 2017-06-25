@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GitHub Journey</string>
+    <string name="app_name">GitJourney</string>
     <string name="customer_support">"ok.lab@gmail.com"</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
