@@ -1,4 +1,4 @@
-package com.oklab.gitjourney.githubjourney;
+package com.oklab.gitjourney;
 
 import org.junit.Test;
 

@@ -22,7 +22,7 @@ public class GithubLanguageColorsMatcher {
     }
 
     public static int findMatchedColor(Context context, String language) {
-        int id = context.getResources().getIdentifier(language, "color", "com.oklab.githubjourney");
+        int id = context.getResources().getIdentifier(language, "color", "com.oklab.gitjourney");
         if (id != 0) {
             return id;
         }
@@ -39,7 +39,6 @@ public class GithubLanguageColorsMatcher {
         Log.v(TAG, "language = " + language);
         Log.v(TAG, "builder = " + builder.toString());
 
-        id = context.getResources().getIdentifier(builder.toString(), "color", "com.oklab.githubjourney");
         Log.v(TAG, "id = " + id);
         return id;
     }
