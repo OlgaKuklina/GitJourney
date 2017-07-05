@@ -24,8 +24,10 @@ Explore and search
 ======
 
  - Explore your daily contributions activity.
+ - Explore public repositories, analyze source code
  - See number stars and clones of your repositories.
  - See list of followers of current user.
+ - Navigate to your GitHub map
  - See list of users followed by current user.
  - Monitor feed list with different types of user activity.
  - See number of starred repositories with number of stars, clones and watchers.
