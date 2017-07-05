@@ -11,9 +11,11 @@ Overview
 ======
 An open-source mobile GitHub client that helps you work with your GitHub content, monitor
 github activity, check for news and updates.
+
 The application implements secure login with OAuth to access user data.
 In the main screen user is able to monitor daily contributions activity placed in chronological
 order. 
+
 You can explore your GitHub data such as repositories, followers list, and your starring, watching activity.
 The application allows you to monitor other users profile data and activities, analyze source code.
 
