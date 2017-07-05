@@ -1,7 +1,7 @@
-# GitHubJourney
+# GitJourney
 
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d6fabe013081423eaedcf07056f48b15)](https://www.codacy.com/app/OlgaKuklina/GitHubJourney?utm_source=github.com&utm_medium=referral&utm_content=OlgaKuklina/GitHubJourney&utm_campaign=badger) [![Build Status](https://travis-ci.org/OlgaKuklina/GitHubJourney.svg?branch=master)](https://travis-ci.org/OlgaKuklina/GitHubJourney)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d6fabe013081423eaedcf07056f48b15)](https://www.codacy.com/app/OlgaKuklina/GitJourney?utm_source=github.com&utm_medium=referral&utm_content=OlgaKuklina/GitHubJourney&utm_campaign=badger) [![Build Status](https://travis-ci.org/OlgaKuklina/GitJourney.svg?branch=master)](https://travis-ci.org/OlgaKuklina/GitJourney)
 
 ![GHJ.png](https://cloud.githubusercontent.com/assets/6971421/23296713/310a11fa-fa2b-11e6-9267-1ce620d962a4.png)
 
@@ -24,8 +24,10 @@ Explore and search
 ======
 
  - Explore your daily contributions activity.
+ - Explore public repositories, analyze source code
  - See number stars and clones of your repositories.
  - See list of followers of current user.
+ - Navigate to your GitHub map
  - See list of users followed by current user.
  - Monitor feed list with different types of user activity.
  - See number of starred repositories with number of stars, clones and watchers.
