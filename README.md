@@ -9,10 +9,11 @@
 
 Overview
 ======
-An open-source mobile GitHub client that helps you work with your GitHub content, monitor
+An open-source GitHub client is your co-pilot to navigate the GitHub content, monitor
 github activity, check for news and updates.
 
 The application implements secure login with OAuth to access user data.
+
 In the main screen user is able to monitor daily contributions activity placed in chronological
 order. 
 
@@ -25,14 +26,13 @@ list item, the app opens on the feed list tab.
 Explore and search
 ======
 
- - Explore your daily contributions activity.
- - Explore public repositories, analyze source code
- - See number stars and clones of your repositories.
- - See list of followers of current user.
- - Navigate to your GitHub map
- - See list of users followed by current user.
- - Monitor feed list with different types of user activity.
- - See number of starred repositories with number of stars, clones and watchers.
+-	Explore your daily contributions activity
+-	Read about the latest event details in the Feed
+-	Explore the content of GitHub public Repos
+- Take advantage of facilitated Code View
+-	Sync with your Followers
+-	Guide yourself using the google-based GitHub users Map
+-	Save and share your GitHub Data
 
 Getting Started
 ======
