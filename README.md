@@ -1,21 +1,24 @@
-# GitJourney
+#  ![png](https://user-images.githubusercontent.com/6971421/27861136-5f791fa2-6134-11e7-85f5-97c00a39b84a.png ) GitJourney 
 
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d6fabe013081423eaedcf07056f48b15)](https://www.codacy.com/app/OlgaKuklina/GitJourney?utm_source=github.com&utm_medium=referral&utm_content=OlgaKuklina/GitHubJourney&utm_campaign=badger) [![Build Status](https://travis-ci.org/OlgaKuklina/GitJourney.svg?branch=master)](https://travis-ci.org/OlgaKuklina/GitJourney)
 
-![GHJ.png](https://cloud.githubusercontent.com/assets/6971421/23296713/310a11fa-fa2b-11e6-9267-1ce620d962a4.png)
+
+![gjimg7](https://user-images.githubusercontent.com/6971421/27860742-ba54135c-6132-11e7-9a72-929bd922e88a.png)
 
 
 Overview
 ======
-
-A non-official GitHub mobile app helps users work with their github content, monitor
+An open-source GitHub client is your co-pilot to navigate the GitHub content, monitor
 github activity, check for news and updates.
+
 The application implements secure login with OAuth to access user data.
+
 In the main screen user is able to monitor daily contributions activity placed in chronological
 order. 
-The application allows user to monitor profile data such as feed list, repositories,
-followers/followings list, and starring / watching activity.
+
+You can explore your GitHub data such as repositories, followers list, and your starring, watching activity.
+The application allows you to monitor other users profile data and activities, analyze source code.
 
 The app widget provides a list of today’s feeds and invitations to start journey: by clicking on a
 list item, the app opens on the feed list tab.
@@ -23,14 +26,13 @@ list item, the app opens on the feed list tab.
 Explore and search
 ======
 
- - Explore your daily contributions activity.
- - Explore public repositories, analyze source code
- - See number stars and clones of your repositories.
- - See list of followers of current user.
- - Navigate to your GitHub map
- - See list of users followed by current user.
- - Monitor feed list with different types of user activity.
- - See number of starred repositories with number of stars, clones and watchers.
+-	Explore your daily contributions activity
+-	Read about the latest event details in the Feed
+-	Explore the content of GitHub public Repos
+- Take advantage of facilitated Code View
+-	Sync with your Followers
+-	Guide yourself using the google-based GitHub users Map
+-	Save and share your GitHub Data
 
 Getting Started
 ======
