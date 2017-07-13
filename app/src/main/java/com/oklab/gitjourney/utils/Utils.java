@@ -9,6 +9,8 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -56,5 +58,13 @@ public final class Utils {
             formatter.setTimeZone(TimeZone.getTimeZone(customTimeZone));
         }
         return formatter;
+    }
+
+    public static String getStackTrace(Exception e) {
+        StringWriter writer = new StringWriter();
+        PrintWriter printer = new PrintWriter(writer);
+        e.printStackTrace(printer);
+        printer.close();
+        return writer.toString();
     }
 }

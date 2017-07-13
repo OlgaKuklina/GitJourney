@@ -2,15 +2,19 @@ package com.oklab.gitjourney.asynctasks;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.oklab.gitjourney.R;
+import com.oklab.gitjourney.adapters.FirebaseAnalyticsWrapper;
 import com.oklab.gitjourney.data.HTTPConnectionResult;
 import com.oklab.gitjourney.data.RepositoryContentDataEntry;
+import com.oklab.gitjourney.data.UpdaterService;
 import com.oklab.gitjourney.parsers.RepoContentParser;
 import com.oklab.gitjourney.services.FetchHTTPConnectionService;
+import com.oklab.gitjourney.utils.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,9 +31,16 @@ public class RepoContentLoader extends AsyncTaskLoader<List<RepositoryContentDat
     private final String path;
     private final String repoName;
     private final String userName;
+    private boolean isRepoReady = true;
+    private FirebaseAnalyticsWrapper firebaseAnalytics;
+    private static final String  fbAEvent = "Parser failed Stack Trace";
 
     public RepoContentLoader(Context context, String path, String repoName, String userName) {
         super(context);
+
+        if(repoName == null || userName == null || path == null || repoName.isEmpty() || userName.isEmpty() || path.isEmpty() ) {
+            isRepoReady = false;
+        }
 
         String[] pathList = path.split("/");
         for (int i = 0; i < pathList.length; i++) {
@@ -38,6 +49,7 @@ public class RepoContentLoader extends AsyncTaskLoader<List<RepositoryContentDat
         this.path = TextUtils.join("/", pathList);
         this.repoName = repoName;
         this.userName = userName;
+        firebaseAnalytics = new FirebaseAnalyticsWrapper(context);
     }
 
     @Override
@@ -48,18 +60,23 @@ public class RepoContentLoader extends AsyncTaskLoader<List<RepositoryContentDat
 
     @Override
     public List<RepositoryContentDataEntry> loadInBackground() {
-        String uri = getContext().getString(R.string.url_repo_content, userName, repoName, path);
-        FetchHTTPConnectionService fetchHTTPConnectionService = new FetchHTTPConnectionService(uri, getContext());
-        HTTPConnectionResult result = fetchHTTPConnectionService.establishConnection();
-        Log.v(TAG, "responseCode = " + result.getResponceCode());
-        Log.v(TAG, "result = " + result.getResult());
+        if (isRepoReady) {
+            String uri = getContext().getString(R.string.url_repo_content, userName, repoName, path);
+            FetchHTTPConnectionService fetchHTTPConnectionService = new FetchHTTPConnectionService(uri, getContext());
+            HTTPConnectionResult result = fetchHTTPConnectionService.establishConnection();
+            Log.v(TAG, "responseCode = " + result.getResponceCode());
+            Log.v(TAG, "result = " + result.getResult());
 
-        try {
-            JSONArray jsonArray = new JSONArray(result.getResult());
-            return new RepoContentParser().parse(jsonArray);
+            try {
+                JSONArray jsonArray = new JSONArray(result.getResult());
+                return new RepoContentParser().parse(jsonArray);
 
-        } catch (JSONException e) {
-            Log.e(TAG, "", e);
+            } catch (JSONException e) {
+                Log.e(TAG, "Parse Error  ", e);
+                Bundle bundle = new Bundle();
+                bundle.putString(TAG, Utils.getStackTrace(e));
+                firebaseAnalytics.logEvent(fbAEvent, bundle);
+            }
         }
         return null;
     }

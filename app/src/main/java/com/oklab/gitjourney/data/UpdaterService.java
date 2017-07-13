@@ -93,8 +93,7 @@ public class UpdaterService extends IntentService {
         } catch (RemoteException | OperationApplicationException e) {
             Log.e(UpdaterService.TAG, "Error updating content.", e);
             Bundle bundle = new Bundle();
-            bundle.putString(TAG, getStackTrace(e));
-            Log.e(TAG, "Stack Trace " + bundle);
+            bundle.putString(TAG, Utils.getStackTrace(e));
             firebaseAnalytics.logEvent(fbAEvent, bundle);
         }
     }
@@ -122,17 +121,9 @@ public class UpdaterService extends IntentService {
         } catch (Exception e) {
             Log.e(TAG, "Get contributions failed", e);
             Bundle bundle = new Bundle();
-            bundle.putString(TAG, getStackTrace(e));
-            Log.e(TAG, "Stack Trace " + bundle);
+            bundle.putString(TAG, Utils.getStackTrace(e));
             firebaseAnalytics.logEvent(fbAEvent, bundle);
             return null;
         }
-    }
-    private String getStackTrace(Exception e) {
-        StringWriter writer = new StringWriter();
-        PrintWriter printer = new PrintWriter(writer);
-        e.printStackTrace(printer);
-        printer.close();
-        return writer.toString();
     }
 }
