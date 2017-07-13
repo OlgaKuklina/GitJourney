@@ -3,6 +3,7 @@ package com.oklab.gitjourney.adapters;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,10 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
     }
 
     public void add(List<FeedDataEntry> entryList) {
+        if(entryList == null || entryList.isEmpty()) {
+            Log.v(TAG, "feedDataEntryList is empty");
+           return;
+        }
         feedDataEntryList.addAll(entryList);
         notifyDataSetChanged();
     }
