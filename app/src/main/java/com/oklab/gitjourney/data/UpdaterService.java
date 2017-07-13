@@ -10,10 +10,13 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.oklab.gitjourney.R;
+import com.oklab.gitjourney.adapters.FirebaseAnalyticsWrapper;
 import com.oklab.gitjourney.parsers.ContributionsParser;
 import com.oklab.gitjourney.utils.Utils;
 
@@ -21,6 +24,8 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -33,8 +38,9 @@ import java.util.List;
 
 public class UpdaterService extends IntentService {
     private static final String TAG = "UpdaterService";
+    private static final String  fbAEvent = "Get contributions failed Stack Trace";
     private UserSessionData currentSessionData;
-
+    private FirebaseAnalyticsWrapper firebaseAnalytics;
     public UpdaterService() {
         super(UpdaterService.TAG);
     }
@@ -45,7 +51,7 @@ public class UpdaterService extends IntentService {
         SharedPreferences prefs = this.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
         String sessionDataStr = prefs.getString("userSessionData", null);
         currentSessionData = UserSessionData.createUserSessionDataFromString(sessionDataStr);
-
+        firebaseAnalytics = new FirebaseAnalyticsWrapper(this);
     }
 
     @Override
@@ -64,8 +70,10 @@ public class UpdaterService extends IntentService {
         while (true) {
             Log.v(TAG, "reading page # = " + pageIndex);
             List<ContributionDataEntry> contributionsDataList = readActivityLog(pageIndex++);
-            Log.v(TAG, "contributionsDataList number of elements = " + contributionsDataList.size());
-            if (contributionsDataList.isEmpty()) {
+
+            if (contributionsDataList == null || contributionsDataList.isEmpty()) {
+                Log.v(TAG, "contributionsDataList number of elements = 0");
+
                 break;
             }
             for (ContributionDataEntry entry : contributionsDataList) {
@@ -84,6 +92,10 @@ public class UpdaterService extends IntentService {
             this.getContentResolver().applyBatch(ActivityItemsContract.CONTENT_AUTHORITY, cpo);
         } catch (RemoteException | OperationApplicationException e) {
             Log.e(UpdaterService.TAG, "Error updating content.", e);
+            Bundle bundle = new Bundle();
+            bundle.putString(TAG, getStackTrace(e));
+            Log.e(TAG, "Stack Trace " + bundle);
+            firebaseAnalytics.logEvent(fbAEvent, bundle);
         }
     }
 
@@ -109,7 +121,18 @@ public class UpdaterService extends IntentService {
 
         } catch (Exception e) {
             Log.e(TAG, "Get contributions failed", e);
+            Bundle bundle = new Bundle();
+            bundle.putString(TAG, getStackTrace(e));
+            Log.e(TAG, "Stack Trace " + bundle);
+            firebaseAnalytics.logEvent(fbAEvent, bundle);
             return null;
         }
+    }
+    private String getStackTrace(Exception e) {
+        StringWriter writer = new StringWriter();
+        PrintWriter printer = new PrintWriter(writer);
+        e.printStackTrace(printer);
+        printer.close();
+        return writer.toString();
     }
 }
