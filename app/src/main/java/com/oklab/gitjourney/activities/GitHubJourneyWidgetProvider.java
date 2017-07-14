@@ -5,11 +5,13 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.oklab.gitjourney.R;
 import com.oklab.gitjourney.adapters.StackWidgetService;
@@ -59,7 +61,14 @@ public class GitHubJourneyWidgetProvider extends AppWidgetProvider implements Fe
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         Log.v(TAG, "onUpdate");
-        new FeedsAsyncTask<>(context, this, new WidgetDataAtomParser(), new State(appWidgetIds, context)).execute(1);
+        SharedPreferences prefs = context.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
+        String sessionDataStr = prefs.getString("userSessionData", null);
+        if(sessionDataStr == null || sessionDataStr.isEmpty()) {
+            Toast.makeText(context, "Please login to GitJourney", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            new FeedsAsyncTask<>(context, this, new WidgetDataAtomParser(), new State(appWidgetIds, context)).execute(1);
+        }
     }
 
     @Override
