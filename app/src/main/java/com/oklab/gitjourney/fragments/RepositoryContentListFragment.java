@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.oklab.gitjourney.R;
 import com.oklab.gitjourney.adapters.RepoContentListAdapter;
@@ -145,6 +146,8 @@ public class RepositoryContentListFragment extends Fragment implements RepoConte
                 repoContentListAdapter.add(repoContentDataEntryList);
                 recyclerView.setVisibility(View.VISIBLE);
                 codeView.setVisibility(View.GONE);
+            } else {
+                Toast.makeText(getContext(), "Repo content loading failed", Toast.LENGTH_LONG).show();
             }
             getLoaderManager().destroyLoader(loader.getId());
         }

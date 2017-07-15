@@ -63,8 +63,9 @@ public class RepoContentLoader extends AsyncTaskLoader<List<RepositoryContentDat
             String uri = getContext().getString(R.string.url_repo_content, userName, repoName, path);
             FetchHTTPConnectionService fetchHTTPConnectionService = new FetchHTTPConnectionService(uri, getContext());
             HTTPConnectionResult result = fetchHTTPConnectionService.establishConnection();
-            Log.v(TAG, "responseCode = " + result.getResponceCode());
-            Log.v(TAG, "result = " + result.getResult());
+            if (result == null) {
+                return null;
+            }
 
             try {
                 JSONArray jsonArray = new JSONArray(result.getResult());
