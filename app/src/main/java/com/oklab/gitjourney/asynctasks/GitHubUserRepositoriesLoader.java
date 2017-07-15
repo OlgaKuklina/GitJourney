@@ -23,11 +23,13 @@ public class GitHubUserRepositoriesLoader extends AsyncTaskLoader<List<ReposData
     private static final String TAG = GitHubUserRepositoriesLoader.class.getSimpleName();
     private final int page;
     private final String userName;
+    private final boolean owner;
 
-    public GitHubUserRepositoriesLoader(Context context, int page, String userName) {
+    public GitHubUserRepositoriesLoader(Context context, int page, String userName, boolean owner) {
         super(context);
         this.page = page;
         this.userName = userName;
+        this.owner = owner;
     }
 
     @Override
@@ -38,7 +40,12 @@ public class GitHubUserRepositoriesLoader extends AsyncTaskLoader<List<ReposData
 
     @Override
     public List<ReposDataEntry> loadInBackground() {
-        String uri = getContext().getString(R.string.url_user_repos, page, userName);
+        String uri;
+        if (owner) {
+            uri = getContext().getString(R.string.url_repos, page);
+        } else {
+            uri = getContext().getString(R.string.url_user_repos, page, userName);
+        }
         FetchHTTPConnectionService fetchHTTPConnectionService = new FetchHTTPConnectionService(uri, getContext());
         HTTPConnectionResult result = fetchHTTPConnectionService.establishConnection();
         Log.v(TAG, "responseCode = " + result.getResponceCode());

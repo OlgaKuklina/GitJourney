@@ -24,15 +24,19 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.oklab.gitjourney.R;
 import com.oklab.gitjourney.adapters.FirebaseAnalyticsWrapper;
 import com.oklab.gitjourney.asynctasks.DeleteUserAuthorizationAsyncTask;
+import com.oklab.gitjourney.asynctasks.UserProfileAsyncTask;
+import com.oklab.gitjourney.data.GitHubUserProfileDataEntry;
 import com.oklab.gitjourney.data.UpdaterService;
 import com.oklab.gitjourney.data.UserSessionData;
 import com.oklab.gitjourney.fragments.ContributionsByDateListFragment;
 import com.oklab.gitjourney.fragments.MainViewFragment;
+import com.oklab.gitjourney.parsers.GitHubUserProfileDataParser;
+import com.oklab.gitjourney.parsers.Parser;
 import com.oklab.gitjourney.services.TakeScreenshotService;
 import com.oklab.gitjourney.utils.Utils;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ContributionsByDateListFragment.OnListFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ContributionsByDateListFragment.OnListFragmentInteractionListener, UserProfileAsyncTask.OnProfilesLoadedListener<GitHubUserProfileDataEntry> {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private SharedPreferences prefs;
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     private CalendarYearPagerAdapter calendarYearPagerAdapter;
     private TakeScreenshotService takeScreenshotService;
     private FirebaseAnalyticsWrapper firebaseAnalytics;
+    private UserProfileAsyncTask<GitHubUserProfileDataEntry> userProfileAsyncTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,12 +159,10 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.personal) {
             String currentSessionData = prefs.getString("userSessionData", null);
-
             if (currentSessionData != null) {
-                UserSessionData userSessionData = UserSessionData.createUserSessionDataFromString(currentSessionData);
-                Intent intent = new Intent(this, PersonalActivity.class);
-                intent.putExtra("userSessionData", userSessionData.getLogin());
-                startActivity(intent);
+                Parser<GitHubUserProfileDataEntry> parser = new GitHubUserProfileDataParser();
+                userProfileAsyncTask = new UserProfileAsyncTask<GitHubUserProfileDataEntry>(this, this, parser);
+                userProfileAsyncTask.execute();
                 return true;
             }
         } else if (id == R.id.settings) {
@@ -174,6 +177,25 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void OnProfilesLoaded(GitHubUserProfileDataEntry dataEntry) {
+        Log.v(TAG, "OnProfilesLoaded ");
+        userProfileAsyncTask = null;
+        String currentSessionData = prefs.getString("userSessionData", null);
+        UserSessionData userSessionData = UserSessionData.createUserSessionDataFromString(currentSessionData);
+        Intent intent = new Intent(this, UserProfileActivity.class);
+        intent.putExtra("profile", dataEntry);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (userProfileAsyncTask != null) {
+            userProfileAsyncTask.cancel(true);
+        }
     }
 
     /**

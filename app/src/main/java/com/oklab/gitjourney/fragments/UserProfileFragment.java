@@ -1,5 +1,6 @@
 package com.oklab.gitjourney.fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,8 @@ import com.oklab.gitjourney.adapters.UserProfileDetailAdapter;
 import com.oklab.gitjourney.asynctasks.GitHubUserRepositoriesLoader;
 import com.oklab.gitjourney.data.GitHubUserProfileDataEntry;
 import com.oklab.gitjourney.data.ReposDataEntry;
+import com.oklab.gitjourney.data.UserSessionData;
+import com.oklab.gitjourney.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -30,7 +33,7 @@ import java.util.Locale;
  */
 
 public class UserProfileFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    private static final String TAG = StarsListFragment.class.getSimpleName();
+    private static final String TAG = UserProfileFragment.class.getSimpleName();
     UserProfileDetailAdapter userProfileDetailAdapter;
     private RecyclerView recyclerView;
     private ImageView profilePoster;
@@ -138,7 +141,15 @@ public class UserProfileFragment extends Fragment implements SwipeRefreshLayout.
 
         @Override
         public Loader<List<ReposDataEntry>> onCreateLoader(int id, Bundle args) {
-            return new GitHubUserRepositoriesLoader(getContext(), args.getInt("page"), args.getString("login"));
+            SharedPreferences prefs = getActivity().getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
+            String currentSessionData = prefs.getString("userSessionData", null);
+            UserSessionData userSessionData = UserSessionData.createUserSessionDataFromString(currentSessionData);
+            Log.v(TAG, "userSessionData " + userSessionData.getLogin() + " *** " + args.getString("login"));
+            if (userSessionData.getLogin().equals(args.getString("login"))) {
+                return new GitHubUserRepositoriesLoader(getContext(), args.getInt("page"), args.getString("login"), true);
+            } else {
+                return new GitHubUserRepositoriesLoader(getContext(), args.getInt("page"), args.getString("login"), false);
+            }
         }
 
         @Override

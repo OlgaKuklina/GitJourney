@@ -20,7 +20,7 @@ public class UserSessionData {
     }
 
     public static UserSessionData createUserSessionDataFromString(String data) {
-        if(data == null || data.isEmpty()) {
+        if (data == null || data.isEmpty()) {
             return null;
         }
         String[] array = data.split(";");

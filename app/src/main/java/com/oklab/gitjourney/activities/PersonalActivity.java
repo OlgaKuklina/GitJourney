@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.oklab.gitjourney.R;
 import com.oklab.gitjourney.adapters.UserProfileDetailAdapter;
 import com.oklab.gitjourney.asynctasks.GitHubUserRepositoriesLoader;
-import com.oklab.gitjourney.asynctasks.RepositoriesLoader;
 import com.oklab.gitjourney.asynctasks.UserProfileAsyncTask;
 import com.oklab.gitjourney.data.GitHubUserProfileDataEntry;
 import com.oklab.gitjourney.data.ReposDataEntry;
@@ -106,6 +105,7 @@ public class PersonalActivity extends AppCompatActivity implements UserProfileAs
         }
     }
 
+
     private class UserProfileItemsListOnScrollListener extends RecyclerView.OnScrollListener {
 
         @Override
@@ -127,7 +127,7 @@ public class PersonalActivity extends AppCompatActivity implements UserProfileAs
 
         @Override
         public Loader<List<ReposDataEntry>> onCreateLoader(int id, Bundle args) {
-            return new RepositoriesLoader(PersonalActivity.this, args.getInt("page"));
+            return new GitHubUserRepositoriesLoader(PersonalActivity.this, args.getInt("page"), args.getString("login"), true);
         }
 
         @Override

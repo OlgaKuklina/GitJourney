@@ -52,9 +52,9 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedLi
     }
 
     public void add(List<FeedDataEntry> entryList) {
-        if(entryList == null || entryList.isEmpty()) {
+        if (entryList == null || entryList.isEmpty()) {
             Log.v(TAG, "feedDataEntryList is empty");
-           return;
+            return;
         }
         feedDataEntryList.addAll(entryList);
         notifyDataSetChanged();

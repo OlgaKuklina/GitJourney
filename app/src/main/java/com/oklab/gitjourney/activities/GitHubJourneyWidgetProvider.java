@@ -63,10 +63,9 @@ public class GitHubJourneyWidgetProvider extends AppWidgetProvider implements Fe
         Log.v(TAG, "onUpdate");
         SharedPreferences prefs = context.getSharedPreferences(Utils.SHARED_PREF_NAME, 0);
         String sessionDataStr = prefs.getString("userSessionData", null);
-        if(sessionDataStr == null || sessionDataStr.isEmpty()) {
+        if (sessionDataStr == null || sessionDataStr.isEmpty()) {
             Toast.makeText(context, "Please login to GitJourney", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             new FeedsAsyncTask<>(context, this, new WidgetDataAtomParser(), new State(appWidgetIds, context)).execute(1);
         }
     }

@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.oklab.gitjourney.R;
 import com.oklab.gitjourney.adapters.FirebaseAnalyticsWrapper;
 import com.oklab.gitjourney.parsers.ContributionsParser;
@@ -24,8 +23,6 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 
 import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -38,9 +35,10 @@ import java.util.List;
 
 public class UpdaterService extends IntentService {
     private static final String TAG = "UpdaterService";
-    private static final String  fbAEvent = "Get contributions failed Stack Trace";
+    private static final String fbAEvent = "Get contributions failed Stack Trace";
     private UserSessionData currentSessionData;
     private FirebaseAnalyticsWrapper firebaseAnalytics;
+
     public UpdaterService() {
         super(UpdaterService.TAG);
     }

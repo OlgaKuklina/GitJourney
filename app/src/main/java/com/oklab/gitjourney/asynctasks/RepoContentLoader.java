@@ -11,7 +11,6 @@ import com.oklab.gitjourney.R;
 import com.oklab.gitjourney.adapters.FirebaseAnalyticsWrapper;
 import com.oklab.gitjourney.data.HTTPConnectionResult;
 import com.oklab.gitjourney.data.RepositoryContentDataEntry;
-import com.oklab.gitjourney.data.UpdaterService;
 import com.oklab.gitjourney.parsers.RepoContentParser;
 import com.oklab.gitjourney.services.FetchHTTPConnectionService;
 import com.oklab.gitjourney.utils.Utils;
@@ -28,17 +27,17 @@ import java.util.List;
 
 public class RepoContentLoader extends AsyncTaskLoader<List<RepositoryContentDataEntry>> {
     private static final String TAG = RepoContentLoader.class.getSimpleName();
+    private static final String fbAEvent = "Parser failed Stack Trace";
     private final String path;
     private final String repoName;
     private final String userName;
     private boolean isRepoReady = true;
     private FirebaseAnalyticsWrapper firebaseAnalytics;
-    private static final String  fbAEvent = "Parser failed Stack Trace";
 
     public RepoContentLoader(Context context, String path, String repoName, String userName) {
         super(context);
 
-        if(repoName == null || userName == null || path == null || repoName.isEmpty() || userName.isEmpty() || path.isEmpty() ) {
+        if (repoName == null || userName == null || repoName.isEmpty() || userName.isEmpty()) {
             isRepoReady = false;
         }
 
