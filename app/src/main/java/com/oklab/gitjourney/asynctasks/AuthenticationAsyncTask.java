@@ -56,6 +56,7 @@ public class AuthenticationAsyncTask extends AsyncTask<String, Integer, UserSess
             jsonObject.put("note", context.getString(R.string.note));
             JSONArray jsonArray = new JSONArray();
             jsonArray.put("repo");
+            jsonArray.put("user");
             jsonObject.put("scopes", jsonArray);
 
             OutputStream outputStream = connect.getOutputStream();

@@ -53,8 +53,10 @@ public class GitHubUserProfileDataParser implements Parser<GitHubUserProfileData
             location = object.getString("location");
         }
         String name = "";
-        if (!object.getString("name").isEmpty()) {
+        if (!object.getString("name").isEmpty() && object.getString("name") != null && !object.getString("name").equals("null")) {
             name = object.getString("name");
+        } else {
+            name = object.getString("login");
         }
         String company = "";
         if (!object.getString("company").isEmpty()) {
@@ -75,6 +77,10 @@ public class GitHubUserProfileDataParser implements Parser<GitHubUserProfileData
         int publicRepos = 0;
         if (object.has("public_repos")) {
             publicRepos = object.getInt("public_repos");
+        }
+        int privateRepos = 0;
+        if (object.has("total_private_repos")) {
+            privateRepos = object.getInt("total_private_repos");
         }
         int publicGists = 0;
         if (object.has("public_gists")) {
@@ -103,6 +109,6 @@ public class GitHubUserProfileDataParser implements Parser<GitHubUserProfileData
                 Log.v(TAG, "", e);
             }
         }
-        return new GitHubUserProfileDataEntry(name, avatarUrl, profileUri, location, login, company, blogURI, email, bio, publicRepos, publicGists, followers, following, createdAt);
+        return new GitHubUserProfileDataEntry(name, avatarUrl, profileUri, location, login, company, blogURI, email, bio, publicRepos + privateRepos, publicGists, followers, following, createdAt);
     }
 }
