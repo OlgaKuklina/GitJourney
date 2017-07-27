@@ -90,8 +90,6 @@ public class WidgetDataAtomParser implements AtomParser<GitHubJourneyWidgetDataE
         switch (eventType) {
             case "ForkEvent":
                 return ActionType.FORK;
-            case "PullRequestEvent":
-                return ActionType.PULL_REQUEST;
             case "WatchEvent":
                 return ActionType.STAR;
             case "IssueCommentEvent":
@@ -106,9 +104,64 @@ public class WidgetDataAtomParser implements AtomParser<GitHubJourneyWidgetDataE
                 return ActionType.PUSH;
             case "CommitCommentEvent":
                 return ActionType.COMMIT_COMMENT;
+            case "GollumEvent":
+                return ActionType.GOLLUM;
+            case "DeploymentEvent":
+                return ActionType.DEPLOYMENT;
+            case "DeploymentStatusEvent":
+                return ActionType.DEPLOYMENT_STATUS;
+            case "DownloadEvent":
+                return ActionType.DOWNLOAD;
+            case "FollowEvent":
+                return ActionType.FOLLOW;
+            case "ForkApplyEvent":
+                return ActionType.FORK_APPLY;
+            case "GistEvent":
+                return ActionType.GIST;
+            case "InstallationEvent":
+                return ActionType.INSTALLATION;
+            case "InstallationRepositoriesEvent":
+                return ActionType.INSTALLATION_REPOSITORIES;
+            case "MarketplacePurchaseEvent":
+                return ActionType.MARKET_PLACE_PURCHASE;
+            case "MemberEvent":
+                return ActionType.MEMBER;
+            case "MembershipEvent":
+                return ActionType.MEMBERSHIP;
+            case "MilestoneEvent":
+                return ActionType.MILESTONE;
+            case "OrganizationEvent":
+                return ActionType.ORGANIZATION;
+            case "OrgBlockEvent":
+                return ActionType.ORG_BLOCK;
+            case "PageBuildEvent":
+                return ActionType.PAGE_BUILD;
+            case "ProjectCardEvent":
+                return ActionType.PROJECT_CARD;
+            case "ProjectColumnEvent":
+                return ActionType.PROJECT_COLUMN;
+            case "ProjectEvent":
+                return ActionType.PROJECT;
+            case "PublicEvent":
+                return ActionType.PUBLIC;
+            case "PullRequestEvent":
+                return ActionType.PULL_REQUEST;
+            case "PullRequestReviewEvent":
+                return ActionType.PULL_REQUEST_REVIEW;
+            case "PullRequestReviewCommentEvent":
+                return ActionType.PULL_REQUEST_REVIEW_COMMENT;
+            case "ReleaseEvent":
+                return ActionType.RELEASE;
+            case "RepositoryEvent":
+                return ActionType.REPOSITORY;
+            case "StatusEvent":
+                return ActionType.STATUS;
+            case "TeamEvent":
+                return ActionType.TEAM;
+            case "TeamAddEvent":
+                return ActionType.TEAM_ADD;
             default:
                 throw new IllegalArgumentException("Unknown event type: " + eventType);
         }
     }
-
 }
