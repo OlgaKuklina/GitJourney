@@ -1,12 +1,20 @@
 package com.oklab.gitjourney.activities;
 
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -14,6 +22,11 @@ import com.oklab.gitjourney.R;
 import com.oklab.gitjourney.asynctasks.RepoReadmeDownloadAsyncTask;
 import com.oklab.gitjourney.data.ReposDataEntry;
 import com.oklab.gitjourney.data.UserSessionData;
+import com.oklab.gitjourney.fragments.CommitsFragment;
+import com.oklab.gitjourney.fragments.FeedListFragment;
+import com.oklab.gitjourney.fragments.FollowersListFragment;
+import com.oklab.gitjourney.fragments.FollowingListFragment;
+import com.oklab.gitjourney.fragments.RepositoriesListFragment;
 import com.oklab.gitjourney.fragments.RepositoryContentListFragment;
 import com.oklab.gitjourney.services.TakeScreenshotService;
 import com.oklab.gitjourney.utils.GithubLanguageColorsMatcher;
@@ -21,7 +34,9 @@ import com.oklab.gitjourney.utils.Utils;
 
 import org.markdownj.MarkdownProcessor;
 
-public class RepositoryActivity extends AppCompatActivity implements RepoReadmeDownloadAsyncTask.OnRepoReadmeContentLoadedListener, RepositoryContentListFragment.RepoContentFragmentInteractionListener {
+public class RepositoryActivity extends AppCompatActivity implements RepoReadmeDownloadAsyncTask.OnRepoReadmeContentLoadedListener
+        , RepositoryContentListFragment.RepoContentFragmentInteractionListener
+        , CommitsFragment.OnFragmentInteractionListener{
     private static final String TAG = RepositoryActivity.class.getSimpleName();
     private WebView mv;
     private String owner = "";
@@ -29,6 +44,8 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
     private UserSessionData currentSessionData;
     private TakeScreenshotService takeScreenshotService;
     private RepositoryContentListFragment repoContentListFragment;
+    private ViewPager mViewPager;
+    private RepositoryActivity.SectionsPagerAdapter mSectionsPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +56,31 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
         title = entry.getTitle();
         toolbar.setTitleMarginBottom(3);
         toolbar.setTitle(title);
+
+        mSectionsPagerAdapter = new RepositoryActivity.SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.repo_view_pager);
+
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Log.v(TAG, "onPageSelected, position = " + position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        mViewPager.setOffscreenPageLimit(4);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.repo_tabs);
+        tabLayout.setupWithViewPager(mViewPager);
         if (entry.getLanguage() != null && !entry.getLanguage().isEmpty() && !entry.getLanguage().equals("null")) {
             Log.v(TAG, " data.getLanguage() = " + entry.getLanguage());
             int colorId = GithubLanguageColorsMatcher.findMatchedColor(this, entry.getLanguage());
@@ -103,6 +145,105 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
             }
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public static class PlaceholderFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        public PlaceholderFragment() {
+        }
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static GeneralActivity.PlaceholderFragment newInstance(int sectionNumber) {
+            Log.v(TAG, "newInstance ");
+            GeneralActivity.PlaceholderFragment fragment = new GeneralActivity.PlaceholderFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            Log.v(TAG, "onCreateView ");
+            View rootView = inflater.inflate(R.layout.fragment_general_list, container, false);
+            return rootView;
+        }
+    }
+
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+
+        @Override
+        public Fragment getItem(int position) {
+            Log.v(TAG, "getItem, position = " + position);
+            // getItem is called to instantiate the fragment for the given page.
+            // Return a PlaceholderFragment (defined as a static inner class below).
+            switch (position) {
+                case 0:
+                    return CommitsFragment.newInstance("d", "d");
+                case 1:
+                    return CommitsFragment.newInstance("d", "d");
+                case 2:
+                    return CommitsFragment.newInstance("d", "d");
+                case 3:
+                    return CommitsFragment.newInstance("d", "d");
+                case 4:
+                    return CommitsFragment.newInstance("d", "d");
+                case 5:
+                    return CommitsFragment.newInstance("d", "d");
+            }
+            return RepositoryActivity.PlaceholderFragment.newInstance(position + 1);
+        }
+
+        @Override
+        public int getCount() {
+            return 6;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            Log.v(TAG, "getPageTitle ");
+            switch (position) {
+                case 0:
+                    return getApplicationContext().getString(R.string.readme);
+                case 1:
+                    return getApplicationContext().getString(R.string.code);
+                case 2:
+                    return getApplicationContext().getString(R.string.commits);
+                case 3:
+                    return getApplicationContext().getString(R.string.events);
+                case 4:
+                    return getApplicationContext().getString(R.string.issues);
+                case 5:
+                    return getApplicationContext().getString(R.string.contributors);
+            }
+            return null;
         }
     }
 }

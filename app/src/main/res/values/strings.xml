@@ -91,6 +91,13 @@
 
     <!-- Strings related to repo content Activity  -->
     <string name="empty_content_type"> .. </string>
+    <!-- Strings related to Repository Activity Tabs -->'
+    <string name="readme">Readme</string>
+    <string name="code">Code</string>
+    <string name="events">Events</string>
+    <string name="commits">Commits</string>
+    <string name="issues">Issues</string>
+    <string name="contributors">Contributors</string>
 
 
     <string name="repo_thumbnail">Repository thumbnail</string>
@@ -605,7 +612,7 @@
         <item>3</item>
     </string-array>
 
-    <string-array name="multi_select_list_preference_default_value" />
+    <string-array name="multi_select_list_preference_default_value"/>
 
     <string name="pref_title_system_sync_settings">System sync settings</string>
 
