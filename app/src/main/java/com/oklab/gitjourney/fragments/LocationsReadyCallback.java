@@ -48,6 +48,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, UserProfileAs
     private ArrayList<GitHubUserLocationDataEntry> locationsDataList;
     private LocationsReadyCallback.AddressResultReceiver mResultReceiver;
     private GoogleMap map;
+    private ArrayList<Target> targets;
 
     public LocationsReadyCallback(AppCompatActivity activity) {
         this.activity = activity;
@@ -91,6 +92,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, UserProfileAs
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
             Log.v(TAG, "onReceiveResult");
+            targets = new ArrayList<>(resultData.size());
             ArrayList<GitHubUserLocationDataEntry> locationsList = resultData.getParcelableArrayList(LocationConstants.LOCATION_DATA_EXTRA);
             Log.v(TAG, "ArrayList.size() = " + locationsList.size());
             for (GitHubUserLocationDataEntry entry : locationsList) {
@@ -101,8 +103,8 @@ public class LocationsReadyCallback implements OnMapReadyCallback, UserProfileAs
                         MarkerOptions options = new MarkerOptions().position(position).title(entry.getLogin());
                         map.addMarker(options);
                     } else {
+                        Target target = new Target() {
 
-                        Picasso.with(activity).load(entry.getImageUri()).resize(100, 100).transform(new TransformToCircle()).into(new Target() {
                             @Override
                             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                 Log.v(TAG, "onBitmapLoaded");
@@ -120,9 +122,11 @@ public class LocationsReadyCallback implements OnMapReadyCallback, UserProfileAs
                             public void onPrepareLoad(Drawable placeHolderDrawable) {
 
                             }
-                        });
-                    }
 
+                        };
+                        targets.add(target);
+                        Picasso.with(activity).load(entry.getImageUri()).resize(100, 100).transform(new TransformToCircle()).into(target);
+                    }
                 }
             }
         }
