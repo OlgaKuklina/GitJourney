@@ -13,7 +13,6 @@ import com.oklab.gitjourney.activities.MainActivity;
 import com.oklab.gitjourney.data.UserSessionData;
 import com.oklab.gitjourney.utils.Utils;
 
-import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -66,7 +65,7 @@ public class AuthenticationAsyncTask extends AsyncTask<String, Integer, UserSess
             int responseCode = connect.getResponseCode();
 
             Log.v(TAG, "responseCode = " + responseCode);
-            if (responseCode != HttpStatus.SC_CREATED) {
+            if (responseCode != HttpURLConnection.HTTP_CREATED) {
                 return null;
             }
             InputStream inputStream = connect.getInputStream();

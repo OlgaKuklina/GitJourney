@@ -10,7 +10,6 @@ import com.oklab.gitjourney.data.UserSessionData;
 import com.oklab.gitjourney.parsers.AtomParser;
 import com.oklab.gitjourney.utils.Utils;
 
-import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
@@ -67,7 +66,7 @@ public class FeedsAsyncTask<T> extends AsyncTask<Integer, Void, List<T>> {
             int responseCode = connect.getResponseCode();
 
             Log.v(TAG, "responseCode = " + responseCode);
-            if (responseCode != HttpStatus.SC_OK) {
+            if (responseCode != HttpURLConnection.HTTP_OK) {
                 return null;
             }
             InputStream inputStream = connect.getInputStream();

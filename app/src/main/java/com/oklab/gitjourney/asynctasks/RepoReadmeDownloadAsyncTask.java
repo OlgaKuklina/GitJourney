@@ -11,7 +11,6 @@ import com.oklab.gitjourney.data.UserSessionData;
 import com.oklab.gitjourney.services.FetchHTTPConnectionService;
 import com.oklab.gitjourney.utils.Utils;
 
-import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,7 +59,7 @@ public class RepoReadmeDownloadAsyncTask extends AsyncTask<String, Void, String>
             int responseCode = connect.getResponseCode();
 
             Log.v(TAG, "responseCode = " + responseCode);
-            if (responseCode != HttpStatus.SC_OK) {
+            if (responseCode != HttpURLConnection.HTTP_OK) {
                 return null;
             }
             InputStream inputStream = connect.getInputStream();
