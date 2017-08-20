@@ -26,6 +26,7 @@ import com.oklab.gitjourney.data.LocationConstants;
 import com.oklab.gitjourney.parsers.LocationDataParser;
 import com.oklab.gitjourney.parsers.Parser;
 import com.oklab.gitjourney.services.FetchAddressIntentService;
+import com.oklab.gitjourney.utils.TransformToCircle;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -101,7 +102,7 @@ public class LocationsReadyCallback implements OnMapReadyCallback, UserProfileAs
                         map.addMarker(options);
                     } else {
 
-                        Picasso.with(activity).load(entry.getImageUri()).resize(100, 100).into(new Target() {
+                        Picasso.with(activity).load(entry.getImageUri()).resize(100, 100).transform(new TransformToCircle()).into(new Target() {
                             @Override
                             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                 Log.v(TAG, "onBitmapLoaded");
