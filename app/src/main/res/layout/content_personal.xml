@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.oklab.gitjourney.activities.PersonalActivity"
-    tools:showIn="@layout/activity_personal">
+                                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                                            xmlns:tools="http://schemas.android.com/tools"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                            tools:context="com.oklab.gitjourney.activities.PersonalActivity"
+                                            tools:showIn="@layout/activity_personal">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:contentDescription="@string/profile_poster"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"/>
 
         <LinearLayout
             android:id="@+id/details"
@@ -39,13 +39,13 @@
                     style="@style/DetailViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/repositories" />
+                    android:text="@string/repositories"/>
 
                 <TextView
                     android:id="@+id/repositories"
                     style="@style/DetailViewTitle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <LinearLayout
@@ -60,13 +60,13 @@
                     style="@style/DetailViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/following" />
+                    android:text="@string/following"/>
 
                 <TextView
                     android:id="@+id/following"
                     style="@style/DetailViewTitle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <LinearLayout
@@ -81,13 +81,13 @@
                     style="@style/DetailViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/followers" />
+                    android:text="@string/followers"/>
 
                 <TextView
                     android:id="@+id/followers"
                     style="@style/DetailViewTitle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -95,7 +95,7 @@
             android:id="@+id/repo_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"/>
 
     </LinearLayout>
 

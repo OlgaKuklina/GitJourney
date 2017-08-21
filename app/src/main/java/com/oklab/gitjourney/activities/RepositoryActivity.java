@@ -23,10 +23,10 @@ import com.oklab.gitjourney.asynctasks.RepoReadmeDownloadAsyncTask;
 import com.oklab.gitjourney.data.ReposDataEntry;
 import com.oklab.gitjourney.data.UserSessionData;
 import com.oklab.gitjourney.fragments.CommitsFragment;
-import com.oklab.gitjourney.fragments.FeedListFragment;
-import com.oklab.gitjourney.fragments.FollowersListFragment;
-import com.oklab.gitjourney.fragments.FollowingListFragment;
-import com.oklab.gitjourney.fragments.RepositoriesListFragment;
+import com.oklab.gitjourney.fragments.ContributorsFragment;
+import com.oklab.gitjourney.fragments.EventsFragment;
+import com.oklab.gitjourney.fragments.IssuesFragment;
+import com.oklab.gitjourney.fragments.ReadmeFragment;
 import com.oklab.gitjourney.fragments.RepositoryContentListFragment;
 import com.oklab.gitjourney.services.TakeScreenshotService;
 import com.oklab.gitjourney.utils.GithubLanguageColorsMatcher;
@@ -36,7 +36,8 @@ import org.markdownj.MarkdownProcessor;
 
 public class RepositoryActivity extends AppCompatActivity implements RepoReadmeDownloadAsyncTask.OnRepoReadmeContentLoadedListener
         , RepositoryContentListFragment.RepoContentFragmentInteractionListener
-        , CommitsFragment.OnFragmentInteractionListener{
+        , CommitsFragment.OnFragmentInteractionListener
+        , ContributorsFragment.OnListFragmentInteractionListener {
     private static final String TAG = RepositoryActivity.class.getSimpleName();
     private WebView mv;
     private String owner = "";
@@ -153,6 +154,11 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
 
     }
 
+    @Override
+    public void onListFragmentInteraction(String item) {
+
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -206,17 +212,17 @@ public class RepositoryActivity extends AppCompatActivity implements RepoReadmeD
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
-                    return CommitsFragment.newInstance("d", "d");
+                    return ReadmeFragment.newInstance("d", "d");
                 case 1:
-                    return CommitsFragment.newInstance("d", "d");
+                    return RepositoryContentListFragment.newInstance(RepositoryActivity.this, title, owner);
                 case 2:
                     return CommitsFragment.newInstance("d", "d");
                 case 3:
-                    return CommitsFragment.newInstance("d", "d");
+                    return EventsFragment.newInstance("d", "d");
                 case 4:
-                    return CommitsFragment.newInstance("d", "d");
+                    return IssuesFragment.newInstance("d", "d");
                 case 5:
-                    return CommitsFragment.newInstance("d", "d");
+                    return ContributorsFragment.newInstance(1);
             }
             return RepositoryActivity.PlaceholderFragment.newInstance(position + 1);
         }

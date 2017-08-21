@@ -5,15 +5,15 @@
         <item
             android:id="@+id/github_events"
             android:icon="@drawable/calendar_nav"
-            android:title="@string/contribution_activity" />
+            android:title="@string/contribution_activity"/>
         <item
             android:id="@+id/profile"
             android:icon="@drawable/home"
-            android:title="@string/profile_page" />
+            android:title="@string/profile_page"/>
         <item
             android:id="@+id/personal"
             android:icon="@drawable/login"
-            android:title="@string/personal_data" />
+            android:title="@string/personal_data"/>
     </group>
 
     <item android:title="@string/communicate">
@@ -21,11 +21,11 @@
             <item
                 android:id="@+id/settings"
                 android:icon="@drawable/new_settings"
-                android:title="@string/settings" />
+                android:title="@string/settings"/>
             <item
                 android:id="@+id/sing_out"
                 android:icon="@drawable/new_exit"
-                android:title="@string/sign_out" />
+                android:title="@string/sign_out"/>
         </menu>
     </item>
 

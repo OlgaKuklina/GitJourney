@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_list_item"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+              android:id="@+id/main_list_item"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
             android:id="@+id/w_github_user_image"
             android:layout_width="@dimen/widget_profile_image_size"
             android:layout_height="@dimen/widget_profile_image_size"
-            android:contentDescription="@string/github_user_image" />
+            android:contentDescription="@string/github_user_image"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,14 +26,14 @@
                 android:id="@+id/w_author_name"
                 style="@style/WidgetTextSecondary"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/w_title"
                 style="@style/WidgetText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/widget_title_margin" />
+                android:layout_margin="@dimen/widget_title_margin"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

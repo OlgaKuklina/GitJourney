@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sing_in" />
+        android:text="@string/sing_in"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:labelFor="@+id/user_id"
-        android:text="@string/user_name_or_email" />
+        android:text="@string/user_name_or_email"/>
 
     <EditText
         android:id="@+id/user_id"
         android:layout_width="@dimen/login_layout_size"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:inputType="text" />
+        android:inputType="text"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:labelFor="@+id/user_password"
-        android:text="@string/password" />
+        android:text="@string/password"/>
 
     <EditText
         android:id="@+id/user_password"
@@ -35,12 +35,12 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:inputType="textPassword"
-        android:nextFocusDown="@+id/buttonSignIn" />
+        android:nextFocusDown="@+id/buttonSignIn"/>
 
     <Button
         android:id="@id/buttonSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sing_in" />
+        android:text="@string/sing_in"/>
 
 </LinearLayout>

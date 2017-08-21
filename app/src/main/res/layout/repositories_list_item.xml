@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/repositories_layout_padding">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="@dimen/repositories_layout_padding">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
             android:id="@+id/status_image"
             android:layout_width="@dimen/repos_status_image_size"
             android:layout_height="@dimen/repos_status_image_size"
-            android:contentDescription="@string/repositories_icon" />
+            android:contentDescription="@string/repositories_icon"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,12 +26,12 @@
                 android:id="@+id/repo_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/desc"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -42,13 +42,13 @@
                     android:id="@+id/language_circle_repo"
                     android:layout_width="@dimen/customui_circle_size"
                     android:layout_height="@dimen/customui_circle_size"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_gravity="center_vertical"/>
 
                 <TextView
                     android:id="@+id/language"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/repositories_layout_margin" />
+                    android:layout_marginStart="@dimen/repositories_layout_margin"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -56,13 +56,13 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/repositories_layout_margin"
                     android:contentDescription="@string/star_icon"
-                    android:src="@drawable/star" />
+                    android:src="@drawable/star"/>
 
                 <TextView
                     android:id="@+id/stars"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/repositories_layout_margin" />
+                    android:layout_marginStart="@dimen/repositories_layout_margin"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -70,20 +70,20 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/repositories_layout_margin"
                     android:contentDescription="@string/fork_icon"
-                    android:src="@drawable/source_fork" />
+                    android:src="@drawable/source_fork"/>
 
                 <TextView
                     android:id="@+id/forks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/repositories_layout_margin" />
+                    android:layout_marginStart="@dimen/repositories_layout_margin"/>
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/repos_end_line_width"
                 android:layout_margin="@dimen/repositories_layout_margin"
-                android:background="@color/colorAccent" />
+                android:background="@color/colorAccent"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/widget_title"
-    android:padding="@dimen/widget_margin">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/widget_title"
+                android:padding="@dimen/widget_margin">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
                 android:layout_width="55dp"
                 android:layout_height="50dp"
                 android:contentDescription="@string/widget_github_logo_icon"
-                android:src="@drawable/octocat" />
+                android:src="@drawable/octocat"/>
 
             <TextView
                 android:id="@+id/widget_title"
@@ -29,7 +29,7 @@
                 android:text="@string/appwidget_title"
                 android:textColor="@color/temp9"
                 android:textSize="20sp"
-                android:textStyle="normal" />
+                android:textStyle="normal"/>
 
             <TextView
                 android:id="@+id/widget_date"
@@ -40,7 +40,7 @@
                 android:text="@string/appwidget_time"
                 android:textColor="@color/temp9"
                 android:textSize="15sp"
-                android:textStyle="normal" />
+                android:textStyle="normal"/>
         </LinearLayout>
 
         <ListView
@@ -51,14 +51,14 @@
             android:background="@drawable/widget"></ListView>
 
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/empty_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/appwidget_title_empty"
-            android:textAlignment="center"
-            android:textColor="@color/temp3"
-            android:textSize="20sp"
-            android:textStyle="italic" />
+                  android:id="@+id/empty_view"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:gravity="center"
+                  android:text="@string/appwidget_title_empty"
+                  android:textAlignment="center"
+                  android:textColor="@color/temp3"
+                  android:textSize="20sp"
+                  android:textStyle="italic"/>
     </LinearLayout>
 </RelativeLayout>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,13 +13,13 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/main_contributions_in_layout_size"
             android:text="@string/contributions_in"
-            android:visibility="visible" />
+            android:visibility="visible"/>
 
         <TextView
             android:id="@+id/month_title"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/main_contributions_in_layout_size"
-            android:visibility="visible" />
+            android:visibility="visible"/>
     </LinearLayout>
 
     <GridLayout
@@ -36,7 +36,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:gravity="center"
-            android:text="@string/sun" />
+            android:text="@string/sun"/>
 
         <TextView
             android:layout_width="@dimen/main_grid_text_view_layout_width"
@@ -46,7 +46,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:gravity="center"
-            android:text="@string/mon" />
+            android:text="@string/mon"/>
 
         <TextView
             android:layout_width="@dimen/main_grid_text_view_layout_width"
@@ -56,7 +56,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:gravity="center"
-            android:text="@string/tue" />
+            android:text="@string/tue"/>
 
         <TextView
             android:layout_width="@dimen/main_grid_text_view_layout_width"
@@ -66,7 +66,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:gravity="center"
-            android:text="@string/wed" />
+            android:text="@string/wed"/>
 
         <TextView
             android:layout_width="@dimen/main_grid_text_view_layout_width"
@@ -76,7 +76,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:gravity="center"
-            android:text="@string/thu" />
+            android:text="@string/thu"/>
 
         <TextView
             android:layout_width="@dimen/main_grid_text_view_layout_width"
@@ -86,7 +86,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:gravity="center"
-            android:text="@string/fri" />
+            android:text="@string/fri"/>
 
         <TextView
             android:layout_width="@dimen/main_grid_text_view_layout_width"
@@ -96,7 +96,7 @@
             android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:gravity="center"
-            android:text="@string/sat" />
+            android:text="@string/sat"/>
     </GridLayout>
 
     <GridView
@@ -108,7 +108,7 @@
         android:horizontalSpacing="1dp"
         android:numColumns="7"
         android:scrollbars="horizontal"
-        android:verticalSpacing="1dp" />
+        android:verticalSpacing="1dp"/>
 
     <ScrollView
         android:id="@+id/contributions_activity_container"

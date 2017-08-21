@@ -44,8 +44,6 @@ public enum ActionType {
     TEAM_ADD("TeamAddEvent");
 
 
-
-
     private final String matchingEventType;
 
     ActionType(String matchingEventType) {

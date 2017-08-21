@@ -4,7 +4,7 @@
         android:defaultValue="true"
         android:key="map_switch"
         android:summary="@string/pref_description_display_map"
-        android:title="@string/pref_title_display_map" />
+        android:title="@string/pref_title_display_map"/>
 
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
@@ -13,7 +13,7 @@
         android:disableDependentsState="true"
         android:key="timezone_switch"
         android:summary="@string/pref_description_system_timezone"
-        android:title="@string/pref_system_timezone" />
+        android:title="@string/pref_system_timezone"/>
 
     <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
          dismiss it. -->
@@ -26,6 +26,6 @@
         android:key="timezone_list"
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
-        android:title="@string/pref_title_add_timezone" />
+        android:title="@string/pref_title_add_timezone"/>
 
 </PreferenceScreen>
